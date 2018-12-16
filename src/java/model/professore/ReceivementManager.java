@@ -1,4 +1,4 @@
-package java.model.docente;
+package java.model.professore;
 
 public class ReceivementManager {
 }

@@ -1,4 +1,4 @@
 package java.model.beans;
 
-public class Docente {
+public class Professore {
 }
