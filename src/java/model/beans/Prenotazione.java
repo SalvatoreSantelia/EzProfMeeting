@@ -10,17 +10,19 @@ public class Prenotazione {
     private Time orario;
     private int idProfessore;
     private int idStudente;
+    private boolean presenza;
 
     public Prenotazione() {
     }
 
-    public Prenotazione(int idPrenotazione, String listaStudenti, String motivazione, Time orario, int idProfessore, int idStudente) {
+    public Prenotazione(int idPrenotazione, String listaStudenti, String motivazione, Time orario, int idProfessore, int idStudente, boolean presenza) {
         this.idPrenotazione = idPrenotazione;
         this.listaStudenti = listaStudenti;
         this.motivazione = motivazione;
         this.orario = orario;
         this.idProfessore = idProfessore;
         this.idStudente = idStudente;
+        this.presenza = presenza;
     }
 
     public int getIdPrenotazione() {
@@ -69,5 +71,13 @@ public class Prenotazione {
 
     public void setIdStudente(int idStudente) {
         this.idStudente = idStudente;
+    }
+
+    public boolean isPresenza() {
+        return presenza;
+    }
+
+    public void setPresenza(boolean presenza) {
+        this.presenza = presenza;
     }
 }

@@ -8,17 +8,19 @@ public class Studente {
     private String matricola;
     private String emailStudente;
     private String telefonoStudente;
+    private int numAssenza;
 
     public Studente() {
     }
 
-    public Studente(int idStudente, String nomeStudente, String cognomeStudente, String matricola, String emailStudente, String telefonoStudente) {
+    public Studente(int idStudente, String nomeStudente, String cognomeStudente, String matricola, String emailStudente, String telefonoStudente, int numAssenza) {
         this.idStudente = idStudente;
         this.nomeStudente = nomeStudente;
         this.cognomeStudente = cognomeStudente;
         this.matricola = matricola;
         this.emailStudente = emailStudente;
         this.telefonoStudente = telefonoStudente;
+        this.numAssenza = numAssenza;
     }
 
     public int getIdStudente() {
@@ -67,5 +69,13 @@ public class Studente {
 
     public void setTelefonoStudente(String telefonoStudente) {
         this.telefonoStudente = telefonoStudente;
+    }
+
+    public int getNumAssenza() {
+        return numAssenza;
+    }
+
+    public void setNumAssenza(int numAssenza) {
+        this.numAssenza = numAssenza;
     }
 }
