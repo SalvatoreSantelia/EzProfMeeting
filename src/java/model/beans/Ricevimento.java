@@ -11,17 +11,19 @@ public class Ricevimento {
     private String luogo;
     private Date data;
     private int idProfessore;
+    private boolean presenza;
 
     public Ricevimento() {
     }
 
-    public Ricevimento(int idRicevimento, Time orarioInizio, Time orarioFine, String luogo, Date data, int idProfessore) {
+    public Ricevimento(int idRicevimento, Time orarioInizio, Time orarioFine, String luogo, Date data, int idProfessore, boolean presenza) {
         this.idRicevimento = idRicevimento;
         this.orarioInizio = orarioInizio;
         this.orarioFine = orarioFine;
         this.luogo = luogo;
         this.data = data;
         this.idProfessore = idProfessore;
+        this.presenza = presenza;
     }
 
     public int getIdRicevimento() {
@@ -68,7 +70,17 @@ public class Ricevimento {
         return idProfessore;
     }
 
+    public boolean isPresenza() {
+        return presenza;
+    }
+
+    public void setPresenza(boolean presenza) {
+        this.presenza = presenza;
+    }
+
     public void setIdProfessore(int idProfessore) {
         this.idProfessore = idProfessore;
+
+
     }
 }
