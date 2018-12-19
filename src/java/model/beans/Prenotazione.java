@@ -8,19 +8,19 @@ public class Prenotazione {
     private String listaStudenti;
     private String motivazione;
     private Time orario;
-    private int idProfessore;
+    private int idRicevimento;
     private int idStudente;
     private boolean presenza;
 
     public Prenotazione() {
     }
 
-    public Prenotazione(int idPrenotazione, String listaStudenti, String motivazione, Time orario, int idProfessore, int idStudente, boolean presenza) {
+    public Prenotazione(int idPrenotazione, String listaStudenti, String motivazione, Time orario, int idRicevimento, int idStudente, boolean presenza) {
         this.idPrenotazione = idPrenotazione;
         this.listaStudenti = listaStudenti;
         this.motivazione = motivazione;
         this.orario = orario;
-        this.idProfessore = idProfessore;
+        this.idRicevimento = idRicevimento;
         this.idStudente = idStudente;
         this.presenza = presenza;
     }
@@ -57,12 +57,12 @@ public class Prenotazione {
         this.orario = orario;
     }
 
-    public int getIdProfessore() {
-        return idProfessore;
+    public int getIdRicevimento() {
+        return idRicevimento;
     }
 
-    public void setIdProfessore(int idProfessore) {
-        this.idProfessore = idProfessore;
+    public void setIdRicevimento(int idRicevimento) {
+        this.idRicevimento = idRicevimento;
     }
 
     public int getIdStudente() {
