@@ -8,6 +8,14 @@ var MY_BUTTON = '<button type="button" id="addButton" class="btn btn-outline-pri
 
              $(document).ready(	function(){
 
+
+
+                    $("#addButton").click(
+                        function () {
+                           $("#popup").modal();
+                        }
+                    );
+
                      $("#calendar td").on("click", "#addButton", function ()
                      {
                          var  clicked = "Orari";
