@@ -10,15 +10,11 @@ var MY_BUTTON = '<button type="button" id="addButton" class="btn btn-outline-pri
 
 
 
-                    $("#addButton").click(
-                        function () {
-                           $("#popup").modal();
-                        }
-                    );
+
 
                      $("#calendar td").on("click", "#addButton", function ()
                      {
-                         var  clicked = "Orari";
+                /*         var  clicked = "Orari";
 
                          for(var i = 1; i<= 3*9; i++)
                          {
@@ -27,7 +23,9 @@ var MY_BUTTON = '<button type="button" id="addButton" class="btn btn-outline-pri
 
                          }
 
-                         alert(clicked);
+                         alert(clicked);*/
+                         $("#popup").modal();
+
                      });
 
 
@@ -69,8 +67,8 @@ var MY_BUTTON = '<button type="button" id="addButton" class="btn btn-outline-pri
                         secondClick(col, row);
                     }
                          }
-    );
 
+    );
 
 
 }
