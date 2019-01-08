@@ -1,0 +1,58 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="Header.jsp"%>
+
+
+
+<html>
+<head>
+
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../CSS/profiloStudente.css">
+        <!------ Include the above in your HEAD tag ---------->
+</head>
+<body id="StudenteForm">
+
+
+
+                <h2 style="margin-left:10%">Lista Professori</h2>
+                <br>
+
+
+
+                <div class="container">
+                        <!-- contacts card -->
+                        <div class="card card-default" id="card_contacts">
+                                <div id="contacts" class="panel-collapse collapse show" aria-expanded="true" style="">
+                                        <ul class="list-group pull-down" id="contact-list">
+                                                <li class="list-group-item">
+                                                        <div class="row w-100">
+
+                                                                <div class="col-12 col-sm-6 col-md-3 px-0">
+                                                                        <img src="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
+                                                                </div>
+
+                                                                <div class="col-12 col-sm-6 col-md-9 text-center text-sm-left">
+                                                                        <span class="fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
+                                                                        <label class="name lead">NOME DOCENTE</label>
+                                                                        <br>
+                                                                        <span class="fa fa-map-marker fa-fw text-muted" data-toggle="tooltip" title="" data-original-title="5842 Hillcrest Rd"></span>
+                                                                        <span class="text-muted">UFFICIO</span>
+                                                                        <br>
+                                                                        <span class="fa fa-envelope fa-fw text-muted" data-toggle="tooltip" data-original-title="" title=""></span>
+                                                                        <span class="text-muted small text-truncate">EMAIL</span>
+                                                                </div>
+                                                        </div>
+                                                </li>
+
+
+                                        </ul>
+                                        <!--/contacts list-->
+                                </div>
+                        </div>
+                </div>
+
+
+</body>
+</html>
