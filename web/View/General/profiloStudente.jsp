@@ -14,14 +14,39 @@
 </head>
 <body id="StudenteForm">
 
+<div class="divStudente">
+
+                <div class="nav-side-menu navsidemenu">
+                        <div class="brand">Studente</div>
+                        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+
+                        <div class="menu-list">
+
+                                <ul id="menu-content" class="menu-content collapse out">
+                                        <li>
+                                                <a href="#">
+                                                        <i class="fa fa-dashboard fa-lg"></i> Visualizza Prenotazione
+                                                </a>
+                                        </li>
+                                        <li>
+                                                <a href="#">
+                                                        <i class="fa fa-dashboard fa-lg"></i> Messaggi
+                                                </a>
+                                        </li>
+                                        <li>
+                                                <a href="#">
+                                                        <i class="fa fa-dashboard fa-lg"></i> Aiuto
+                                                </a>
+                                        </li>
+                                </ul>
+                        </div>
+                </div>
 
 
-                <h2 style="margin-left:10%">Lista Professori</h2>
-                <br>
-
-
-
-                <div class="container">
+        <div>
+        <div class="container">
+                        <h2 style="margin-left:10%">Lista Professori</h2>
+                        <br>
                         <!-- contacts card -->
                         <div class="card card-default" id="card_contacts">
                                 <div id="contacts" class="panel-collapse collapse show" aria-expanded="true" style="">
@@ -52,7 +77,9 @@
                                 </div>
                         </div>
                 </div>
+        </div>
 
 
+</div>
 </body>
 </html>
