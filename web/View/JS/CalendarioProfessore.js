@@ -24,8 +24,13 @@ var MY_BUTTON = '<button type="button" id="addButton" class="btn btn-outline-pri
                          }
 
                          alert(clicked);*/
-                         $("#popup").modal();
-
+                         $("#popup").modal({onOpen: function (dialog) {
+                                 dialog.overlay.fadeIn('fast', function () {
+                                     dialog.container.slideDown('slow', function () {
+                                         dialog.data.fadeIn('slow');
+                                     });
+                                 });
+                             }});
                      });
 
 
@@ -91,7 +96,7 @@ function extendStart(row)
 }
 
 function cleanSelection() {
-    for(var i=0; i<9*3; i++)
+    for(var i=0; i<9*2; i++)
     {
         $("#calendar tr").eq(i).find("td").eq(previous_col).css("background-color", "#FFFFFF");
     }
@@ -111,7 +116,7 @@ function secondClick(col, row)
     }
 
 
-    for(var i=row+1; i<9*3; i++)
+    for(var i=row+1; i<9*2; i++)
     {
         $("#calendar tr").eq(i).find("td").eq(col).css("background-color", "#FFFFFF");
     }
