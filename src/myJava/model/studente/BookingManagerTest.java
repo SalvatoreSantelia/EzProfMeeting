@@ -29,7 +29,7 @@ public class BookingManagerTest {
         Prenotazione p=new Prenotazione(11,null,"motivazione","15:40:50",1,01,true);
         DataManager dm=new DataManager();
         dm.inserisciPrenotazione(p);
-        Studente stud=new Studente(1,"Salvatore","Santelia","0512104519","s.santelia1@studenti.unisa.it","1234",0);
+        Studente stud=new Studente(3,"Salvatore","Santelia","0512104519","s.santelia1@studenti.unisa.it","1234",0);
 
         students.add(stud);
         Assert.assertEquals(dm.visualizzaStudenti(ricevimento),students);
