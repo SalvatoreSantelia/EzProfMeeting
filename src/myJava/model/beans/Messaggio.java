@@ -1,8 +1,9 @@
-package java.model.beans;
+package myJava.model.beans;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Messaggio {
+public class Messaggio implements Serializable {
 
     private int idMessaggio;
     private Date dataMessaggio;

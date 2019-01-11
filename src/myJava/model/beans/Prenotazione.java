@@ -1,13 +1,14 @@
-package java.model.beans;
+package myJava.model.beans;
 
+import java.io.Serializable;
 import java.sql.Time;
 
-public class Prenotazione {
+public class Prenotazione implements Serializable {
 
     private int idPrenotazione;
     private String listaStudenti;
     private String motivazione;
-    private Time orario;
+    private String orario;
     private int idRicevimento;
     private int idStudente;
     private boolean presenza;
@@ -15,7 +16,7 @@ public class Prenotazione {
     public Prenotazione() {
     }
 
-    public Prenotazione(int idPrenotazione, String listaStudenti, String motivazione, Time orario, int idRicevimento, int idStudente, boolean presenza) {
+    public Prenotazione(int idPrenotazione, String listaStudenti, String motivazione, String orario, int idRicevimento, int idStudente, boolean presenza) {
         this.idPrenotazione = idPrenotazione;
         this.listaStudenti = listaStudenti;
         this.motivazione = motivazione;
@@ -49,11 +50,11 @@ public class Prenotazione {
         this.motivazione = motivazione;
     }
 
-    public Time getOrario() {
+    public String getOrario() {
         return orario;
     }
 
-    public void setOrario(Time orario) {
+    public void setOrario(String orario) {
         this.orario = orario;
     }
 

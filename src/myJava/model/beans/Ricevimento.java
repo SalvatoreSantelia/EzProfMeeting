@@ -1,21 +1,22 @@
-package java.model.beans;
+package myJava.model.beans;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 
-public class Ricevimento {
+public class Ricevimento implements Serializable {
 
     private int idRicevimento;
-    private Time orarioInizio;
-    private Time orarioFine;
+    private String orarioInizio;
+    private String orarioFine;
     private String luogo;
-    private Date data;
+    private String data;
     private int idProfessore;
 
     public Ricevimento() {
     }
 
-    public Ricevimento(int idRicevimento, Time orarioInizio, Time orarioFine, String luogo, Date data, int idProfessore) {
+    public Ricevimento(int idRicevimento, String orarioInizio, String orarioFine, String luogo, String data, int idProfessore) {
         this.idRicevimento = idRicevimento;
         this.orarioInizio = orarioInizio;
         this.orarioFine = orarioFine;
@@ -32,19 +33,19 @@ public class Ricevimento {
         this.idRicevimento = idRicevimento;
     }
 
-    public Time getOrarioInizio() {
+    public String getOrarioInizio() {
         return orarioInizio;
     }
 
-    public void setOrarioInizio(Time orarioInizio) {
+    public void setOrarioInizio(String orarioInizio) {
         this.orarioInizio = orarioInizio;
     }
 
-    public Time getOrarioFine() {
+    public String getOrarioFine() {
         return orarioFine;
     }
 
-    public void setOrarioFine(Time orarioFine) {
+    public void setOrarioFine(String orarioFine) {
         this.orarioFine = orarioFine;
     }
 
@@ -56,11 +57,11 @@ public class Ricevimento {
         this.luogo = luogo;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 

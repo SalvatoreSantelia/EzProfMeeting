@@ -1,6 +1,8 @@
-package java.model.beans;
+package myJava.model.beans;
 
-public class Studente {
+import java.io.Serializable;
+
+public class Studente implements Serializable {
 
     private int idStudente;
     private String nomeStudente;
