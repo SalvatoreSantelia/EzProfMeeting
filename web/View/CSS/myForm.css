@@ -1,0 +1,10 @@
+#undoButton
+{
+    background-color: #ff525b;
+    color: white;
+}
+
+#undoButton:hover
+{
+    background-color: red;
+}

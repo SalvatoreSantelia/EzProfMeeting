@@ -12,5 +12,13 @@
 </head>
 <body>
 
+<%@include file="../General/Header.jsp"%>
+
+<a href="../General/Messaggi.jsp" target="_blank">
+    <img src="../img/messageIcon.png" alt="SMS">
+</a>
+
+<%@include file="../General/Calendario.jsp"%>
+
 </body>
 </html>

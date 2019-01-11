@@ -8,9 +8,13 @@ var MY_BUTTON = '<button type="button" id="addButton" class="btn btn-outline-pri
 
              $(document).ready(	function(){
 
+
+
+
+
                      $("#calendar td").on("click", "#addButton", function ()
                      {
-                         var  clicked = "Orari";
+                /*         var  clicked = "Orari";
 
                          for(var i = 1; i<= 3*9; i++)
                          {
@@ -19,7 +23,14 @@ var MY_BUTTON = '<button type="button" id="addButton" class="btn btn-outline-pri
 
                          }
 
-                         alert(clicked);
+                         alert(clicked);*/
+                         $("#popup").modal({onOpen: function (dialog) {
+                                 dialog.overlay.fadeIn('fast', function () {
+                                     dialog.container.slideDown('slow', function () {
+                                         dialog.data.fadeIn('slow');
+                                     });
+                                 });
+                             }});
                      });
 
 
@@ -28,43 +39,41 @@ var MY_BUTTON = '<button type="button" id="addButton" class="btn btn-outline-pri
 
                              var col, row;
                              col = parseInt( $(this).index() );
-             row = parseInt( $(this).parent().index() );
+                             row = parseInt( $(this).parent().index() );
 
 
 
 
-             if(previous_col==null) {
+                    if(previous_col==null) {
 
-                 previous_col = col;
-                 previous_row =  row;
-                 $(this).css("background-color", SEL_COLOR);
-                 $("#calendar tr").eq(row).find("td").eq(col).html(MY_BUTTON);
+                        previous_col = col;
+                        previous_row =  row;
+                        $(this).css("background-color", SEL_COLOR);
+                        $("#calendar tr").eq(row).find("td").eq(col).html(MY_BUTTON);
+                    }
+                    else {
+                        $("#addButton").remove();
 
-             }
-             else
-                 {
-                     $("#addButton").remove();
+                        if (col != previous_col) {
+                            cleanSelection();
 
-                     if(col != previous_col)
-                     {
-                         cleanSelection();
-                         return;
-                     }
-
-                     $("#calendar tr").eq(row).find("td").eq(col).html(MY_BUTTON);
+                            return;
+                        }
 
 
-                     if(row < previous_row )
-                     {
-                         extendStart(row);
-                         return;
-                     }
+                        $("#calendar tr").eq(row).find("td").eq(col).html(MY_BUTTON);
 
-                     secondClick(col, row);
-                 }
-         }
+                        if (row < previous_row) {
+                            extendStart(row);
+                            previous_row = row;
+                            return;
+                        }
+
+                        secondClick(col, row);
+                    }
+                         }
+
     );
-
 
 
 }
@@ -87,7 +96,7 @@ function extendStart(row)
 }
 
 function cleanSelection() {
-    for(var i=0; i<9*3; i++)
+    for(var i=0; i<9*2; i++)
     {
         $("#calendar tr").eq(i).find("td").eq(previous_col).css("background-color", "#FFFFFF");
     }
@@ -100,16 +109,19 @@ function cleanSelection() {
 
 function secondClick(col, row)
 {
-    for(var i=row-1; i<9*3; i++)
+
+    for(var i=previous_row; i<=row; i++)
     {
-        $("#calendar tr").eq(previous_row+i).find("td").eq(col).css("background-color", "#FFFFFF");
+        $("#calendar tr").eq(i).find("td").eq(col).css("background-color", SEL_COLOR);
     }
 
 
-    for(var i=0; i<=row - previous_row; i++)
+    for(var i=row+1; i<9*2; i++)
     {
-        $("#calendar tr").eq(previous_row+i).find("td").eq(col).css("background-color", SEL_COLOR);
+        $("#calendar tr").eq(i).find("td").eq(col).css("background-color", "#FFFFFF");
     }
+
+
 
 
 
