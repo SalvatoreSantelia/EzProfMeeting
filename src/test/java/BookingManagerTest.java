@@ -1,8 +1,7 @@
-package myJava.model.studente;
-
 import myJava.model.beans.Prenotazione;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
+import myJava.model.studente.BookingManager;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -30,8 +29,8 @@ public class BookingManagerTest {
      mockedRicevimento=mock(Ricevimento.class);
      mockedStudente=mock(Studente.class);
      when(mockedRicevimento.getIdRicevimento()).thenReturn(2);
-     when(mockedStudente.getIdStudente()).thenReturn(2);
-     Prenotazione prenotazione=new Prenotazione(3,"Rocco Aliberti","nesuna","11:12:36",mockedRicevimento.getIdRicevimento(),mockedStudente.getIdStudente(),false);
+     when(mockedStudente.getIdStudente()).thenReturn(1);
+     Prenotazione prenotazione=new Prenotazione(5,"Rocco Aliberti","nesuna","11:12:36",mockedRicevimento.getIdRicevimento(),mockedStudente.getIdStudente(),false);
 
      BookingManager bm=new BookingManager();
      Assert.assertEquals(true,bm.inserisciPrenotazione(prenotazione));
@@ -51,10 +50,9 @@ public void testVisualizzaPrenotazioni() throws SQLException{
 
 @Test
     public void testEliminaPrenotazione()throws SQLException{
-    Prenotazione p=new Prenotazione(1,"Salvatore Santelia","Sono Stupido","11:59:59",1,1,true);
+    Prenotazione p=new Prenotazione(4,"Salvatore Santelia","Sono Stupido","11:59:59",1,1,true);
     BookingManager bm=new BookingManager();
     Assert.assertEquals(true,bm.eliminaPrenotazione(p));
-
 
 }
 

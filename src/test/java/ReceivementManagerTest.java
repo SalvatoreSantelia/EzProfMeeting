@@ -1,8 +1,7 @@
-package myJava.model.professore;
-
 import com.sun.imageio.spi.RAFImageInputStreamSpi;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
+import myJava.model.professore.ReceivementManager;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -17,16 +16,14 @@ import static org.mockito.Mockito.*;
 
 public class ReceivementManagerTest {
 private Ricevimento dammiRicevimento(){
-    return    new Ricevimento(4, "11:12:38", "11:31:40", "stecca F", "2018-12-12", 1);
+    return    new Ricevimento(5, "11:12:38", "11:31:40", "stecca F", "2018-12-12", 1);
 }
 private Ricevimento dammiRicevimentoModificato(){
 
-    return    new Ricevimento(4, "11:12:38", "11:31:40", "stecca F", "2018-12-12", 2);
+    return    new Ricevimento(3, "11:12:38", "11:31:40", "stecca F", "2018-12-12", 2);
 }
     @Test
     public void testCreaRicevimento() throws SQLException {
-
-
 
         ReceivementManager receivementManager = new ReceivementManager();
 
@@ -71,6 +68,7 @@ public void testModificaRicevimento() throws SQLException{
     public void testRegistraAssenza()throws SQLException{
 
     ReceivementManager receivementManager=new ReceivementManager();
+    
     Assert.assertEquals(true,receivementManager.registraAssenza(1));
 }
 
@@ -78,7 +76,7 @@ public void testModificaRicevimento() throws SQLException{
 public void testVisualizzaStudenti()throws SQLException{
     List<Studente> studenteList =new ArrayList<>();
     Ricevimento ricevimento=new Ricevimento(2,"","","","",1);
-    Studente studente=new Studente(2,"","","","","",1);
+    Studente studente=new Studente(1,"","","","","",1);
     studenteList.add(studente);
     ReceivementManager rm=new ReceivementManager();
     Assert.assertEquals(studenteList.get(0).getIdStudente(),rm.visualizzaStudenti(ricevimento).get(0).getIdStudente());
