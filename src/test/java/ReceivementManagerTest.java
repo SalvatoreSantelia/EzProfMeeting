@@ -68,6 +68,7 @@ public void testModificaRicevimento() throws SQLException{
     public void testRegistraAssenza()throws SQLException{
 
     ReceivementManager receivementManager=new ReceivementManager();
+    
     Assert.assertEquals(true,receivementManager.registraAssenza(1));
 }
 
