@@ -50,6 +50,42 @@ public class BookingManager {
 
     }
     //metodo da spostare in ReceivementManager
+    public List<Studente> visualizzaStudenti(Ricevimento ricevimento) throws SQLException{
+
+        Connection connection = null;
+
+        List<Studente> students =new ArrayList<>();
+        try
+                
+        {
+            connection = DriverManagerConnectionPool.getConnection();
+            //creating prepared statement for our required query
+            PreparedStatement statement = connection.prepareStatement("SELECT *  from studente s inner join prenotazione p on s.idStudente=p.idStudente WHERE p.idRicevimento = ?");
+            //setting the parameters
+            statement.setInt(1,ricevimento.getIdRicevimento());
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Studente student=new Studente();
+                student.setIdStudente(rs.getInt(1));
+                student.setNomeStudente(rs.getString(2));
+                student.setCognomeStudente(rs.getString(3));
+                student.setMatricola(rs.getString(4));
+                student.setEmailStudente(rs.getString(5));
+                student.setTelefonoStudente(rs.getString(6));
+                student.setNumAssenza(rs.getInt(7));
+                students.add(student);
+
+                connection.close();
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        return students;
+
+
+    }
+
 
     public List<Prenotazione> visualizzaPrenotazioni(int idStudente)throws SQLException{
 
