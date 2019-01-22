@@ -80,4 +80,17 @@ public class Studente extends User implements Serializable {
     public void setNumAssenza(int numAssenza) {
         this.numAssenza = numAssenza;
     }
+
+    @Override
+    public String toString() {
+        return "Studente{" +
+                "idStudente=" + idStudente +
+                ", nomeStudente='" + nomeStudente + '\'' +
+                ", cognomeStudente='" + cognomeStudente + '\'' +
+                ", matricola='" + matricola + '\'' +
+                ", emailStudente='" + emailStudente + '\'' +
+                ", telefonoStudente='" + telefonoStudente + '\'' +
+                ", numAssenza=" + numAssenza +
+                '}';
+    }
 }

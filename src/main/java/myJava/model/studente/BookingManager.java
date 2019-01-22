@@ -56,6 +56,7 @@ public class BookingManager {
 
         List<Studente> students =new ArrayList<>();
         try
+                
         {
             connection = DriverManagerConnectionPool.getConnection();
             //creating prepared statement for our required query

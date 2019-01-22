@@ -1,3 +1,7 @@
+<%@ page import="myJava.model.beans.Studente" %>
+<%@ page import="myJava.model.beans.User" %>
+<%@ page import="myJava.model.beans.Professore" %>
+<%@ page import="myJava.model.general.AccessManager"%>
 <%--
   Created by IntelliJ IDEA.
   User: broth
@@ -7,80 +11,22 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<style>
-
-    #header a,  #header a:hover
-    {
-        color: black;
-        text-decoration: none;
-    }
-
-    #header a h1
-    {
-        display: inline;
-        font-family: "Bodoni MT", Didot, "Didot LT STD", "Book Antiqua", Garamond, "Times New Roman", serif;
-
-
-    }
-
-
-    #header
-    {
-        background-color: #deebff;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-
-    #userSession
-    {
-        font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
-        margin-top: 10px;
-        float: right;
-    }
-
-    #userSession ul
-    {
-        list-style: none;
-
-    }
-
-    #userSession ul li
-    {
-        float: left;
-    }
-
-    #userImage
-    {
-        height: 100px;
-    }
-
-    #unisaLogo
-    {
-        margin-left: 5%;
-    }
-
-</style>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
-
+<link rel="stylesheet" type="text/css" href="../CSS/Header.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <div id="header" class="border border-primary rounded">
 
-    <%
-        String home;
 
-        //controllo sessione
-
-        if(true)
-            home = "../Studente/HomeStudente.jsp";
-        else
-            home = "../Professore/HomeDocente.jsp";
-
-
-    %>
-
+<%
+    if(session.getAttribute("user")==null){
+        response.sendRedirect("../View/General/Login.jsp");
+    }
+%>
     <nav >
-        <a href= <%=home%> >
+        <a >
             <img src="../img/logoEz.png" width="120" height="120"  alt="" style="float: left">
         </a>
         <a href="https://www.unisa.it/">
@@ -91,12 +37,36 @@
 
         <div id="userSession" >
             <ul style="">
+                <%
+                    if(session.getAttribute("user") instanceof Studente){
+                        Studente studente = new Studente();
+                        studente = (Studente) session.getAttribute("user");
+                %>
                 <li>
-                    Nome <br> Cognome <br> 0512100000 <br> n.congnome00@studenti.unisa.it
+                    <%=studente.getNomeStudente()%> <br> <%=studente.getCognomeStudente()%> <br> <%=studente.getMatricola()%> <br> <%=studente.getEmailStudente()%>
                 </li>
                 <li>
-                    <img id="userImage" src="../img/user.jpg" alt="">
+                    <img class="userImage" src="../img/user.jpg" alt="">
                 </li>
+                <%
+                    }
+                %>
+
+
+                <%
+                    if(session.getAttribute("user") instanceof Professore){
+                        Professore professore = new Professore();
+                        professore = (Professore) session.getAttribute("user");
+                %>
+                <li>
+                    <%=professore.getNomeProfessore()%> <br> <%=professore.getCognomeProfessore()%> <br> <%=professore.getEmailProfessore()%> <br> <%=professore.getUfficioProfessore()%>
+                </li>
+                <li>
+                    <img class="userImage" src="../img/user.jpg" alt="">
+                </li>
+                <%
+                    }
+                %>
             </ul>
         </div>
 
