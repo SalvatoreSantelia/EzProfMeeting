@@ -82,9 +82,9 @@ try {
     conn = DriverManagerConnectionPool.getConnection();
 
     preparedStatement = conn.prepareStatement("select * from ricevimento r where r.orarioInizio=? and r.orarioFine=? and r.dataR=?");
-    preparedStatement.setTime(1, orarioInizio);
-    preparedStatement.setTime(2, orarioFine);
-    preparedStatement.setDate(3, dataR);
+    preparedStatement.setTime(1, Time.valueOf(orarioInizio));
+    preparedStatement.setTime(2, Time.valueOf(orarioFine));
+    preparedStatement.setDate(3, Date.valueOf(dataR));
 
     ResultSet rs=preparedStatement.executeQuery();
     Ricevimento r=new Ricevimento();
