@@ -30,7 +30,7 @@ public class BookingManagerTest {
      mockedStudente=mock(Studente.class);
      when(mockedRicevimento.getIdRicevimento()).thenReturn(2);
      when(mockedStudente.getIdStudente()).thenReturn(1);
-     Prenotazione prenotazione=new Prenotazione(4,"Rocco Aliberti","nesuna","11:12:36",mockedRicevimento.getIdRicevimento(),mockedStudente.getIdStudente(),false);
+     Prenotazione prenotazione=new Prenotazione(5,"Rocco Aliberti","nesuna","11:12:36",mockedRicevimento.getIdRicevimento(),mockedStudente.getIdStudente(),false);
 
      BookingManager bm=new BookingManager();
      Assert.assertEquals(true,bm.inserisciPrenotazione(prenotazione));
@@ -53,7 +53,6 @@ public void testVisualizzaPrenotazioni() throws SQLException{
     Prenotazione p=new Prenotazione(4,"Salvatore Santelia","Sono Stupido","11:59:59",1,1,true);
     BookingManager bm=new BookingManager();
     Assert.assertEquals(true,bm.eliminaPrenotazione(p));
-
 
 }
 
