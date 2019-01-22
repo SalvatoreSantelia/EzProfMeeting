@@ -3,5 +3,5 @@ jdk:
   - oraclejdk8
 before_install:
   - mysql < db/schema.sql
-  - mysql -e "USE mysql; UPDATE user SET password=PASSWORD('root') WHERE user='root'; FLUSH PRIVILEGES;"
+  - mysql -e "USE ezprofmeeting; UPDATE user SET password=PASSWORD('root') WHERE user='root'; FLUSH PRIVILEGES;"
 script: mvn test
