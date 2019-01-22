@@ -1,5 +1,3 @@
-package Test;
-
 import com.sun.imageio.spi.RAFImageInputStreamSpi;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;

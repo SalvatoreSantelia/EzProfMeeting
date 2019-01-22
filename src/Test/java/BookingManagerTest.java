@@ -1,5 +1,3 @@
-package Test;
-
 import myJava.model.beans.Prenotazione;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
