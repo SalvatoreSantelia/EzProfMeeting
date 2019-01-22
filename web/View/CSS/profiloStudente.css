@@ -1,4 +1,4 @@
-body#StudenteForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg"); background-repeat:no-repeat; background-position:center; background-size:cover; padding:10px;}
+body#StudenteForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg"); background-repeat:no-repeat; background-position:center; background-size:cover; }
 
 .glyphicon-lg
 {
@@ -179,8 +179,13 @@ body {
     display: inline;
 }
 .navsidemenu{
+    margin-top:70px;
     float:left;
 }
 #menu-content li a{
     color:black;
+}
+
+.containerA{
+    margin-top:50px;
 }
