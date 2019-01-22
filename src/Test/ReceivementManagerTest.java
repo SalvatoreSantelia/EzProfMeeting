@@ -1,8 +1,9 @@
-package myJava.model.professore;
+package Test;
 
 import com.sun.imageio.spi.RAFImageInputStreamSpi;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
+import myJava.model.professore.ReceivementManager;
 import org.junit.Assert;
 import org.junit.Test;
 

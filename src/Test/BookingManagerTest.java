@@ -1,8 +1,9 @@
-package myJava.model.studente;
+package Test;
 
 import myJava.model.beans.Prenotazione;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
+import myJava.model.studente.BookingManager;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InjectMocks;
