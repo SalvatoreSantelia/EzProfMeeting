@@ -1,6 +1,9 @@
 package myJava.control.servlet;
 
+import myJava.model.beans.Professore;
+import myJava.model.beans.Studente;
 import myJava.model.beans.User;
+import myJava.model.general.AccessManager;
 import myJava.model.general.DataManager;
 
 import javax.servlet.ServletException;
@@ -29,10 +32,23 @@ public class AccessServlet extends HttpServlet {
             e.printStackTrace();
             
         }
+
         HttpSession session=request.getSession();
         session.setMaxInactiveInterval(-1);
-        session.setAttribute("user", utente);
-        request.getServletContext().getRequestDispatcher("/View/General/profiloStudente.jsp").forward(request, response);
+        if(utente.getTipo().equals("studente")){
+            AccessManager accessManager = new AccessManager();
+            Studente studente = accessManager.getUserStudente(utente.getEmail(),utente.getPassword());
+            session.setAttribute("user", studente);
+            System.out.println(studente.toString());
+            request.getServletContext().getRequestDispatcher("/View/Studente/HomeStudente.jsp").forward(request, response);
+        }
+        if(utente.getTipo().equals("professore")){
+            AccessManager accessManager = new AccessManager();
+            Professore professore = accessManager.getUserProfessore(utente.getEmail(),utente.getPassword());
+            session.setAttribute("user", professore);
+            System.out.println(professore.toString());
+            request.getServletContext().getRequestDispatcher("/View/Professore/HomeProfessore.jsp").forward(request, response);
+        }
 
 
 
