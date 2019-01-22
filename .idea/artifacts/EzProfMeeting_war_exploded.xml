@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="EzProfMeeting:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/EzProfMeeting_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="EzProfMeeting" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="module" name="JUnit4" module-name="EzProfMeeting" />
+          <element id="library" level="project" name="mysql-connector-java-5.1" />
+          <element id="library" level="project" name="mockito-all-2.0.2-beta" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="EzProfMeeting/web/Web" />
+    </root>
+  </artifact>
+</component>
