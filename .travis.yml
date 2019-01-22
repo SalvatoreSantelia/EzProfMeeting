@@ -2,6 +2,6 @@ language: java
 jdk:
   - oraclejdk8
 before_install:
-  - mysql < db/schema.sql
+  - mysql < schema.sql
   - mysql -e "USE ezprofmeeting; UPDATE user SET password=PASSWORD('root') WHERE user='root'; FLUSH PRIVILEGES;"
 script: mvn test
