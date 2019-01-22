@@ -27,6 +27,7 @@ public class AccessServlet extends HttpServlet {
             utente = model.doLogin(request.getParameter("email"),request.getParameter("pass"));
         } catch (SQLException e) {
             e.printStackTrace();
+            
         }
         HttpSession session=request.getSession();
         session.setMaxInactiveInterval(-1);
