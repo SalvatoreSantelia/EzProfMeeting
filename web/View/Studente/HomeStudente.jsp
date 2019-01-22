@@ -1,8 +1,11 @@
-<%@ page import="java.util.Collection" %>
-<%@ page import="java.util.Iterator" %>
+<%@ page import="myJava.model.professore.ReceivementManager"%>
+<%@ page import="myJava.model.general.AccessManager"%>
 <%@ page import="myJava.model.beans.Professore" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="myJava.model.general.DataManager" %>
+<%@page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../General/Header.jsp"%>
+<script src="../JS/StudenteJS.js"></script>
 
 
 
@@ -29,14 +32,15 @@
         <div class="menu-list">
 
             <ul id="menu-content" class="menu-content collapse out">
+
                 <li>
                     <a href="#">
                         <i class="fa fa-dashboard fa-lg"></i> Visualizza Prenotazione
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-dashboard fa-lg"></i> Messaggi
+                    <a href="../General/Messaggi.jsp">
+                        <i class="fa fa-dashboard fa-lg"></i><img src="../img/messageIcon.png" style="width:20px"> Messaggi
                     </a>
                 </li>
                 <li>
@@ -54,30 +58,45 @@
             <h2 style="margin-left:10%">Lista Professori</h2>
             <br>
             <!-- contacts card -->
+            <%
+                DataManager dataManager = new DataManager();
+                List<Professore> professori = dataManager.visualizzaProfessori();
+                int count=0;
+            %>
+
             <div class="card card-default" id="card_contacts">
                 <div id="contacts" class="panel-collapse collapse show" aria-expanded="true" style="">
                     <ul class="list-group pull-down" id="contact-list">
 
 
-                        <li class="list-group-item" id="id">
+                        <%
+                            for(Professore A : professori){
+                        %>
+                        <form id="form<%=count%>" action="../Studente/ProfiloDocente.jsp" method="post">
+                        <li class="list-group-item singoloprofessore" id=<%=count%>>
                             <div class="row w-100">
 
                                 <div class="col-12 col-sm-6 col-md-3 px-0">
-                                    <img src="image/nomeprof.jpg" alt="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
+                                    <img src="image/<%=A.getNomeProfessore()%><%=A.getCognomeProfessore()%>.jpg" alt="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg" class="rounded-circle mx-auto d-block img-fluid">
                                 </div>
 
                                 <div class="col-12 col-sm-6 col-md-9 text-center text-sm-left">
                                     <span class="fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
-                                    <label class="name lead">nomeprof</label>
+                                    <label class="name lead"><%=A.getNomeProfessore()%> <%=A.getCognomeProfessore()%></label>
                                     <br>
                                     <span class="fa fa-map-marker fa-fw text-muted" data-toggle="tooltip" title="" data-original-title="5842 Hillcrest Rd"></span>
-                                    <span class="text-muted">uffi</span>
+                                    <span class="text-muted"><%=A.getUfficioProfessore()%></span>
                                     <br>
                                     <span class="fa fa-envelope fa-fw text-muted" data-toggle="tooltip" data-original-title="" title=""></span>
-                                    <span class="text-muted small text-truncate">tele e email</span>
+                                    <span class="text-muted small text-truncate"><%=A.getTelefonoProfessore()%> <%=A.getEmailProfessore()%></span>
                                 </div>
                             </div>
+                            <input type="hidden" name="email" value="<%=A.getEmailProfessore()%>" id="email<%=count%>">
                         </li>
+                        </form>
+                        <%
+                            count++;}
+                        %>
 
 
                     </ul>

@@ -189,3 +189,11 @@ body {
 .containerA{
     margin-top:50px;
 }
+.singoloprofessore:hover{
+    cursor:pointer;
+    background: lightblue;
+}
+
+form {
+    margin:0;
+}
