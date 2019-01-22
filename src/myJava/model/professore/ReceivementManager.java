@@ -1,10 +1,8 @@
 package myJava.model.professore;
 
 import myJava.control.connection.DriverManagerConnectionPool;
-import myJava.model.beans.Professore;
 import myJava.model.beans.Ricevimento;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class ReceivementManager {
 
@@ -155,8 +153,3 @@ try {
 
 
 }
-
-
-
-
-

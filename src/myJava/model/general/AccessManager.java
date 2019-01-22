@@ -1,29 +1,45 @@
 package myJava.model.general;
 
 import myJava.control.connection.DriverManagerConnectionPool;
+import myJava.model.beans.User;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AccessManager {
-    public boolean login(String mail,String password)throws SQLException {
+    public User doLogin(String mail, String password) throws SQLException {
 
-        Connection connection=null;
+        Connection connection = null;
 
-        connection= DriverManagerConnectionPool.getConnection();
+        User utente = new User();
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            //creating prepared statement for our required query
+            PreparedStatement statement = connection.prepareStatement("SELECT * from login WHERE email = ? AND password=?");
+            //setting the parameters
 
-        PreparedStatement preparedStatement= connection.prepareStatement("select * from login where email=? and password=?");
+            statement.setString(1, mail);
+            statement.setString(2, password);
+            //executing the prepared statement, which returns a ResultSet
+            ResultSet rs = statement.executeQuery();
 
-        preparedStatement.setString(1,mail);
-        preparedStatement.setString(2,password);
+            while (rs.next()) {
 
-        ResultSet rs=preparedStatement.executeQuery();
+                utente.setEmail(rs.getString("email"));
+                utente.setPassword(rs.getString("password"));
+                utente.setTipo(rs.getString("ruolo"));
 
-        if (rs!=null) return true;
-        else return false;
 
+            }
+            System.out.println(utente.getEmail());
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        return utente;
 
     }
-
 }

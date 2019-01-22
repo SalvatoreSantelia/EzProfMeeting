@@ -1,12 +1,8 @@
 package myJava.model.general;
 
-import myJava.model.beans.Messaggio;
-import myJava.model.beans.Prenotazione;
+import myJava.model.beans.*;
 
 
-
-import myJava.model.beans.Ricevimento;
-import myJava.model.beans.Studente;
 import myJava.model.professore.ReceivementManager;
 import myJava.model.studente.BookingManager;
 import java.sql.SQLException;
@@ -17,10 +13,10 @@ import java.util.List;
 public class DataManager {
 
 
-    public boolean login(String mail, String password)throws SQLException{
+    public User doLogin(String mail, String password)throws SQLException{
         if(mail==null || mail.equals("") || password==null || password.equals(""))
-        return false;
-        else return ac.login(mail,password);
+        return null;
+        else return ac.doLogin(mail,password);
 
     }
     public boolean creaRicevimento(Ricevimento ricevimento)throws SQLException{
@@ -39,7 +35,7 @@ public class DataManager {
            return rm.modificaRicevimento(ricevimento);
            else return false;
     }
-    public Ricevimento visualizzaRicevimento(Time oraInizio, Time oraFine, Date data)throws SQLException{
+    public Ricevimento visualizzaRicevimento(String oraInizio, String oraFine, String data)throws SQLException{
 
 
         if(!oraInizio.equals("") && oraInizio!=null && !oraFine.equals("") && oraFine!=null && data!=null )
@@ -53,9 +49,7 @@ public class DataManager {
     }
     public List<Studente> visualizzaStudenti(Ricevimento ricevimento)throws SQLException{
 
-        if(ricevimento!=null)
-          return  m.visualizzaStudenti(ricevimento);
-        else return  null;
+       return null;
     }
     public List<Prenotazione> visualizzaPrenotazioni (int idStudente) throws SQLException {
 

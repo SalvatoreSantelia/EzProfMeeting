@@ -20,8 +20,8 @@ public class BookingManager {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        String insertSQL = "insert into " + "fit.ordine"
-                + " (idPrenotazione, listaStudenti,motivazione ,orario,idRicevimento,idStudente,presenza,) values (?, ?, ?, ?, ?, ?)";
+        String insertSQL = "insert into " + "prenotazione"
+                + " (idPrenotazione, listaStudenti,motivazione ,orario,idRicevimento,idStudente,presenza) values (?, ?, ?, ?, ?, ?,?)";
 
         try {
             connection = DriverManagerConnectionPool.getConnection();
@@ -37,18 +37,19 @@ public class BookingManager {
             preparedStatement.executeUpdate();
 
             connection.commit();
-        } finally {
-            try {
-                if (preparedStatement != null)
-                    preparedStatement.close();
-            } finally {
-                DriverManagerConnectionPool.releaseConnection(connection);
-                return true;
-            }
+            preparedStatement.close();
+            return true;
+        } catch(Exception e)
+        {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+            connection.close();
+
+            return false;
         }
 
     }
-
+    //metodo da spostare in ReceivementManager
     public List<Studente> visualizzaStudenti(Ricevimento ricevimento) throws SQLException{
 
         Connection connection = null;
@@ -84,6 +85,7 @@ public class BookingManager {
 
     }
 
+
     public List<Prenotazione> visualizzaPrenotazioni(int idStudente)throws SQLException{
 
 
@@ -112,6 +114,7 @@ public class BookingManager {
         } catch (Exception e) {
 
             e.printStackTrace();
+            return null;
         }
         return bookings;
 
@@ -122,14 +125,17 @@ public class BookingManager {
         Connection connection=null;
 
         connection=DriverManagerConnectionPool.getConnection();
+try {
+    PreparedStatement preparedStmt = connection.prepareStatement("delete from prenotazione where idPrenotazione=?");
+    preparedStmt.setInt(1, prenotazione.getIdPrenotazione());
 
-        PreparedStatement preparedStmt = connection.prepareStatement("delete from prenotazione where =?");
-        preparedStmt.setInt(1,prenotazione.getIdPrenotazione());
+    preparedStmt.execute();
+    connection.commit();
 
-        preparedStmt.execute();
-
-        connection.close();
-
+}catch(Exception e) {
+    e.printStackTrace();
+    return false;
+}
        return true;
     }
 }

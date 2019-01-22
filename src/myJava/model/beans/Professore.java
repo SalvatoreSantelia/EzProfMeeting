@@ -2,7 +2,7 @@ package myJava.model.beans;
 
 import java.io.Serializable;
 
-public class Professore implements Serializable {
+public class Professore extends User implements Serializable  {
 
     private int idProfessore;
     private String nomeProfessore;
