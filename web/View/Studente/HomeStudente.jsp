@@ -59,31 +59,22 @@
                     <ul class="list-group pull-down" id="contact-list">
 
 
-                        <%
-                            if(professori!=null && professori.size()!=0){
-                                int i=0;
-                                int count=0;
-                                Iterator<?> it = professori.iterator();									//Scorre gli oggetti
-                                while(it.hasNext() ){
-                                    Professore bean = (Professore) it.next();						//scorro i bean
-                        %>
-
-                        <li class="list-group-item" id="<%=count%>">
+                        <li class="list-group-item" id="id">
                             <div class="row w-100">
 
                                 <div class="col-12 col-sm-6 col-md-3 px-0">
-                                    <img src="image/<%=bean.getNomeProfessore()%>.jpg" alt="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
+                                    <img src="image/nomeprof.jpg" alt="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
                                 </div>
 
                                 <div class="col-12 col-sm-6 col-md-9 text-center text-sm-left">
                                     <span class="fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
-                                    <label class="name lead"><%=bean.getNomeProfessore()%> <%=bean.getCognomeProfessore()%></label>
+                                    <label class="name lead">nomeprof</label>
                                     <br>
                                     <span class="fa fa-map-marker fa-fw text-muted" data-toggle="tooltip" title="" data-original-title="5842 Hillcrest Rd"></span>
-                                    <span class="text-muted"><%=bean.getUfficioProfessore()%></span>
+                                    <span class="text-muted">uffi</span>
                                     <br>
                                     <span class="fa fa-envelope fa-fw text-muted" data-toggle="tooltip" data-original-title="" title=""></span>
-                                    <span class="text-muted small text-truncate"><%=bean.getTelefonoProfessore()%> <%=bean.getEmailProfessore()%>%></span>
+                                    <span class="text-muted small text-truncate">tele e email</span>
                                 </div>
                             </div>
                         </li>
