@@ -2,9 +2,7 @@ language: java
 
 jdk:
   - oraclejdk8
-  -
   before:install:
   - mysql < schema.sql
   - mysql -e "USE mysql; UPDATE user SET password=PASSWORD('root') WHERE user='root'; FLUSH PRIVILEGES;"
-
 script: mvn test
