@@ -73,7 +73,7 @@ preparedStatement.setInt(1,ricevimento.getIdRicevimento());
 
     }
 
-    public Ricevimento visualizzaRicevimento( Time orarioInizio, Time orarioFine, Date dataR)throws SQLException{
+    public Ricevimento visualizzaRicevimento(String orarioInizio, String orarioFine, String dataR)throws SQLException{
 
 
         Connection conn=null;
