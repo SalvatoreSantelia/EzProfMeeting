@@ -33,18 +33,17 @@ public class AccessServlet extends HttpServlet {
             
         }
 
+        DataManager dataManager = new DataManager();
         HttpSession session=request.getSession();
         session.setMaxInactiveInterval(-1);
         if(utente.getTipo().equals("studente")){
-            AccessManager accessManager = new AccessManager();
-            Studente studente = accessManager.getUserStudente(utente.getEmail(),utente.getPassword());
+            Studente studente = dataManager.getStudenteByEmail(utente.getEmail());
             session.setAttribute("user", studente);
             System.out.println(studente.toString());
             request.getServletContext().getRequestDispatcher("/View/Studente/HomeStudente.jsp").forward(request, response);
         }
         if(utente.getTipo().equals("professore")){
-            AccessManager accessManager = new AccessManager();
-            Professore professore = accessManager.getUserProfessore(utente.getEmail(),utente.getPassword());
+            Professore professore = dataManager.getProfessoreByEmail(utente.getEmail());
             session.setAttribute("user", professore);
             System.out.println(professore.toString());
             request.getServletContext().getRequestDispatcher("/View/Professore/HomeProfessore.jsp").forward(request, response);

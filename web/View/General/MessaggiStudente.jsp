@@ -4,16 +4,20 @@
 <%@ page import="myJava.model.general.DataManager" %>
 <%@ page import="myJava.model.beans.Messaggio" %>
 <%@ page import="java.sql.Date" %>
+<%@ page import="java.sql.Time" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.ArrayList" %>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <%
-    Studente studente = (Studente) session.getAttribute("user");
-    int id = studente.getIdStudente();
     DataManager dataManager = new DataManager();
-    List<Professore> professori = dataManager.visualizzaProfessori();
+        Studente studente = (Studente) session.getAttribute("user");
+        int id = studente.getIdStudente();
+        List<Professore> professori = dataManager.visualizzaProfessori();
 %>
 
 <html>
@@ -38,14 +42,17 @@
                 <div class="inbox_chat">
 
                     <%
+                        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                         for(Professore A : professori){
                             Messaggio mess =  dataManager.getLastDataMessaggio(id,A.getIdProfessore());
-                            System.out.println(mess.toString());
-                            Date date = mess.getDataMessaggio();
+                            String testo="";
                             String data="";
-                            if(date == null) data="";
-                            String testo = mess.getTestoMessaggio();
-                            if(testo==null) testo="";
+                            if(mess.getDataMessaggio()!=null){
+                            System.out.println(mess.getTestoMessaggio()+"prova");
+                            Date date = mess.getDataMessaggio();
+                             data=df.format(date);
+                             testo = mess.getTestoMessaggio();}
+
 
                     %>
 

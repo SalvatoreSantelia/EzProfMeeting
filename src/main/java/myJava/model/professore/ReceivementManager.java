@@ -6,6 +6,8 @@ import myJava.model.beans.Studente;
 
 import java.security.spec.ECField;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -190,15 +192,8 @@ try {
                 student.setTelefonoStudente(rs.getString(6));
                 student.setNumAssenza(rs.getInt(7));
                 students.add(student);
-
-
             }
         } catch (Exception e) {
-
-
-
-
-            
             e.printStackTrace();
             return null;
         }
@@ -207,5 +202,36 @@ try {
 
     }
 
+
+
+    //get Ricevimento byId
+    public Ricevimento getRicevimentoById(int idRicevimento){
+        Connection connection = null;
+        Ricevimento ricevimento = new Ricevimento();
+        DateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            //creating prepared statement for our required query
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT *  from ricevimento where idRicevimento = ? ");
+            statement.setInt(1, idRicevimento);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                ricevimento.setIdRicevimento(rs.getInt("idRicevimento"));
+                Time start = rs.getTime("orarioInizio");
+                ricevimento.setOrarioInizio(simpleDateFormat.format(start.getTime()));
+                Time fine = rs.getTime("orarioFine");
+                ricevimento.setOrarioFine(simpleDateFormat.format(fine.getTime()));
+                ricevimento.setLuogo(rs.getString("luogo"));
+                ricevimento.setData(rs.getString("data"));
+                ricevimento.setIdProfessore(rs.getInt("idProfessore"));
+            }
+            connection.close();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        return ricevimento;
+    }
 
 }

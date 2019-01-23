@@ -54,10 +54,6 @@ public class DataManager {
         else return false;
     }
 
-    public List<Studente> visualizzaStudenti(Ricevimento ricevimento) throws SQLException {
-
-        return null;
-    }
 
     public List<Prenotazione> visualizzaPrenotazioni(int idStudente) throws SQLException {
 
@@ -97,6 +93,7 @@ public class DataManager {
     BookingManager m = new BookingManager();
     AccessManager ac = new AccessManager();
     ReceivementManager rm = new ReceivementManager();
+    MessageManager mm = new MessageManager();
 
 
 // Metodi di supporto
@@ -131,35 +128,96 @@ public class DataManager {
     }
 
 
-    //get LastData Messaggio
-    public Messaggio getLastDataMessaggio(int idProfessore, int idStudente) {
+    public List<Studente> visualizzaStudenti(Ricevimento ricevimento) throws SQLException{
+        return rm.visualizzaStudenti(ricevimento);
+    }
+
+    public Ricevimento getRicevimentoById(int idRicevimento){
+        return rm.getRicevimentoById(idRicevimento);
+    }
+
+
+
+
+    //get prof By Id
+    public Professore getProfById(int idProf) throws SQLException {
         Connection connection = null;
-        Messaggio messaggio = new Messaggio();
+        Professore professore = new Professore();
         try {
             connection = DriverManagerConnectionPool.getConnection();
             //creating prepared statement for our required query
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT *  from messaggio where idProfessore = ? AND idStudente = ? ORDER BY dataMessaggio DESC");
-            statement.setInt(1, idProfessore);
-            statement.setInt(2, idStudente);
+            PreparedStatement statement = connection.prepareStatement("SELECT *  from professore where idProfessore = ?");
+            statement.setInt(1,idProf);
             ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                messaggio.setIdMessaggio(rs.getInt("idMessaggio"));
-                messaggio.setDataMessaggio(rs.getDate("dataMessaggio"));
-                messaggio.setTestoMessaggio(rs.getString("testoMessaggio"));
-                messaggio.setIdProfessore(rs.getInt("idProfessore"));
-                messaggio.setIdStudente(rs.getInt("idStudente"));
-                connection.close();
-                return messaggio;
-            }
 
+            while (rs.next()) {
+                professore.setIdProfessore(rs.getInt(1));
+                professore.setNomeProfessore(rs.getString(2));
+                professore.setCognomeProfessore(rs.getString(3));
+                professore.setEmailProfessore(rs.getString(4));
+                professore.setTelefonoProfessore(rs.getString(5));
+                professore.setUfficioProfessore(rs.getString(6));
+            }
+            connection.close();
         } catch (Exception e) {
 
             e.printStackTrace();
         }
-        return messaggio;
+        return professore;
     }
 
+
+
+    //get studente By Id
+    public Studente getStudenteById(int idStudente) throws SQLException {
+        Connection connection = null;
+        Studente studente = new Studente();
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            //creating prepared statement for our required query
+            PreparedStatement statement = connection.prepareStatement("SELECT *  from studente where idStudente = ?");
+            statement.setInt(1,idStudente);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                studente.setIdStudente(rs.getInt("idStudente"));
+                studente.setNomeStudente(rs.getString("nomeStudente"));
+                studente.setCognomeStudente(rs.getString("cognomeStudente"));
+                studente.setMatricola(rs.getString("matricola"));
+                studente.setEmailStudente(rs.getString("emailStudente"));
+                studente.setTelefonoStudente(rs.getString("telefonoStudente"));
+                studente.setNumAssenza(rs.getInt("numAssenza"));
+            }
+            connection.close();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        return studente;
+    }
+
+
+
+
+    //get Last Messaggio
+    public Messaggio getLastDataMessaggio(int idStudente, int idProfessore){
+        return mm.getLastDataMessaggio(idStudente,idProfessore);
+    }
+
+
+
+    public Professore getProfessoreByEmail(String email) {
+        return   ac.getProfessoreByEmail(email);
+    }
+    public Studente getStudenteByEmail(String email) {
+        return   ac.getStudenteByEmail(email);
+    }
+
+
+
+    public ArrayList<Studente> getStudentiContattati(int idProf) throws SQLException {
+        return mm.getStudentiContattati(idProf);
+    }
 }
 
 
