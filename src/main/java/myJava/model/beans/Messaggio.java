@@ -6,7 +6,7 @@ import java.sql.Date;
 public class Messaggio implements Serializable {
 
     private int idMessaggio;
-    private Date dataMessaggio;
+    private String dataMessaggio;
     private String testoMessaggio;
     private int idProfessore;
     private int idStudente;
@@ -14,7 +14,7 @@ public class Messaggio implements Serializable {
     public Messaggio() {
     }
 
-    public Messaggio(int idMessaggio, Date dataMessaggio, String testoMessaggio, int idProfessore, int idStudente) {
+    public Messaggio(int idMessaggio, String dataMessaggio, String testoMessaggio, int idProfessore, int idStudente) {
         this.idMessaggio = idMessaggio;
         this.dataMessaggio = dataMessaggio;
         this.testoMessaggio = testoMessaggio;
@@ -30,11 +30,11 @@ public class Messaggio implements Serializable {
         this.idMessaggio = idMessaggio;
     }
 
-    public Date getDataMessaggio() {
+    public String getDataMessaggio() {
         return dataMessaggio;
     }
 
-    public void setDataMessaggio(Date dataMessaggio) {
+    public void setDataMessaggio(String dataMessaggio) {
         this.dataMessaggio = dataMessaggio;
     }
 

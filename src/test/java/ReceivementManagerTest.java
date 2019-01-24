@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-import static org.mockito.Mockito.*;
+//import static org.mockito.Mockito.*;
 
 
 public class ReceivementManagerTest {
@@ -82,4 +82,17 @@ public void testVisualizzaStudenti()throws SQLException{
     Assert.assertEquals(studenteList.get(0).getIdStudente(),rm.visualizzaStudenti(ricevimento).get(0).getIdStudente());
 
 }
+@Test
+    public void testGetRicevimentoByID()throws  SQLException{
+    Ricevimento ricevimento =new Ricevimento(2,"12:00","12:30","stecca F","2019-02-16",2);
+    ReceivementManager rm=new ReceivementManager();
+    Assert.assertEquals(rm.getRicevimentoById(2).getIdRicevimento(),ricevimento.getIdRicevimento());
+    Assert.assertEquals(rm.getRicevimentoById(2).getIdProfessore(),ricevimento.getIdProfessore());
+    Assert.assertEquals(rm.getRicevimentoById(2).getData(),ricevimento.getData());
+    Assert.assertEquals(rm.getRicevimentoById(2).getLuogo(),ricevimento.getLuogo());
+    Assert.assertEquals(rm.getRicevimentoById(2).getOrarioFine(),ricevimento.getOrarioFine());
+    Assert.assertEquals(rm.getRicevimentoById(2).getOrarioInizio(),ricevimento.getOrarioInizio());
+}
+
+
 }
