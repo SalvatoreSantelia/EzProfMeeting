@@ -26,7 +26,7 @@ public class MessageManagerTest {
         Assert.assertEquals(mm.getStudentiContattati(1).get(0).getMatricola(),listaStudenti.get(0).getMatricola());
         Assert.assertEquals(mm.getStudentiContattati(1).get(0).getEmailStudente(),listaStudenti.get(0).getEmailStudente());
         Assert.assertEquals(mm.getStudentiContattati(1).get(0).getTelefonoStudente(),listaStudenti.get(0).getTelefonoStudente());
-        Assert.assertEquals(mm.getStudentiContattati(1).get(0).getNumAssenza(),listaStudenti.get(0).getNumAssenza());
+
         Assert.assertEquals(mm.getStudentiContattati(1).get(0).getMatricola(),listaStudenti.get(0).getMatricola());
 
 
@@ -37,7 +37,7 @@ public class MessageManagerTest {
         Assert.assertEquals(mm.getStudentiContattati(1).get(1).getMatricola(),listaStudenti.get(1).getMatricola());
         Assert.assertEquals(mm.getStudentiContattati(1).get(1).getEmailStudente(),listaStudenti.get(1).getEmailStudente());
         Assert.assertEquals(mm.getStudentiContattati(1).get(1).getTelefonoStudente(),listaStudenti.get(1).getTelefonoStudente());
-        Assert.assertEquals(mm.getStudentiContattati(1).get(1).getNumAssenza(),listaStudenti.get(1).getNumAssenza());
+
         Assert.assertEquals(mm.getStudentiContattati(1).get(1).getMatricola(),listaStudenti.get(1).getMatricola());
 
     }

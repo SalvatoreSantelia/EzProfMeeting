@@ -43,6 +43,6 @@ public class AccessMangerTest {
         Assert.assertEquals(stu.getMatricola(),am.getStudenteByEmail("s.santelia1@studenti.unisa.it").getMatricola());
         Assert.assertEquals(stu.getEmailStudente(),am.getStudenteByEmail("s.santelia1@studenti.unisa.it").getEmailStudente());
         Assert.assertEquals(stu.getTelefonoStudente(),am.getStudenteByEmail("s.santelia1@studenti.unisa.it").getTelefonoStudente());
-        Assert.assertEquals(stu.getNumAssenza(),am.getStudenteByEmail("s.santelia1@studenti.unisa.it").getNumAssenza());
+
     }
 }
