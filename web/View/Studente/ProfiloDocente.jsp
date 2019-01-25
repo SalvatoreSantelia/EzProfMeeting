@@ -36,7 +36,7 @@
             <li><%=professore.getEmailProfessore()%></li>
             <li><%=professore.getTelefonoProfessore()%></li>
         </ul>
-        <a href="../General/MessaggiStudente.jsp" target="_blank">
+        <a href="../General/Messaggi.jsp" target="_blank">
             <img src="../img/messageIcon.png" alt="SMS">
         </a>
     </div>

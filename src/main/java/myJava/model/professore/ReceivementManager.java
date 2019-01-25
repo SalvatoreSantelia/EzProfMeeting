@@ -203,7 +203,6 @@ try {
     }
 
 
-
     //get Ricevimento byId
     public Ricevimento getRicevimentoById(int idRicevimento){
         Connection connection = null;

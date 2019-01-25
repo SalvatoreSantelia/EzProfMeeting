@@ -71,6 +71,7 @@ CREATE TABLE `messaggio` (
 
 LOCK TABLES `messaggio` WRITE;
 /*!40000 ALTER TABLE `messaggio` DISABLE KEYS */;
+INSERT INTO `messaggio` VALUES (1,'2019-12-12','ciao',2,2),(2,'2019-12-12','ciao',1,1),(3,'2019-11-10','hey',1,2);
 /*!40000 ALTER TABLE `messaggio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +104,7 @@ CREATE TABLE `prenotazione` (
 
 LOCK TABLES `prenotazione` WRITE;
 /*!40000 ALTER TABLE `prenotazione` DISABLE KEYS */;
-INSERT INTO `prenotazione` VALUES (1,'Rocco Aliberti','nesuna','11:12:36',2,1,''),(2,'Rocco Aliberti - Luca Postiglione','Sono stupido','11:59:59',2,2,'\0'),(3,'Rocco Aliberti','nesuna','11:12:36',2,2,'\0'),(4,'Rocco Aliberti','nesuna','11:12:36',2,1,'');
+INSERT INTO `prenotazione` VALUES (1,'Rocco Aliberti','nesuna','11:12:36',2,1,''),(2,'Rocco Aliberti - Luca Postiglione','Sono stupido','11:59:59',2,2,'\0'),(3,'Rocco Aliberti','nesuna','11:12:36',2,2,'\0'),(5,'Rocco Aliberti','nesuna','11:12:36',2,1,'\0');
 /*!40000 ALTER TABLE `prenotazione` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,4 +204,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-22 16:51:49
+-- Dump completed on 2019-01-24 16:37:05

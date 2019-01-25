@@ -90,7 +90,7 @@ public class MessageManager {
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
                 messaggio.setIdMessaggio(rs.getInt("idMessaggio"));
-                messaggio.setDataMessaggio(rs.getDate("dataMessaggio"));
+                messaggio.setDataMessaggio(rs.getString("dataMessaggio"));
                 messaggio.setTestoMessaggio(rs.getString("testoMessaggio"));
                 messaggio.setIdStudente(rs.getInt("idStudente"));
                 messaggio.setIdProfessore(rs.getInt("idProfessore"));
