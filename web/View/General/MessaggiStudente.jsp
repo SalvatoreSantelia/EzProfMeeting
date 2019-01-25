@@ -56,7 +56,7 @@
                              Date date = (Date) mess.getDataMessaggio();
                              data=df.format(date);
                              Time time = (Time) mess.getOrarioMessaggio();
-                             data= data+""+dff.format(time);
+                             data= data+" "+dff.format(time);
                              testo = mess.getTestoMessaggio();}
                     %>
 
@@ -67,8 +67,8 @@
                                 <input type="hidden" id="idProfessore<%=i%>" name="idProfessore"  value="<%=A.getIdProfessore()%>">
                                 <input type="hidden" id="idStudente<%=i%>" name="idStudente" value="<%=id%>">
                                 <input type="hidden" id="lato<%=i%>" name="lato" value="<%="studente"%>">
-                                <h5><%=A.getNomeProfessore()%> <%=A.getCognomeProfessore()%> <span class="chat_date"><%=data%></span></h5>
-                                <p><%=testo%></p>
+                                <h5><%=A.getNomeProfessore()%> <%=A.getCognomeProfessore()%> <span class="chat_date" id="data<%=A.getIdProfessore()%>"><%=data%></span></h5>
+                                <p id="lastMessaggio<%=A.getIdProfessore()%>"><%=testo%></p>
                             </div>
                         </div>
                     </div>
@@ -93,18 +93,11 @@
 
                 <div class="type_msg">
                     <div class="input_msg_write">
-                        <form action="/View/General/inviaMessaggio" method="post">
-                            <input type="hidden" name="lato" value="studente">
-                        <input type="hidden" name="idStu" value="<%=id%>">
-                        <input type="hidden" name="idPro" value="<%=session.getAttribute("idProf")%>">
-                        <input type="text" class="write_msg" placeholder="Type a message" name="inviaMess" />
-                        <%
-                            System.out.println(session.getAttribute("idProf")+"ciao");
-                            if(session.getAttribute("idProf")!=null){%>
-                        <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-                        <%}
-                            %>
-                        </form>
+                        <input type="hidden" name="lato" value="" class="invioLato">
+                        <input type="hidden" name="idStu" value="" class="invioIdStudente">
+                        <input type="hidden" name="idPro" value="" class="invioIdProfessore">
+                        <input type="text" class="write_msg invioTesto" placeholder="Type a message" name="inviaMess" />
+                        <button class="msg_send_btn messButton"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
                     </div>
                 </div>
 

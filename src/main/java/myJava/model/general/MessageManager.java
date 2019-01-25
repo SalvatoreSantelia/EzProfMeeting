@@ -4,11 +4,10 @@ import myJava.control.connection.DriverManagerConnectionPool;
 import myJava.model.beans.Messaggio;
 import myJava.model.beans.Studente;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MessageManager {
 
@@ -17,17 +16,23 @@ public class MessageManager {
         ArrayList<Studente> studenti = new ArrayList<Studente>();
         DataManager dm = new DataManager();
         PreparedStatement preparedStatement = null;
+        System.out.println(idStudente+idProfessore+testo+lato+"a");
         String insertSQL = "insert into " + "messaggio"
-                + " (dataMessaggio, testoMessaggio,idProfessore ,idStudente,lato) values (?, ?, ?, ?, ?)";
+                + " (dataMessaggio, testoMessaggio,idProfessore ,idStudente,lato, orarioMessaggio) values (?, ?, ?, ?, ?, ?)";
 
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(insertSQL);
-            preparedStatement.setString(1,"2012-02-02");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date();
+            SimpleDateFormat formatterr = new SimpleDateFormat("HH:mm:ss");
+
+            preparedStatement.setDate(1, java.sql.Date.valueOf(formatter.format(date)));
             preparedStatement.setString(2, testo);
             preparedStatement.setInt(3, idProfessore);
             preparedStatement.setInt(4, idStudente);
             preparedStatement.setString(5, lato);
+            preparedStatement.setString(6,formatterr.format(System.currentTimeMillis()));
             preparedStatement.executeUpdate();
 
             connection.commit();
