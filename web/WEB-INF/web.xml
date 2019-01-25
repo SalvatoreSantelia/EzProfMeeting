@@ -26,6 +26,24 @@
         <url-pattern>/View/General/access</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>MessageServlet</servlet-name>
+        <servlet-class>myJava.control.servlet.MessageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MessageServlet</servlet-name>
+        <url-pattern>/View/General/message</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>InviaMessaggioServlet</servlet-name>
+        <servlet-class>myJava.control.servlet.InviaMessaggioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InviaMessaggioServlet</servlet-name>
+        <url-pattern>/View/General/inviaMessaggio</url-pattern>
+    </servlet-mapping>
+
 
 
 

@@ -1,12 +1,14 @@
 package myJava.model.beans;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Time;
+import java.util.Date;
 
 public class Messaggio implements Serializable {
 
     private int idMessaggio;
     private Date dataMessaggio;
+    private Time orarioMessaggio;
     private String testoMessaggio;
     private int idProfessore;
     private int idStudente;
@@ -15,9 +17,10 @@ public class Messaggio implements Serializable {
     public Messaggio() {
     }
 
-    public Messaggio(String lato, int idMessaggio, Date dataMessaggio, String testoMessaggio, int idProfessore, int idStudente) {
+    public Messaggio(String lato, int idMessaggio, Time orarioMessaggio, Date dataMessaggio, String testoMessaggio, int idProfessore, int idStudente) {
         this.idMessaggio = idMessaggio;
         this.dataMessaggio = dataMessaggio;
+        this.orarioMessaggio = orarioMessaggio;
         this.testoMessaggio = testoMessaggio;
         this.idProfessore = idProfessore;
         this.idStudente = idStudente;
@@ -50,6 +53,14 @@ public class Messaggio implements Serializable {
 
     public int getIdProfessore() {
         return idProfessore;
+    }
+
+    public Time getOrarioMessaggio() {
+        return orarioMessaggio;
+    }
+
+    public void setOrarioMessaggio(Time orarioMessaggio) {
+        this.orarioMessaggio = orarioMessaggio;
     }
 
     public void setIdProfessore(int idProfessore) {

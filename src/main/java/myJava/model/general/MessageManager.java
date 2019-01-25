@@ -84,17 +84,19 @@ public class MessageManager {
         try {
             connection = DriverManagerConnectionPool.getConnection();
             //creating prepared statement for our required query
-            PreparedStatement statement = connection.prepareStatement("SELECT *  from messaggio where idProfessore = ? and idStudente = ? ORDER BY dataMessaggio DESC");
+            PreparedStatement statement = connection.prepareStatement("SELECT *  from messaggio where idProfessore = ? and idStudente = ? ORDER BY dataMessaggio DESC, orarioMessaggio DESC ");
             statement.setInt(1,idProfessore);
             statement.setInt(2,idStudente);
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
                 messaggio.setIdMessaggio(rs.getInt("idMessaggio"));
-                messaggio.setDataMessaggio(rs.getString("dataMessaggio"));
+                messaggio.setDataMessaggio(rs.getDate("dataMessaggio"));
                 messaggio.setTestoMessaggio(rs.getString("testoMessaggio"));
                 messaggio.setIdStudente(rs.getInt("idStudente"));
                 messaggio.setIdProfessore(rs.getInt("idProfessore"));
                 messaggio.setLato(rs.getString("lato"));
+                messaggio.setOrarioMessaggio(rs.getTime("orarioMessaggio"));
+
                 connection.close();
                 return messaggio;
             }
@@ -124,6 +126,7 @@ public class MessageManager {
                 Messaggio messaggio = new Messaggio();
                 messaggio.setIdMessaggio(rs.getInt("idMessaggio"));
                 messaggio.setDataMessaggio(rs.getDate("dataMessaggio"));
+                messaggio.setOrarioMessaggio(rs.getTime("orarioMessaggio"));
                 messaggio.setTestoMessaggio(rs.getString("testoMessaggio"));
                 messaggio.setIdStudente(rs.getInt("idStudente"));
                 messaggio.setIdProfessore(rs.getInt("idProfessore"));

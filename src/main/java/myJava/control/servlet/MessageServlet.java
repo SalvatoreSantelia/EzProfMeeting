@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 @WebServlet(name = "MessageServlet")
@@ -22,16 +23,29 @@ public class MessageServlet extends HttpServlet {
         int idStudente = Integer.parseInt(request.getParameter("idStudente"));
         int idProfessore = Integer.parseInt(request.getParameter("idProfessore"));
         String lato = request.getParameter("lato");
-        System.out.println(idProfessore+"aa "+idStudente+lato);
+
         ArrayList<Messaggio> messaggi = dm.getArrayListMessaggio(idStudente,idProfessore);
-        request.getSession().setAttribute("messaggi",messaggi);
-        request.getSession().setAttribute("idProf",idProfessore);
-        request.getSession().setAttribute("idStud",idStudente);
-        if(lato.equals("studente")) {
-            request.getServletContext().getRequestDispatcher("/View/General/MessaggiStudente.jsp").forward(request, response);
+        String risposta= "[";
+        int i=0;
+        for(;i<messaggi.size()-1;i++){
+            Messaggio a = messaggi.get(i);
+            risposta= risposta+"{" +
+                    "\"testo\": \""+a.getTestoMessaggio()+"\"," +
+                    "\"lato\": \""+a.getLato()+"\"," +
+                    "\"data\": \""+a.getDataMessaggio().toString()+"\"," +
+                    "\"orario\": \""+a.getOrarioMessaggio().toString()+"\"},";
         }
-        if(lato.equals("professore")){
-            request.getServletContext().getRequestDispatcher("/View/General/MessaggiProfessore.jsp").forward(request, response);
-        }
+        Messaggio a = messaggi.get(i);
+        risposta= risposta+"{" +
+                "\"testo\": \""+a.getTestoMessaggio()+"\"," +
+                "\"lato\": \""+a.getLato()+"\"," +
+                "\"data\": \""+a.getDataMessaggio().toString()+"\"," +
+                "\"orario\": \""+a.getOrarioMessaggio().toString()+"\"}";
+        risposta = risposta+"]";
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        System.out.println(risposta);
+        PrintWriter out = response.getWriter();
+        out.write(risposta);
     }
 }

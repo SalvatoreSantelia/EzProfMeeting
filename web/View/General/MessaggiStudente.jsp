@@ -46,14 +46,17 @@
 
                     <%
                         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                        DateFormat dff = new SimpleDateFormat("HH/mm/ss");
                         int i=0;
                         for(Professore A : professori){
                             Messaggio mess =  dataManager.getLastDataMessaggio(id,A.getIdProfessore());
                             String testo="";
                             String data="";
                             if(mess.getDataMessaggio()!=null){
-                             Date date = mess.getDataMessaggio();
+                             Date date = (Date) mess.getDataMessaggio();
                              data=df.format(date);
+                             Time time = (Time) mess.getOrarioMessaggio();
+                             data= data+""+dff.format(time);
                              testo = mess.getTestoMessaggio();}
                     %>
 
@@ -81,38 +84,24 @@
 
             <div class="mesgs">
                 <div class="msg_history">
-                    <%
-                        ArrayList<Messaggio> messaggi = (ArrayList<Messaggio>) session.getAttribute("messaggi");
-                    %>
+
+
                     <div class="incoming_msg">
-                        <%
-                            if(messaggi!=null){
-                                for(Messaggio a : messaggi){
-                            if((a.getLato()).equals("studente")){
-                                %>
+                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                        <div class="received_msg">
+                            <div class="received_withd_msg">
+                                <p> </p>
+                                <span class="time_date"> </span></div>
+                        </div>
+                    </div>
+
+
+
                         <div class="outgoing_msg">
                             <div class="sent_msg">
-                                <p><%=a.getTestoMessaggio()%></p>
-                                <span class="time_date"> <%=a.getDataMessaggio()%></span> </div>
-                        </div><%
-                            }
-
-                        if((a.getLato()).equals("professore")){
-                        %>
-                        <div class="incoming_msg">
-                            <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                            <div class="received_msg">
-                                <div class="received_withd_msg">
-                                    <p><%=a.getTestoMessaggio()%></p>
-                                    <span class="time_date"> <%=a.getDataMessaggio()%></span></div>
-                            </div>
+                                <p> </p>
+                                <span class="time_date"> </span> </div>
                         </div>
-                        <%
-                        }
-                            }
-                            }
-                        %>
-                    </div>
 
 
                 </div>
