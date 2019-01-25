@@ -88,8 +88,6 @@ public class BookingManager {
 
 
     public List<Prenotazione> visualizzaPrenotazioni(int idStudente)throws SQLException{
-
-
         Connection connection = null;
 
         List<Prenotazione> bookings =new ArrayList<>();
@@ -118,6 +116,39 @@ public class BookingManager {
             return null;
         }
         return bookings;
+
+    }
+
+
+    //get Prenotazione by id
+    public Prenotazione getPranotazioneById(int idPrenotazione)throws SQLException{
+        Connection connection = null;
+
+        Prenotazione prenotazione = new Prenotazione();
+        try
+        {
+            connection = DriverManagerConnectionPool.getConnection();
+            //creating prepared statement for our required query
+            PreparedStatement statement = connection.prepareStatement("SELECT *  from prenotazione WHERE idPrenotazione = ?");
+            //setting the parameters
+            statement.setInt(1,idPrenotazione);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Prenotazione prenotation=new Prenotazione();
+                prenotation.setIdPrenotazione(rs.getInt(1));
+                prenotation.setListaStudenti(rs.getString(2));
+                prenotation.setMotivazione(rs.getString(3));
+                prenotation.setOrario(rs.getString(4));
+                prenotation.setIdRicevimento(rs.getInt(5));
+                prenotation.setIdStudente(rs.getInt(6));
+                prenotation.setPresenza(rs.getBoolean(7));
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return null;
+        }
+        return prenotazione;
 
     }
 

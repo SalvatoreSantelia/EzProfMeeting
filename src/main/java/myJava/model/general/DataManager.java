@@ -61,9 +61,9 @@ public class DataManager {
     }
 
 
-    public boolean inviaMessaggio(int idMittente, int idDestinatario, String messaggio) {
+    public boolean inviaMessaggio(int idMittente, int idDestinatario, String messaggio,String lato) {
+        mm.inviaMessaggio(idMittente,idDestinatario,messaggio,lato);
         return true;
-
     }
 
     public Messaggio visualizzaMessagio(int idDestinatario) {
@@ -217,6 +217,18 @@ public class DataManager {
 
     public ArrayList<Studente> getStudentiContattati(int idProf) throws SQLException {
         return mm.getStudentiContattati(idProf);
+    }
+
+
+    //
+
+    public Prenotazione getPranotazioneById(int idPrenotazione)throws SQLException{
+        return m.getPranotazioneById(idPrenotazione);
+    }
+
+
+    public ArrayList<Messaggio> getArrayListMessaggio(int idStudente, int idProfessore){
+        return mm.getArrayListMessaggio(idStudente,idProfessore);
     }
 }
 

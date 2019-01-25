@@ -3,6 +3,7 @@
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.sql.Time" %>
+<%@ page import="javafx.scene.control.Alert" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,11 +13,21 @@
 <%
     Studente studente = (Studente) session.getAttribute("user");
     DataManager dataManager = new DataManager();
-    String email = studente.getEmailStudente();
-    System.out.println(email+" "+studente.getIdStudente()+" "+studente.getNomeStudente()+ " CIAO");
+
     List<Prenotazione> prenotazioni =  dataManager.visualizzaPrenotazioni(studente.getIdStudente());
     int i=1;
     DateFormat df = new SimpleDateFormat();
+
+
+    String x = request.getParameter("eliminare");
+
+    if(x!=null){
+        int idPrenotazione = Integer.parseInt(request.getParameter("ricevimento"));
+        Prenotazione a = dataManager.getPranotazioneById(idPrenotazione);
+        if(dataManager.eliminaPrenotazione(a)){
+
+        }
+    }
 %>
 <body>
 
@@ -43,12 +54,14 @@
 
     %>
 
+    <form action="HomeStudente.jsp" id=<%=i%>>
     <tr>
         <th scope="row"><%=i%></th>
         <td><%=prof.getNomeProfessore()%> <%=prof.getCognomeProfessore()%></td>
         <td><%=ric.getData()%> <%=ric.getOrarioInizio()%> - <%=ric.getOrarioFine()%></td>
-        <td><button class="BottoneRimuovi" id="<%=i%>">icsdi</button></td>
+        <td ><Button class="tdRimuovi" name="idPrenotazione" value="<%=a.getIdPrenotazione()%>">Rimuovi</Button></td>
     </tr>
+    </form>
 
 
     <%
@@ -56,7 +69,6 @@
     %>
     </tbody>
 </table>
-
 
 </body>
 </html>

@@ -1,10 +1,23 @@
-$(document).ready(
-  function () {
+$(document).ready(function(){
+
+  $(".chatlista").click(function () {
+      alert("ciao");
+      var idStudente = $("#idStudente"+this.id).val();
+      var idProfessore = $("#idProfessore"+this.id).val();
+      var lato = $("#lato"+this.id).val();
+
+      alert(idProfessore+"bb "+idStudente+" "+lato);
+      $.post("message",{"idStudente":idStudente,"idProfessore":idProfessore,"lato":lato},function(data,status){
+
+      });
+      });
+
+  });
 
 
-  }
-);
 
+
+/*
 function selChat(user) {
 
     $("#chatList li").removeClass("active")
@@ -20,3 +33,5 @@ function showName(e)
 
     //richiesta ajax per caricare i messaggi
 }
+*/
+

@@ -3,7 +3,6 @@ package myJava.control.servlet;
 import myJava.model.beans.Professore;
 import myJava.model.beans.Studente;
 import myJava.model.beans.User;
-import myJava.model.general.AccessManager;
 import myJava.model.general.DataManager;
 
 import javax.servlet.ServletException;
@@ -39,13 +38,11 @@ public class AccessServlet extends HttpServlet {
         if(utente.getTipo().equals("studente")){
             Studente studente = dataManager.getStudenteByEmail(utente.getEmail());
             session.setAttribute("user", studente);
-            System.out.println(studente.toString());
             request.getServletContext().getRequestDispatcher("/View/Studente/HomeStudente.jsp").forward(request, response);
         }
         if(utente.getTipo().equals("professore")){
             Professore professore = dataManager.getProfessoreByEmail(utente.getEmail());
             session.setAttribute("user", professore);
-            System.out.println(professore.toString());
             request.getServletContext().getRequestDispatcher("/View/Professore/HomeProfessore.jsp").forward(request, response);
         }
 

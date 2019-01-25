@@ -10,16 +10,18 @@ public class Messaggio implements Serializable {
     private String testoMessaggio;
     private int idProfessore;
     private int idStudente;
+    private String lato;
 
     public Messaggio() {
     }
 
-    public Messaggio(int idMessaggio, Date dataMessaggio, String testoMessaggio, int idProfessore, int idStudente) {
+    public Messaggio(String lato, int idMessaggio, Date dataMessaggio, String testoMessaggio, int idProfessore, int idStudente) {
         this.idMessaggio = idMessaggio;
         this.dataMessaggio = dataMessaggio;
         this.testoMessaggio = testoMessaggio;
         this.idProfessore = idProfessore;
         this.idStudente = idStudente;
+        this.lato=lato;
     }
 
     public int getIdMessaggio() {
@@ -60,5 +62,13 @@ public class Messaggio implements Serializable {
 
     public void setIdStudente(int idStudente) {
         this.idStudente = idStudente;
+    }
+
+    public String getLato() {
+        return lato;
+    }
+
+    public void setLato(String lato) {
+        this.lato = lato;
     }
 }
