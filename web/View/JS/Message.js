@@ -9,7 +9,7 @@ $(document).ready(function(){
       $.post("message",{"idStudente":idStudente,"idProfessore":idProfessore,"lato":lato},function(data,status){
           alert("CIAO"+data);
           $.each(data, function(i,item){
-              //if(item.lato=="professore") {
+              if((item.lato).localeCompare("professore")) {
                   $(".msg_history").append("<div class=\"incoming_msg\">" +
                       "<div class=\"incoming_msg_img\">"+
                       "<img src=\"https://ptetutorials.com/images/user-profile.png\" alt=\"sunil\"></div>"+
@@ -17,13 +17,13 @@ $(document).ready(function(){
                       "<div class=\"received_withd_msg\">"+
                       "<p>"+item.testo+"</p>"+
                       "<span class=\"time_date\">"+item.data+" "+item.orario+"</span></div>"+
-                      "</div></div>");
-              //}
-              if(item.lato="studente"){
-                  $(".mesgs msg_history").append("<div class=\"outgoing_msg\"> <div class=\"sent_msg\">"+
+                      "</div></div><br><br>");
+              }
+              if((item.lato).localeCompare("studente")) {
+                  $(".msg_history").append("<div class=\"outgoing_msg\"> <div class=\"sent_msg\">"+
                       "<p>\"+item.testo+\"</p>"+
-                      "<span class=\"time_date\">\"+item.data+\" \"+item.orario+\"</span></div>"+
-                      "</div>");
+                      "<span class=\"time_date\">"+item.data+" "+item.orario+"</span></div>"+
+                      "</div><br><br>");
               }
 
           });
