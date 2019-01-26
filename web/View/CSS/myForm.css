@@ -1,10 +1,64 @@
-#undoButton
+
+
+
+.mymodal input, .mymodal textarea
 {
-    background-color: #ff525b;
-    color: white;
+    border: 1px solid transparent;
+    border-image: linear-gradient(to top, #0d404c 0%, #0596aa 44%, #0596aa 93%, #0ac8b9 100%);
+    border-image-slice: 1;
+    padding: 5px 5px 5px 5px;
+    background-color: ghostwhite;
 }
 
-#undoButton:hover
+.mymodal
 {
-    background-color: red;
+    border: 2px solid transparent;
+    border-image: linear-gradient(to top, #0d404c 0%, #0596aa 44%, #0596aa 93%, #0ac8b9 100%);
+    border-image-slice: 1;
 }
+
+
+
+ button, a
+{
+    padding: 10px 0 10px 0;
+    width: 30%;
+    color: #cdfafa;
+    box-shadow: 0 0 1px 1px #010a13, inset 0 0 1px 1px #010a13;
+    background: #1e2328;
+    border: 2px solid transparent;
+    border-image: linear-gradient(to top, #0d404c 0%, #0596aa 44%, #0596aa 93%, #0ac8b9 100%);
+    border-image-slice: 1;
+}
+
+
+
+button:hover, a:hover
+{
+    color: #cdfafa;
+    border-image: linear-gradient(to top, #3295c7 0%, #0ac8b9 49%, #cdfafa 100%);
+    border-image-slice: 1;
+    background-image: linear-gradient(to top, rgba(88,83,66,0.5), rgba(30,35,40,0.5));
+    cursor: pointer;
+}
+
+a
+{
+    color: #cdfafa !important;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+a, a:visited, a:hover
+{
+
+    text-decoration: none;
+
+}
+
+a:hover
+{
+
+    cursor: pointer;
+}
+

@@ -1,5 +1,7 @@
+@import url(//db.onlinewebfonts.com/c/892850d83218fca420620805baf2a3f7?family=BeaufortW01-Medium);
+
 body {
-    font-family: Tahoma;
+    font-family:"BeaufortW01-Medium";
 }
 
 
@@ -9,6 +11,12 @@ body {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+}
+
+
+.mymodal
+{
+    padding: 20px;
 }
 
 
