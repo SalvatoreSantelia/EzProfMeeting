@@ -32,7 +32,7 @@
 <body>
 
 <div class="container">
-    <h3 class=" text-center">Messaging</h3>
+    <h3 class=" text-center">Messaging <h5 class="text-center nomeDestinatario"></h5></h3>
     <div class="messaging">
         <div class="inbox_msg">
             <div class="inbox_people">
@@ -45,8 +45,8 @@
                 <div class="inbox_chat">
 
                     <%
-                        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                        DateFormat dff = new SimpleDateFormat("HH/mm/ss");
+                        DateFormat df = new SimpleDateFormat("yyyy-MMM-dd");
+                        DateFormat dff = new SimpleDateFormat("HH:mm:ss");
                         int i=0;
                         for(Professore A : professori){
                             Messaggio mess =  dataManager.getLastDataMessaggio(id,A.getIdProfessore());
@@ -67,7 +67,7 @@
                                 <input type="hidden" id="idProfessore<%=i%>" name="idProfessore"  value="<%=A.getIdProfessore()%>">
                                 <input type="hidden" id="idStudente<%=i%>" name="idStudente" value="<%=id%>">
                                 <input type="hidden" id="lato<%=i%>" name="lato" value="<%="studente"%>">
-                                <h5><%=A.getNomeProfessore()%> <%=A.getCognomeProfessore()%> <span class="chat_date" id="data<%=A.getIdProfessore()%>"><%=data%></span></h5>
+                                <h5><div id="nomecognome<%=i%>"><%=A.getNomeProfessore()%> <%=A.getCognomeProfessore()%></div> <span class="chat_date" id="data<%=A.getIdProfessore()%>"><%=data%></span></h5>
                                 <p id="lastMessaggio<%=A.getIdProfessore()%>"><%=testo%></p>
                             </div>
                         </div>

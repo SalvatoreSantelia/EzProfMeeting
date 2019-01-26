@@ -107,7 +107,7 @@ public class DataManager {
         try {
             connection = DriverManagerConnectionPool.getConnection();
             //creating prepared statement for our required query
-            PreparedStatement statement = connection.prepareStatement("SELECT *  from professore");
+            PreparedStatement statement = connection.prepareStatement("SELECT *  from professore ORDER BY cognomeProfessore");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Professore professore = new Professore();

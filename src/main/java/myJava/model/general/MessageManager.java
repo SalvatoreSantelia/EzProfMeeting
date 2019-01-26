@@ -52,7 +52,7 @@ public class MessageManager {
         try {
             connection = DriverManagerConnectionPool.getConnection();
             //creating prepared statement for our required query
-            PreparedStatement statement = connection.prepareStatement("SELECT *  from messaggio where idProfessore = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT DISTINCT *  from messaggio where idProfessore = ? GROUP BY idStudente ORDER BY dataMessaggio,orarioMessaggio DESC");
             statement.setInt(1,idProf);
             ResultSet rs = statement.executeQuery();
 
