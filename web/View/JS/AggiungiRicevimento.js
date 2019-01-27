@@ -7,7 +7,7 @@ $(document).ready(function() {
     $(document).on('click', '#addButton',
      function () {
 
-        alert(end);
+
          $("[name='startHour']").val(start);
         $("[name='endHour']").val(end);
     });
@@ -15,7 +15,36 @@ $(document).ready(function() {
 
     $(document).on('click', '#insertButton', function () {
 
-        alert(blockCount);
+        if($("textarea").val().trim() === "")
+        {
+            alert("Professore, inserisca un luogo per il ricevimento");
+            return
+        }
+
+        var start, end, luogo, numPosti;
+        start = $("#startHour").val();
+        end = $("#endHour").val();
+        luogo = $("#place").val();
+
+        $.ajax(
+            {
+                type: "POST",
+                url: "receivement",
+                data:
+                    {
+                        inizio: start,
+                        fine: end,
+                        luogo:  luogo,
+                        operazione: "inserimento"
+                    },
+                success: function (results) {
+                    if(results!=null && results!="" && results!="FAILURE")
+                    {
+                        alert("fungeeeee")
+                    }
+                }
+
+            });
 
     })
 

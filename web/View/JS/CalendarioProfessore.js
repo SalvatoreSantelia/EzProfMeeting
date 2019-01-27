@@ -3,10 +3,9 @@ var previous_row;
 var previous_col;
 var start, end, blockCount;
 var MY_BUTTON = '<button id="addButton" class="btn btn-outline-primary" data-toggle="modal" data-target="#new" style="display:block; width: 100%; height: 100%; margin: auto;">+</button>'
-
+var posButton;
 
 $(document).ready(function () {
-
 
 
         $("#calendar td").click(
@@ -16,7 +15,7 @@ $(document).ready(function () {
                 col = parseInt($(this).index());
                 row = parseInt($(this).parent().index());
 
-                if(col===0) return;
+                if (col === 0) return;
 
 
                 if (previous_col == null) {
@@ -25,18 +24,18 @@ $(document).ready(function () {
                     previous_row = row;
                     start = ($(this).attr('id'));
                     end = ($(this).data('end'));
-                    blockCount  = 1;
+                    blockCount = 1;
 
                     $(this).css("background-color", SEL_COLOR);
 
                     $("#calendar tr").eq(row).find("td").eq(col).html(MY_BUTTON);
+                    posButton = row;
                 } else {
                     $("#addButton").remove();
 
                     if (col != previous_col) {
                         cleanSelection();
-                        start  = end = null;
-                        blockCount=0;
+                        start = end = null;
                         return;
                     }
 
@@ -45,13 +44,15 @@ $(document).ready(function () {
 
                     if (row < previous_row) {
                         extendStart(row);
-                        count = + (previous_row-row);
                         previous_row = row;
+                        posButton = row
                         start = ($(this).attr('id'));
                         return;
                     }
-
+                    if (row == posButton) return;
                     secondClick(col, row);
+                    posButton = row;
+
                     end = ($(this).data('end'));
                 }
             }
@@ -91,11 +92,11 @@ function cleanSelection() {
 
 function secondClick(col, row) {
 
+
     for (var i = previous_row; i <= row; i++) {
         $("#calendar tr").eq(i).find("td").eq(col).css("background-color", SEL_COLOR);
     }
 
-    count = row - previous_row;
 
     for (var i = row + 1; i < 9 * 2; i++) {
         $("#calendar tr").eq(i).find("td").eq(col).css("background-color", "#FFFFFF");
