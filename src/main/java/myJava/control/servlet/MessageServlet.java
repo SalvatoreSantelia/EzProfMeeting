@@ -23,28 +23,36 @@ public class MessageServlet extends HttpServlet {
         int idStudente = Integer.parseInt(request.getParameter("idStudente"));
         int idProfessore = Integer.parseInt(request.getParameter("idProfessore"));
         String lato = request.getParameter("lato");
-
+        System.out.println("A");
         ArrayList<Messaggio> messaggi = dm.getArrayListMessaggio(idStudente,idProfessore);
-        String risposta= "[";
-        int i=0;
-        for(;i<messaggi.size()-1;i++){
+        String risposta="";
+        System.out.println(messaggi.size());
+        if(messaggi.size()!=0) {
+            risposta = "[";
+            int i = 0;
+
+            for (; i < messaggi.size() - 1; i++) {
+                Messaggio a = messaggi.get(i);
+                risposta = risposta + "{" +
+                        "\"testo\": \"" + a.getTestoMessaggio() + "\"," +
+                        "\"lato\": \"" + a.getLato() + "\"," +
+                        "\"data\": \"" + a.getDataMessaggio().toString() + "\"," +
+                        "\"orario\": \"" + a.getOrarioMessaggio().toString() + "\"},";
+            }
             Messaggio a = messaggi.get(i);
-            risposta= risposta+"{" +
-                    "\"testo\": \""+a.getTestoMessaggio()+"\"," +
-                    "\"lato\": \""+a.getLato()+"\"," +
-                    "\"data\": \""+a.getDataMessaggio().toString()+"\"," +
-                    "\"orario\": \""+a.getOrarioMessaggio().toString()+"\"},";
+            risposta = risposta + "{" +
+                    "\"testo\": \"" + a.getTestoMessaggio() + "\"," +
+                    "\"lato\": \"" + a.getLato() + "\"," +
+                    "\"data\": \"" + a.getDataMessaggio().toString() + "\"," +
+                    "\"orario\": \"" + a.getOrarioMessaggio().toString() + "\"}";
+
+
+            risposta = risposta + "]";
         }
-        Messaggio a = messaggi.get(i);
-        risposta= risposta+"{" +
-                "\"testo\": \""+a.getTestoMessaggio()+"\"," +
-                "\"lato\": \""+a.getLato()+"\"," +
-                "\"data\": \""+a.getDataMessaggio().toString()+"\"," +
-                "\"orario\": \""+a.getOrarioMessaggio().toString()+"\"}";
-        risposta = risposta+"]";
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        System.out.println(risposta);
+        System.out.println("C");
+
         PrintWriter out = response.getWriter();
         out.write(risposta);
     }

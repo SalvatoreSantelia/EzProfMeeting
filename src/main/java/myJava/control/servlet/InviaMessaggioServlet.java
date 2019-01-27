@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 @WebServlet(name = "InviaMessaggioServlet")
@@ -19,26 +20,34 @@ public class InviaMessaggioServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String testo = request.getParameter("inviaMess");
-        int id = Integer.parseInt(request.getParameter("idStu"));
-        int idProf = Integer.parseInt(request.getParameter("idPro"));
+        String testo = request.getParameter("testo");
+        int id = Integer.parseInt(request.getParameter("idStudente"));
+        int idProf = Integer.parseInt(request.getParameter("idProfessore"));
         String lato = request.getParameter("lato");
         DataManager dm = new DataManager();
         dm.inviaMessaggio(id,idProf,testo,lato);
-
-        if(lato.equals("studente")) {
-            ArrayList<Messaggio> messaggi = dm.getArrayListMessaggio(id, idProf);
-            request.getSession().setAttribute("messaggi", messaggi);
-            request.getSession().setAttribute("idProf", idProf);
-            request.getSession().setAttribute("idStud",id);
-            request.getServletContext().getRequestDispatcher("/View/General/MessaggiStudente.jsp").forward(request, response);
+        System.out.println(testo+idProf+id+lato);
+        ArrayList<Messaggio> messaggi = dm.getArrayListMessaggio(id,idProf);
+        String risposta= "[";
+        int i=0;
+        for(;i<messaggi.size()-1;i++){
+            Messaggio a = messaggi.get(i);
+            risposta= risposta+"{" +
+                    "\"testo\": \""+a.getTestoMessaggio()+"\"," +
+                    "\"lato\": \""+a.getLato()+"\"," +
+                    "\"data\": \""+a.getDataMessaggio().toString()+"\"," +
+                    "\"orario\": \""+a.getOrarioMessaggio().toString()+"\"},";
         }
-        if(lato.equals("professore")) {
-            ArrayList<Messaggio> messaggi = dm.getArrayListMessaggio(id, idProf);
-            request.getSession().setAttribute("messaggi", messaggi);
-            request.getSession().setAttribute("idProf", idProf);
-            request.getSession().setAttribute("idStud",id);
-            request.getServletContext().getRequestDispatcher("/View/General/MessaggiProfessore.jsp").forward(request, response);
-        }
+        Messaggio a = messaggi.get(i);
+        risposta= risposta+"{" +
+                "\"testo\": \""+a.getTestoMessaggio()+"\"," +
+                "\"lato\": \""+a.getLato()+"\"," +
+                "\"data\": \""+a.getDataMessaggio().toString()+"\"," +
+                "\"orario\": \""+a.getOrarioMessaggio().toString()+"\"}";
+        risposta = risposta+"]";
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+        out.write(risposta);
     }
 }
