@@ -122,7 +122,7 @@ public class MessageManager {
         try {
             connection = DriverManagerConnectionPool.getConnection();
             //creating prepared statement for our required query
-            PreparedStatement statement = connection.prepareStatement("SELECT *  from messaggio where idProfessore = ? and idStudente = ? ORDER BY dataMessaggio DESC");
+            PreparedStatement statement = connection.prepareStatement("SELECT *  from messaggio where idProfessore = ? and idStudente = ? ORDER BY dataMessaggio");
             statement.setInt(1,idProfessore);
             statement.setInt(2,idStudente);
             ResultSet rs = statement.executeQuery();

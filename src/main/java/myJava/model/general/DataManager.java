@@ -214,6 +214,10 @@ public class DataManager {
     }
 
 
+    public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof)
+    {
+        return rm.getRicevimentiByProf(prof);
+    }
 
     public ArrayList<Studente> getStudentiContattati(int idProf) throws SQLException {
         return mm.getStudentiContattati(idProf);

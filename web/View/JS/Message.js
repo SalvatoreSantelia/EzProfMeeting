@@ -1,11 +1,14 @@
 $(document).ready(function(){
+var prof;
+var stud;
+var lat;
+var lastMess;
 
   $(".messButton").click(function(){
      var lato= $(".invioLato").val();
      var idProfessore = $(".invioIdProfessore").val();
      var idStudente = $(".invioIdStudente").val();
      var testo = $(".invioTesto").val();
-
       if($.trim($('.invioTesto').val()) == ''){
           alert("Devi inserire almeno un carattere");
       }
@@ -81,9 +84,86 @@ $(document).ready(function(){
               });
           }
       }
-
+      $('.msg_history').animate({
+          scrollTop: $('.msg_history').get(0).scrollHeight
+      }, 100);
   });
 
+    window.setInterval(function (){
+        $(".msg_history").empty();
+        if(lat == "professore") {
+            $.post("message", {
+                "idStudente": stud,
+                "idProfessore": prof,
+                "lato": lat
+            }, function (data, status) {
+                $(".msg_history").empty();
+                $.each(data, function (i, item) {
+                    if ((item.lato).localeCompare("studente")) {
+                        $(".msg_history").append("<div class=\"outgoing_msg\"> <div class=\"sent_msg\">" +
+                            "<p>" + item.testo + "</p>" +
+                            "<span class=\"time_date\">" + item.data + " " + item.orario + "</span></div>" +
+                            "</div>");
+                        $("#data" + stud).text("");
+                        $("#data" + stud).text(item.data + " " + item.orario);
+                    }
+                    if ((item.lato).localeCompare("professore")) {
+                        $(".msg_history").append("<div class=\"incoming_msg\">" +
+                            "<div class=\"incoming_msg_img\">" +
+                            "<img src=\"https://ptetutorials.com/images/user-profile.png\" alt=\"sunil\"></div>" +
+                            "<div class=\"received_msg\">" +
+                            "<div class=\"received_withd_msg\">" +
+                            "<p>" + item.testo + "</p>" +
+                            "<span class=\"time_date\">" + item.data + " " + item.orario + "</span></div>" +
+                            "</div></div>");
+
+                        $("#data" + prof).text("");
+                        $("#data" + prof).text(item.data + " " + item.orario);
+                    }
+                    $("#lastMessaggio" + stud).text("");
+                    $("#lastMessaggio" + stud).append(item.testo);
+                });
+
+            });
+        }
+        else{
+            $.post("message", {
+                "idStudente": stud,
+                "idProfessore": prof,
+                "lato": lat
+            }, function (data, status) {
+                $(".msg_history").empty();
+                $.each(data, function (i, item) {
+                    if ((item.lato).localeCompare("professore")) {
+                        $(".msg_history").append("<div class=\"outgoing_msg\"> <div class=\"sent_msg\">" +
+                            "<p>" + item.testo + "</p>" +
+                            "<span class=\"time_date\">" + item.data + " " + item.orario + "</span></div>" +
+                            "</div>");
+                        $("#data" + prof).text("");
+                        $("#data" + prof).text(item.data + " " + item.orario);
+                    }
+                    if ((item.lato).localeCompare("studente")) {
+                        $(".msg_history").append("<div class=\"incoming_msg\">" +
+                            "<div class=\"incoming_msg_img\">" +
+                            "<img src=\"https://ptetutorials.com/images/user-profile.png\" alt=\"sunil\"></div>" +
+                            "<div class=\"received_msg\">" +
+                            "<div class=\"received_withd_msg\">" +
+                            "<p>" + item.testo + "</p>" +
+                            "<span class=\"time_date\">" + item.data + " " + item.orario + "</span></div>" +
+                            "</div></div>");
+
+                        $("#data" + stud).text("");
+                        $("#data" + stud).text(item.data + " " + item.orario);
+                    }
+                    $("#lastMessaggio" + prof).text("");
+                    $("#lastMessaggio" + prof).append(item.testo);
+                });
+            });
+        }
+        $('.msg_history').animate({
+            scrollTop: $('.msg_history').get(0).scrollHeight
+        }, 100);
+    },5000);
 
   $(".chatlista").click(function () {
       var idStudente = $("#idStudente"+this.id).val();
@@ -102,6 +182,9 @@ $(document).ready(function(){
       invioLato.val(lato);
       destinatario.text("With : "+nomecognome);
 
+      prof=idProfessore;
+      stud=idStudente;
+      lat=lato;
       if(lato == "professore") {
           $.post("message", {
               "idStudente": idStudente,
@@ -158,7 +241,10 @@ $(document).ready(function(){
               });
           });
           }
-      });
+      $('.msg_history').animate({
+          scrollTop: $('.msg_history').get(0).scrollHeight
+      }, 100);
+  });
   });
 
 

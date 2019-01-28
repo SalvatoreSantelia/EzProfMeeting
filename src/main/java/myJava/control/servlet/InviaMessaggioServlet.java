@@ -26,7 +26,6 @@ public class InviaMessaggioServlet extends HttpServlet {
         String lato = request.getParameter("lato");
         DataManager dm = new DataManager();
         dm.inviaMessaggio(id,idProf,testo,lato);
-        System.out.println(testo+idProf+id+lato);
         ArrayList<Messaggio> messaggi = dm.getArrayListMessaggio(id,idProf);
         String risposta= "[";
         int i=0;

@@ -23,7 +23,6 @@ public class MessageServlet extends HttpServlet {
         int idStudente = Integer.parseInt(request.getParameter("idStudente"));
         int idProfessore = Integer.parseInt(request.getParameter("idProfessore"));
         String lato = request.getParameter("lato");
-        System.out.println("A");
         ArrayList<Messaggio> messaggi = dm.getArrayListMessaggio(idStudente,idProfessore);
         String risposta="";
         if(messaggi.size()!=0) {
@@ -50,8 +49,6 @@ public class MessageServlet extends HttpServlet {
         }
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        System.out.println("C");
-
         PrintWriter out = response.getWriter();
         out.write(risposta);
     }

@@ -4,8 +4,7 @@ import myJava.model.beans.User;
 import myJava.model.general.AccessManager;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+
 
 import java.sql.SQLException;
 
