@@ -40,7 +40,8 @@ $(document).ready(function() {
                 success: function (results) {
                     if(results!=null && results!="" && results!="FAILURE")
                     {
-                        alert("fungeeeee")
+                        alert("fungeee")
+                        $( "#container" ).load(window.location.href + " #container" );
                     }
                 }
 

@@ -5,8 +5,8 @@
 <%@ page import="myJava.model.general.DataManager" %>
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../General/Header.jsp"%>
-<script src="../JS/ProessoreJS.js"></script>
-
+<!--<script src="../JS/ProfessoreJS.js"></script>
+-->
 
 
 <html>

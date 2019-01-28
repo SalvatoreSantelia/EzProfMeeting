@@ -2,7 +2,7 @@ var SEL_COLOR = "#e6f9ff"
 var previous_row;
 var previous_col;
 var start, end, blockCount;
-var MY_BUTTON = '<button id="addButton" class="btn btn-outline-primary" data-toggle="modal" data-target="#new" style="display:block; width: 100%; height: 100%; margin: auto;">+</button>'
+var MY_BUTTON = '<button id="addButton" class="btn btn-outline-primary" data-toggle="modal" data-target="#new" style="display:block; width: 100%; height: 100%; margin: auto; background-color: transparent;">+</button>'
 var posButton;
 
 $(document).ready(function () {
@@ -10,6 +10,9 @@ $(document).ready(function () {
 
         $("#calendar td").click(
             function () {
+
+                if($(this).data("exist")==true)
+                    return;
 
                 var col, row;
                 col = parseInt($(this).index());
@@ -75,6 +78,11 @@ function rgb2hex(o) {
 
 function extendStart(row) {
     for (var i = row; i <= previous_row; i++) {
+        if( $("#calendar tr").eq(i).find("td").eq(previous_col).data("exist") ==true)
+        {
+            cleanSelection();
+            return;
+        }
         $("#calendar tr").eq(i).find("td").eq(previous_col).css("background-color", SEL_COLOR);
     }
 }
@@ -84,6 +92,7 @@ function cleanSelection() {
         $("#calendar tr").eq(i).find("td").eq(previous_col).css("background-color", "#FFFFFF");
     }
 
+    $("#addButton").remove();
     previous_row = null;
     previous_col = null;
 
@@ -94,6 +103,11 @@ function secondClick(col, row) {
 
 
     for (var i = previous_row; i <= row; i++) {
+        if( $("#calendar tr").eq(i).find("td").eq(previous_col).data("exist") ==true)
+        {
+            cleanSelection();
+            return;
+        }
         $("#calendar tr").eq(i).find("td").eq(col).css("background-color", SEL_COLOR);
     }
 

@@ -1,7 +1,10 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.text.DateFormat" %>
-<%@ page import="java.util.Date" %><%--
+<%@ page import="myJava.model.beans.Professore" %>
+<%@ page import="myJava.model.general.DataManager" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="myJava.model.beans.Ricevimento" %><%--
   Created by IntelliJ IDEA.
   User: broth
   Date: 19/12/2018
@@ -15,7 +18,6 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
 
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
@@ -50,18 +52,23 @@
         <%@include file="../Professore/InserisciRicevimento.jsp" %>
     </div>
 
-    <%
-        sdf = new SimpleDateFormat("YYYY-MM-DD");
-        String[] settimana = new String[5];
-        for (int i = 0; i < 5; i++) {
-            cal.set(Calendar.DAY_OF_WEEK, (i + 2));
-            settimana[i] = sdf.format(cal.getTime());
-        }
-
-
-    %>
-
     <table id="calendar">
+
+        <%
+
+            Professore prof = (Professore) session.getAttribute("user");
+            DataManager dm = new DataManager();
+            ArrayList<Ricevimento> lista = dm.getRicevimentiByProf(prof);
+            sdf = new SimpleDateFormat("YYYY-MM-DD");
+            String[] settimana = new String[5];
+            for (int i = 0; i < 5; i++) {
+                cal.set(Calendar.DAY_OF_WEEK, (i + 2));
+                settimana[i] = sdf.format(cal.getTime());
+            }
+
+
+        %>
+
         <caption id="prova">MyCalendar</caption>
 
 
@@ -111,26 +118,75 @@
 
                 <%=ora + ":" + minuti %>
 
+
             </td>
 
+            <% if (ora != 9) {
+                for (int j = 0; j < 5; j++) {
 
-            <td id="<%=settimana[0] + " " +ora+":"+minuti%>" data-end="<%=settimana[0] + " " +oraFine+":"+minutiFine%>"
-                style="background-color:rgb(255, 255, 255);"></td>
-            <td id="<%=settimana[1] + " " +ora+":"+minuti%>" data-end="<%=settimana[1] + " " +oraFine+":"+minutiFine%>"
-                style="background-color:rgb(255, 255, 255);"></td>
-            <td id="<%=settimana[2] + " " +ora+":"+minuti%>" data-end="<%=settimana[2] + " " +oraFine+":"+minutiFine%>"
-                style="background-color:rgb(255, 255, 255);"></td>
-            <td id="<%=settimana[3] + " " +ora+":"+minuti%>" data-end="<%=settimana[3] + " " +oraFine+":"+minutiFine%>"
-                style="background-color:rgb(255, 255, 255);"></td>
-            <td id="<%=settimana[4] + " " +ora+":"+minuti%>" data-end="<%=settimana[4] + " " +oraFine+":"+minutiFine%>"
-                style="background-color:rgb(255, 255, 255);"></td>
+                    boolean find = false;
+                    for (Ricevimento r : lista) {
 
+                        if ((r.getData() + " " + r.getOrarioInizio()).equals(settimana[j] + " " + ora + ":" + minuti)) {
+
+
+            %>
+            <td id=<%=settimana[j] + " " + ora + ":" + minuti%> data-exist="true">
+                <button id=<%=r.getIdRicevimento()%>><i class="far fa-edit"></i></button>
+            </td>
+            <%
+                        find = true;
+                        break;
+                    }
+
+
+                }
+
+                if (!find) { %>
+            <td id="<%=settimana[j] + " " +ora+":"+minuti%>" data-end="<%=settimana[j] + " " +oraFine+":"+minutiFine%>"
+             data-exist="false"   style="background-color:rgb(255, 255, 255);"></td>
+
+            <%
+                    }
+                }
+            } else {
+                for (int j = 0; j < 5; j++) {
+
+                    boolean find = false;
+                    for (Ricevimento r : lista) {
+
+                        if ((r.getData() + " " + r.getOrarioInizio()).equals(settimana[j] + " " + ora + ":" + minuti)) {
+
+
+            %>
+            <td id=<%=settimana[j] + " 0" + ora + ":" + minuti%>>
+                <button id="<%=r.getIdRicevimento()%>" data-exist="true"><i class="far fa-edit"></i></button>
+            </td>
+            <%
+                        find = true;
+                        break;
+                    }
+                }
+
+                if (!find) { %>
+            <td id="<%=settimana[j] + " 0" +ora+":"+minuti%>" data-end="<%=settimana[j] + " 0" +oraFine+":"+minutiFine%>"
+                data-exist="false" style="background-color:rgb(255, 255, 255);"></td>
+
+            <%
+                }
+
+            %>
+
+            <%
+                    }
+                }
+            %>
         </tr>
         <%
             }
         %>
-    </
-    >
+
+
 
     </table>
 

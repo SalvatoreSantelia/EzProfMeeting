@@ -17,10 +17,10 @@
         <form id="insertForm" action = "ReceivementServlet" method="post">
 
             <h4 id="dio"> Inizio </h4>
-            <input  type="text" id="startHour" name="startHour" value="inizio"> <br> <br>
+            <input  type="text" id="startHour" name="startHour" value="inizio" disabled> <br> <br>
 
             <h4> Fine </h4>
-            <input  type="text" id="endHour" name="endHour" value="" > <br> <br>
+            <input  type="text" id="endHour" name="endHour" value="" disabled> <br> <br>
 
 
             <h4> Luogo </h4>
@@ -32,7 +32,7 @@
 
             <a id="undoButton"  data-dismiss="modal"> Annulla </a>
             &nbsp;
-            <a id="insertButton" > Conferma </a>
+            <a id="insertButton" data-dismiss="modal" > Conferma </a>
 
 
 

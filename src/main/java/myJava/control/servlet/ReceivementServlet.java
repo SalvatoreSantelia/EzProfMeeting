@@ -1,5 +1,6 @@
 package myJava.control.servlet;
 
+import jdk.nashorn.internal.parser.JSONParser;
 import myJava.model.beans.Professore;
 import myJava.model.beans.Ricevimento;
 import myJava.model.general.DataManager;
@@ -19,31 +20,35 @@ import java.text.SimpleDateFormat;
 public class ReceivementServlet extends HttpServlet {
   DataManager dm = new DataManager();
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-  {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    if(request.getParameter("operazione").equals("inserimento"))
+    if (request.getParameter("operazione").equals("inserimento")) {
       inserisciRicevimento(request, response);
+    }
 
 
   }
 
-  private void inserisciRicevimento(HttpServletRequest request, HttpServletResponse response){
+  private void inserisciRicevimento(HttpServletRequest request, HttpServletResponse response) {
 
     String startFirstReceivement, endLastReceivement, luogo, giorno;
     String oraInizio, oraFine;
     HttpSession session = request.getSession();
-    Professore prof  = (Professore) session.getAttribute("user");
+    Professore prof = (Professore) session.getAttribute("user");
     startFirstReceivement = request.getParameter("inizio");
     endLastReceivement = request.getParameter("fine");
     luogo = request.getParameter("luogo");
-    giorno = startFirstReceivement.substring(0,10).trim();
+    giorno = startFirstReceivement.substring(0, 10).trim();
     oraInizio = startFirstReceivement.substring(10).trim();
     oraFine = endLastReceivement.substring(10).trim();
 
+    System.out.println(
+        giorno + "\n" + oraInizio  + "\n" + oraFine
+    );
+
     String temp = oraInizio;
 
-    while(!temp.equals(oraFine)) {
+    while (!temp.equals(oraFine)) {
       int hh, mm;
       Ricevimento r = new Ricevimento();
       r.setData(giorno);
@@ -53,9 +58,9 @@ public class ReceivementServlet extends HttpServlet {
       hh = Integer.parseInt(temp.substring(0, 2));
       mm = Integer.parseInt(temp.substring(3, 5));
 
-      if (mm == 0)
+      if (mm == 0) {
         temp = hh + ":30";
-      else {
+      } else {
         hh++;
         temp = hh + ":00";
       }
@@ -65,13 +70,24 @@ public class ReceivementServlet extends HttpServlet {
 
       try {
         dm.creaRicevimento(r);
-      }
-      catch (SQLException ex)
-      {
+      } catch (SQLException ex) {
         ex.printStackTrace();
+        try {
+          response.getWriter().println("FAILURE");
+        } catch (IOException ioex) {
+          ioex.printStackTrace();
+        }
       }
     }
 
+    try {
+      response.getWriter().println("SUCCESS");
+
+    }
+    catch (IOException ex)
+    {
+      ex.printStackTrace();
+    }
 
 
   }

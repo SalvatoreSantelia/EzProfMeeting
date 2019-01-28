@@ -19,7 +19,7 @@
 
 
 
- button, a
+.mymodal button, .mymodal a
 {
     padding: 10px 0 10px 0;
     width: 30%;
@@ -33,7 +33,7 @@
 
 
 
-button:hover, a:hover
+.mymodal button:hover, .mymodal a:hover
 {
     color: #cdfafa;
     border-image: linear-gradient(to top, #3295c7 0%, #0ac8b9 49%, #cdfafa 100%);
@@ -42,7 +42,7 @@ button:hover, a:hover
     cursor: pointer;
 }
 
-a
+.mymodal a
 {
     color: #cdfafa !important;
     padding-left: 10px;

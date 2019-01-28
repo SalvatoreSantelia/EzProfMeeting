@@ -1,6 +1,7 @@
 package myJava.model.professore;
 
 import myJava.control.connection.DriverManagerConnectionPool;
+import myJava.model.beans.Professore;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
 
@@ -25,11 +26,11 @@ public class ReceivementManager {
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(insertSQL);
-            preparedStatement.setString(2, ricevimento.getOrarioInizio());
-            preparedStatement.setString(3, ricevimento.getOrarioFine());
-            preparedStatement.setString(4, ricevimento.getLuogo());
-            preparedStatement.setString(5, ricevimento.getData());
-            preparedStatement.setInt(6, ricevimento.getIdProfessore());
+            preparedStatement.setString(1, ricevimento.getOrarioInizio());
+            preparedStatement.setString(2, ricevimento.getOrarioFine());
+            preparedStatement.setString(3, ricevimento.getLuogo());
+            preparedStatement.setString(4, ricevimento.getData());
+            preparedStatement.setInt(5, ricevimento.getIdProfessore());
             preparedStatement.executeUpdate();
 
             connection.commit();
@@ -199,6 +200,39 @@ try {
         return students;
 
 
+    }
+
+
+    public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof)
+    {
+        Connection connection = null;
+        ArrayList<Ricevimento> lista = new ArrayList<>();
+        DateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            //creating prepared statement for our required query
+            PreparedStatement statement = connection.prepareStatement(
+                "SELECT *  from ricevimento where idProfessore= ? ");
+            statement.setInt(1, prof.getIdProfessore());
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Ricevimento ricevimento = new Ricevimento();
+                ricevimento.setIdRicevimento(rs.getInt("idRicevimento"));
+                Time start = rs.getTime("orarioInizio");
+                ricevimento.setOrarioInizio(simpleDateFormat.format(start.getTime()));
+                Time fine = rs.getTime("orarioFine");
+                ricevimento.setOrarioFine(simpleDateFormat.format(fine.getTime()));
+                ricevimento.setLuogo(rs.getString("luogo"));
+                ricevimento.setData(rs.getString("data"));
+                ricevimento.setIdProfessore(rs.getInt("idProfessore"));
+                lista.add(ricevimento);
+            }
+            connection.close();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        return lista;
     }
 
 
