@@ -14,11 +14,13 @@ public class AccessMangerTest {
     @Test
     public void testDoLogin()throws SQLException {
         AccessManager am=new AccessManager();
-        User user=new User("miaemail","miapassword","studente");
-        Assert.assertEquals(user.getEmail(),am.doLogin("miaemail","miapassword").getEmail());
+        User user=new User("mia@email.it","miapassword2","studente");
+        Assert.assertEquals(user.getEmail(),am.doLogin("mia@email.it","miapassword2").getEmail());
 
-        Assert.assertEquals(user.getPassword(),am.doLogin("miaemail","miapassword").getPassword());
-        Assert.assertEquals(user.getTipo(),am.doLogin("miaemail","miapassword").getTipo());
+        Assert.assertEquals(user.getPassword(),am.doLogin("mia@email.it","miapassword2").getPassword());
+      Assert.assertEquals(user.getTipo(),am.doLogin("mia@email.it","miapassword2").getTipo());
+        Assert.assertNull(am.doLogin("miamailsbagiata","d"));
+
     }
     @Test
     public void testGetProfessoreByEmail()throws SQLException{
@@ -43,6 +45,6 @@ public class AccessMangerTest {
         Assert.assertEquals(stu.getMatricola(),am.getStudenteByEmail("s.santelia1@studenti.unisa.it").getMatricola());
         Assert.assertEquals(stu.getEmailStudente(),am.getStudenteByEmail("s.santelia1@studenti.unisa.it").getEmailStudente());
         Assert.assertEquals(stu.getTelefonoStudente(),am.getStudenteByEmail("s.santelia1@studenti.unisa.it").getTelefonoStudente());
-
+        Assert.assertNull(am.getStudenteByEmail("dsadasdsdasdsad"));
     }
 }

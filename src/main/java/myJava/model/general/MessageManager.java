@@ -20,13 +20,14 @@ public class MessageManager {
         ArrayList<Studente> studenti = new ArrayList<Studente>();
         DataManager dm = new DataManager();
         PreparedStatement preparedStatement = null;
-        System.out.println(idStudente+idProfessore+testo+lato+"a");
+        //System.out.println(idStudente+idProfessore+testo+lato+"a");
         String insertSQL = "insert into " + "messaggio"
                 + " (dataMessaggio, testoMessaggio,idProfessore ,idStudente,lato, orarioMessaggio) values (?, ?, ?, ?, ?, ?)";
 
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(insertSQL);
+
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date();
             SimpleDateFormat formatterr = new SimpleDateFormat("HH:mm:ss");
@@ -37,7 +38,11 @@ public class MessageManager {
             preparedStatement.setInt(4, idStudente);
             preparedStatement.setString(5, lato);
             preparedStatement.setString(6,formatterr.format(System.currentTimeMillis()));
-            preparedStatement.executeUpdate();
+           if( preparedStatement.executeUpdate()==0)
+           {
+
+               throw new Exception();
+           }
 
             connection.commit();
             preparedStatement.close();
@@ -49,9 +54,10 @@ public class MessageManager {
         }
     }
 
-
-
     public ArrayList<Studente> getStudentiContattati(int idProf) throws SQLException {
+        if(idProf==0){
+            return null;
+        }
         Connection connection = null;
         ArrayList<Studente> studenti = new ArrayList<Studente>();
         DataManager dm = new DataManager();
@@ -61,7 +67,11 @@ public class MessageManager {
             PreparedStatement statement = connection.prepareStatement("SELECT DISTINCT *  from messaggio where idProfessore = ? GROUP BY idStudente ORDER BY dataMessaggio,orarioMessaggio DESC");
             statement.setInt(1,idProf);
             ResultSet rs = statement.executeQuery();
+            if(!rs.next()){
 
+                throw new Exception();
+            }
+rs.previous();
             while (rs.next()) {
                 Messaggio messaggio = new Messaggio();
                 messaggio.setIdMessaggio(rs.getInt("idMessaggio"));
@@ -72,24 +82,20 @@ public class MessageManager {
             connection.close();
         } catch (Exception e) {
 
+
             e.printStackTrace();
+            return null;
         }
         return studenti;
     }
 
 
-
-
-
-
-
-
-
-
-
-
     //get Last Messaggio
     public Messaggio getLastDataMessaggio(int idStudente, int idProfessore){
+        if(idProfessore==0||idStudente==0){
+
+            return null;
+        }
         Connection connection = null;
         Messaggio messaggio = new Messaggio();
         try {
@@ -99,6 +105,11 @@ public class MessageManager {
             statement.setInt(1,idProfessore);
             statement.setInt(2,idStudente);
             ResultSet rs = statement.executeQuery();
+            if(!rs.next()){
+
+                throw new Exception();
+            }
+            rs.previous();
             while(rs.next()){
                 messaggio.setIdMessaggio(rs.getInt("idMessaggio"));
                 messaggio.setDataMessaggio(rs.getDate("dataMessaggio"));
@@ -115,14 +126,18 @@ public class MessageManager {
         } catch (Exception e) {
 
             e.printStackTrace();
+            return null;
         }
         return messaggio;
     }
 
 
-
     //get ArrayList di messaggi
     public ArrayList<Messaggio> getArrayListMessaggio(int idStudente, int idProfessore){
+        if(idProfessore==0||idStudente==0) {
+
+            return null;
+        }
         Connection connection = null;
         ArrayList<Messaggio> messaggi = new ArrayList<Messaggio>();
         try {
@@ -132,7 +147,10 @@ public class MessageManager {
             statement.setInt(1,idProfessore);
             statement.setInt(2,idStudente);
             ResultSet rs = statement.executeQuery();
-
+            if(!rs.next()){
+                throw new Exception();
+            }
+             rs.previous();
             while(rs.next()){
                 Messaggio messaggio = new Messaggio();
                 messaggio.setIdMessaggio(rs.getInt("idMessaggio"));
@@ -143,11 +161,21 @@ public class MessageManager {
                 messaggio.setIdProfessore(rs.getInt("idProfessore"));
                 messaggio.setLato(rs.getString("lato"));
                 messaggi.add(messaggio);
+
             }
+            for(Messaggio m: messaggi ){
+
+                System.out.println(m.getIdMessaggio());
+            }
+
+           // System.out.println(messaggi);
+          //  System.out.println(messaggi.get(1));
             connection.close();
         } catch (Exception e) {
 
             e.printStackTrace();
+            return null;
+
         }
         return messaggi;
     }

@@ -40,7 +40,7 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES ('miaemail','miapassword','studente');
+INSERT INTO `login` VALUES ('mia@email.it','miapassword2','studente'),('miaemail','miapassword','studente');
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,17 +52,19 @@ DROP TABLE IF EXISTS `messaggio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `messaggio` (
-  `idMessaggio` int(11) NOT NULL,
+  `idMessaggio` int(11) NOT NULL AUTO_INCREMENT,
   `dataMessaggio` date NOT NULL,
   `testoMessaggio` varchar(45) NOT NULL,
   `idProfessore` int(11) DEFAULT NULL,
   `idStudente` int(11) DEFAULT NULL,
+  `lato` varchar(45) DEFAULT NULL,
+  `orarioMessaggio` time(6) DEFAULT NULL,
   PRIMARY KEY (`idMessaggio`),
   KEY `idProfessore_idx` (`idProfessore`),
   KEY `idStudente_idx` (`idStudente`),
   CONSTRAINT `idProfessore` FOREIGN KEY (`idProfessore`) REFERENCES `professore` (`idProfessore`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idStudente` FOREIGN KEY (`idStudente`) REFERENCES `studente` (`idStudente`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +73,7 @@ CREATE TABLE `messaggio` (
 
 LOCK TABLES `messaggio` WRITE;
 /*!40000 ALTER TABLE `messaggio` DISABLE KEYS */;
-INSERT INTO `messaggio` VALUES (1,'2019-12-12','ciao',2,2),(2,'2019-12-12','ciao',1,1),(3,'2019-11-10','hey',1,2);
+INSERT INTO `messaggio` VALUES (1,'2019-12-12','ciao',2,2,'studente','12:12:24.000000'),(2,'2019-12-12','ciao',1,1,'professore','14:23:59.000000'),(3,'2019-11-10','hey',1,2,'stuente','17:18:35.000000'),(4,'2019-01-28','CIAOPROF',1,1,'studente','11:28:33.000000'),(5,'2019-01-28','CIAOPROF',1,1,'studente','15:37:20.000000'),(6,'2019-01-28','CIAOPROF',1,1,'studente','16:11:54.000000'),(7,'2019-01-28','CIAOPROF',1,1,'studente','16:58:57.000000');
 /*!40000 ALTER TABLE `messaggio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,7 +106,7 @@ CREATE TABLE `prenotazione` (
 
 LOCK TABLES `prenotazione` WRITE;
 /*!40000 ALTER TABLE `prenotazione` DISABLE KEYS */;
-INSERT INTO `prenotazione` VALUES (1,'Rocco Aliberti','nesuna','11:12:36',2,1,''),(2,'Rocco Aliberti - Luca Postiglione','Sono stupido','11:59:59',2,2,'\0'),(3,'Rocco Aliberti','nesuna','11:12:36',2,2,'\0'),(5,'Rocco Aliberti','nesuna','11:12:36',2,1,'\0');
+INSERT INTO `prenotazione` VALUES (1,'Rocco Aliberti','nesuna','11:12:36',2,1,''),(2,'Rocco Aliberti - Luca Postiglione','Sono stupido','11:59:59',2,2,'\0'),(3,'Rocco Aliberti','nesuna','11:12:36',2,2,'\0'),(4,'Rocco Aliberti','nesuna','11:12:36',2,1,'');
 /*!40000 ALTER TABLE `prenotazione` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,7 +193,7 @@ CREATE TABLE `studente` (
 
 LOCK TABLES `studente` WRITE;
 /*!40000 ALTER TABLE `studente` DISABLE KEYS */;
-INSERT INTO `studente` VALUES (1,'Salvatore','Santelia','0512104001','s.santelia1@studenti.unisa.it','3334455678',5),(2,'Rocco','Aliberti','0512104627','r.aliberti18@studenti.unisa.it','3334455678',1);
+INSERT INTO `studente` VALUES (1,'Salvatore','Santelia','0512104001','s.santelia1@studenti.unisa.it','3334455678',15),(2,'Rocco','Aliberti','0512104627','r.aliberti18@studenti.unisa.it','3334455678',1);
 /*!40000 ALTER TABLE `studente` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -204,4 +206,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-24 16:37:05
+-- Dump completed on 2019-01-28 17:00:50
