@@ -66,8 +66,13 @@ public class ReceivementServlet extends HttpServlet {
         temp = hh + ":00";
       }
 
+      if(hh==9)
+        temp = "0" + temp;
+
       r.setOrarioFine(temp);
       r.setIdProfessore(prof.getIdProfessore());
+
+      System.out.println(r);
 
       try {
         dm.creaRicevimento(r);
