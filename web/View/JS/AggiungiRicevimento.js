@@ -24,12 +24,13 @@ $(document).ready(function() {
         var start, end, luogo, numPosti;
         start = $("#startHour").val();
         end = $("#endHour").val();
+
         luogo = $("#place").val();
 
         $.ajax(
             {
                 type: "POST",
-                url: "receivement",
+                url: "../General/receivement",
                 data:
                     {
                         inizio: start,
@@ -38,11 +39,7 @@ $(document).ready(function() {
                         operazione: "inserimento"
                     },
                 success: function (results) {
-                    if(results!=null && results!="" && results!="FAILURE")
-                    {
-                        alert("fungeee")
-                        $( "#container" ).load(window.location.href + " #container" );
-                    }
+                    document.location="../Professore/HomeProfessore.jsp";
                 }
 
             });

@@ -59,6 +59,7 @@
             Professore prof = (Professore) session.getAttribute("user");
             DataManager dm = new DataManager();
             ArrayList<Ricevimento> lista = dm.getRicevimentiByProf(prof);
+            System.out.println(lista);
             sdf = new SimpleDateFormat("YYYY-MM-DD");
             String[] settimana = new String[5];
             for (int i = 0; i < 5; i++) {
@@ -127,7 +128,9 @@
                     boolean find = false;
                     for (Ricevimento r : lista) {
 
-                        if ((r.getData() + " " + r.getOrarioInizio()).equals(settimana[j] + " " + ora + ":" + minuti)) {
+
+                        if ((r.getData() + " " + r.getOrarioInizio()).equals(settimana[j] + " " + ora + ":" + minuti) ||
+                                (r.getData() + " " + r.getOrarioInizio()).equals(settimana[j] + " 0" + ora + ":" + minuti) ) {
 
 
             %>
@@ -155,12 +158,13 @@
                     boolean find = false;
                     for (Ricevimento r : lista) {
 
-                        if ((r.getData() + " " + r.getOrarioInizio()).equals(settimana[j] + " " + ora + ":" + minuti)) {
+                        if ((r.getData() + " " + r.getOrarioInizio()).equals(settimana[j] + " " + ora + ":" + minuti)||
+                                (r.getData() + " " + r.getOrarioInizio()).equals(settimana[j] + " 0" + ora + ":" + minuti)) {
 
 
             %>
-            <td id=<%=settimana[j] + " 0" + ora + ":" + minuti%>>
-                <button id="<%=r.getIdRicevimento()%>" data-exist="true"><i class="far fa-edit"></i></button>
+            <td data-exist="true" id=<%=settimana[j] + " 0" + ora + ":" + minuti%>>
+                <button id="<%=r.getIdRicevimento()%>" ><i class="far fa-edit"></i></button>
             </td>
             <%
                         find = true;
@@ -168,8 +172,13 @@
                     }
                 }
 
-                if (!find) { %>
-            <td id="<%=settimana[j] + " 0" +ora+":"+minuti%>" data-end="<%=settimana[j] + " 0" +oraFine+":"+minutiFine%>"
+                if (!find) {
+                  String zero =" ";
+                  if(!minuti.equals("30"))
+                    zero = " 0";
+
+            %>
+            <td id="<%=settimana[j] + " 0" +ora+":"+minuti%>" data-end="<%=settimana[j] + zero +oraFine+":"+minutiFine%>"
                 data-exist="false" style="background-color:rgb(255, 255, 255);"></td>
 
             <%

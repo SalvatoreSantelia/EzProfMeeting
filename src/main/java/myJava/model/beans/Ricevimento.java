@@ -72,6 +72,17 @@ public class Ricevimento implements Serializable {
   public void setIdProfessore(int idProfessore) {
     this.idProfessore = idProfessore;
 
+  }
 
+  @Override
+  public String toString() {
+    return "Ricevimento{" +
+        "idRicevimento=" + idRicevimento +
+        ", orarioInizio='" + orarioInizio + '\'' +
+        ", orarioFine='" + orarioFine + '\'' +
+        ", luogo='" + luogo + '\'' +
+        ", data='" + data + '\'' +
+        ", idProfessore=" + idProfessore +
+        '}';
   }
 }
