@@ -21,6 +21,14 @@
 <body id="StudenteForm">
 
 
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <%@include file="VisualizzaPrenotazioni.jsp"%>
+        </div>
+    </div>
+</div>
+
 
 
 <div class="divStudente">
@@ -34,12 +42,12 @@
             <ul id="menu-content" class="menu-content collapse out">
 
                 <li>
-                    <a href="#">
-                        <i class="fa fa-dashboard fa-lg"></i> Visualizza Prenotazione
+                    <a href="#"  data-toggle="modal" data-target=".bd-example-modal-lg">
+                        <i class="fa fa-dashboard fa-lg" ></i> Visualizza Prenotazione
                     </a>
                 </li>
                 <li>
-                    <a href="../General/Messaggi.jsp">
+                    <a href="../General/MessaggiStudente.jsp">
                         <i class="fa fa-dashboard fa-lg"></i><img src="../img/messageIcon.png" style="width:20px"> Messaggi
                     </a>
                 </li>
@@ -59,7 +67,7 @@
             <br>
             <!-- contacts card -->
             <%
-                DataManager dataManager = new DataManager();
+                dataManager = new DataManager();
                 List<Professore> professori = dataManager.visualizzaProfessori();
                 int count=0;
             %>
