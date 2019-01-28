@@ -26,7 +26,6 @@ public class MessageServlet extends HttpServlet {
         System.out.println("A");
         ArrayList<Messaggio> messaggi = dm.getArrayListMessaggio(idStudente,idProfessore);
         String risposta="";
-        System.out.println(messaggi.size());
         if(messaggi.size()!=0) {
             risposta = "[";
             int i = 0;
