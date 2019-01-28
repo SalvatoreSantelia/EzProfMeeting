@@ -965,6 +965,7 @@
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="244" parent="230" name="dataMessaggio">
@@ -989,83 +990,93 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="248" parent="230" name="idProfessore_idx">
+    <column id="248" parent="230" name="lato">
+      <Position>6</Position>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="249" parent="230" name="orarioMessaggio">
+      <Position>7</Position>
+      <DataType>time(6)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="250" parent="230" name="idProfessore_idx">
       <ColNames>idProfessore</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="249" parent="230" name="idStudente_idx">
+    <index id="251" parent="230" name="idStudente_idx">
       <ColNames>idStudente</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="250" parent="230" name="PRIMARY">
+    <key id="252" parent="230" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idMessaggio</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="251" parent="230" name="idProfessore">
+    <foreign-key id="253" parent="230" name="idProfessore">
       <ColNames>idProfessore</ColNames>
       <RefSchemaName>ezprofmeeting</RefSchemaName>
       <RefTableName>professore</RefTableName>
       <RefColNames>idProfessore</RefColNames>
     </foreign-key>
-    <foreign-key id="252" parent="230" name="idStudente">
+    <foreign-key id="254" parent="230" name="idStudente">
       <ColNames>idStudente</ColNames>
       <RefSchemaName>ezprofmeeting</RefSchemaName>
       <RefTableName>studente</RefTableName>
       <RefColNames>idStudente</RefColNames>
     </foreign-key>
-    <column id="253" parent="231" name="idPrenotazione">
+    <column id="255" parent="231" name="idPrenotazione">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="254" parent="231" name="listaStudenti">
+    <column id="256" parent="231" name="listaStudenti">
       <Position>2</Position>
       <DataType>varchar(80)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="255" parent="231" name="motivazione">
+    <column id="257" parent="231" name="motivazione">
       <Position>3</Position>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="256" parent="231" name="orario">
+    <column id="258" parent="231" name="orario">
       <Position>4</Position>
       <DataType>time|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="257" parent="231" name="idRicevimento">
+    <column id="259" parent="231" name="idRicevimento">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="258" parent="231" name="idStudente">
+    <column id="260" parent="231" name="idStudente">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="231" name="presenza">
+    <column id="261" parent="231" name="presenza">
       <Position>7</Position>
       <DataType>bit(1)|0s</DataType>
       <DefaultExpression>b&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="260" parent="231" name="idRicevimento">
+    <index id="262" parent="231" name="idRicevimento">
       <ColNames>idRicevimento</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="261" parent="231" name="idStud_idx">
+    <index id="263" parent="231" name="idStud_idx">
       <ColNames>idStudente</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="262" parent="231" name="PRIMARY">
+    <key id="264" parent="231" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idPrenotazione</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="263" parent="231" name="idRicevimento">
+    <foreign-key id="265" parent="231" name="idRicevimento">
       <ColNames>idRicevimento</ColNames>
       <RefSchemaName>ezprofmeeting</RefSchemaName>
       <RefTableName>ricevimento</RefTableName>
@@ -1073,7 +1084,7 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="264" parent="231" name="idStud">
+    <foreign-key id="266" parent="231" name="idStud">
       <ColNames>idStudente</ColNames>
       <RefSchemaName>ezprofmeeting</RefSchemaName>
       <RefTableName>studente</RefTableName>
@@ -1081,91 +1092,91 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="265" parent="232" name="idProfessore">
+    <column id="267" parent="232" name="idProfessore">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="266" parent="232" name="nomeProfessore">
+    <column id="268" parent="232" name="nomeProfessore">
       <Position>2</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="267" parent="232" name="cognomeProfessore">
+    <column id="269" parent="232" name="cognomeProfessore">
       <Position>3</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="268" parent="232" name="emailProfessore">
+    <column id="270" parent="232" name="emailProfessore">
       <Position>4</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="269" parent="232" name="telefonoProfessore">
+    <column id="271" parent="232" name="telefonoProfessore">
       <Position>5</Position>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="270" parent="232" name="ufficioProfessore">
+    <column id="272" parent="232" name="ufficioProfessore">
       <Position>6</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="271" parent="232" name="PRIMARY">
+    <key id="273" parent="232" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idProfessore</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="272" parent="233" name="idRicevimento">
+    <column id="274" parent="233" name="idRicevimento">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="273" parent="233" name="orarioInizio">
+    <column id="275" parent="233" name="orarioInizio">
       <Position>2</Position>
       <DataType>time|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="274" parent="233" name="orarioFine">
+    <column id="276" parent="233" name="orarioFine">
       <Position>3</Position>
       <DataType>time|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="275" parent="233" name="luogo">
+    <column id="277" parent="233" name="luogo">
       <Position>4</Position>
       <DataType>varchar(80)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="276" parent="233" name="data">
+    <column id="278" parent="233" name="data">
       <Position>5</Position>
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="277" parent="233" name="idProfessore">
+    <column id="279" parent="233" name="idProfessore">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="278" parent="233" name="idProfessore_idx">
+    <index id="280" parent="233" name="idProfessore_idx">
       <ColNames>idProfessore</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="279" parent="233" name="PRIMARY">
+    <key id="281" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idRicevimento</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="280" parent="233" name="idProf">
+    <foreign-key id="282" parent="233" name="idProf">
       <ColNames>idProfessore</ColNames>
       <RefSchemaName>ezprofmeeting</RefSchemaName>
       <RefTableName>professore</RefTableName>
@@ -1173,48 +1184,48 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="281" parent="234" name="idStudente">
+    <column id="283" parent="234" name="idStudente">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="282" parent="234" name="nomeStudente">
+    <column id="284" parent="234" name="nomeStudente">
       <Position>2</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="283" parent="234" name="cognomeStudente">
+    <column id="285" parent="234" name="cognomeStudente">
       <Position>3</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="234" name="matricola">
+    <column id="286" parent="234" name="matricola">
       <Position>4</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="234" name="emailStudente">
+    <column id="287" parent="234" name="emailStudente">
       <Position>5</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="286" parent="234" name="telefonoStudente">
+    <column id="288" parent="234" name="telefonoStudente">
       <Position>6</Position>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="287" parent="234" name="numAssenza">
+    <column id="289" parent="234" name="numAssenza">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="288" parent="234" name="PRIMARY">
+    <key id="290" parent="234" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idStudente</ColNames>
       <Primary>1</Primary>

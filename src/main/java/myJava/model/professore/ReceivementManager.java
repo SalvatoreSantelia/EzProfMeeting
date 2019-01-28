@@ -3,8 +3,7 @@ package myJava.model.professore;
 import myJava.control.connection.DriverManagerConnectionPool;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
-import org.mockito.internal.verification.Times;
-import sun.java2d.pipe.SpanShapeRenderer;
+
 
 import java.security.spec.ECField;
 
