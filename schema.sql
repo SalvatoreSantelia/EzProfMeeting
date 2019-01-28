@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS `messaggio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `messaggio` (
-  `idMessaggio` int(11) NOT NULL,
+  `idMessaggio` int(11) NOT NULL auto_increment,
   `dataMessaggio` date NOT NULL,
   `testoMessaggio` varchar(45) NOT NULL,
   `idProfessore` int(11) DEFAULT NULL,
@@ -83,7 +83,7 @@ DROP TABLE IF EXISTS `prenotazione`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prenotazione` (
-  `idPrenotazione` int(11) NOT NULL,
+  `idPrenotazione` int(11) NOT NULL auto_increment,
   `listaStudenti` varchar(80) DEFAULT NULL,
   `motivazione` varchar(45) DEFAULT NULL,
   `orario` time NOT NULL,
@@ -116,7 +116,7 @@ DROP TABLE IF EXISTS `professore`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `professore` (
-  `idProfessore` int(11) NOT NULL,
+  `idProfessore` int(11) NOT NULL auto_increment,
   `nomeProfessore` varchar(45) NOT NULL,
   `cognomeProfessore` varchar(45) NOT NULL,
   `emailProfessore` varchar(45) NOT NULL,
@@ -144,7 +144,7 @@ DROP TABLE IF EXISTS `ricevimento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ricevimento` (
-  `idRicevimento` int(11) NOT NULL,
+  `idRicevimento` int(11) NOT NULL auto_increment,
   `orarioInizio` time NOT NULL,
   `orarioFine` time NOT NULL,
   `luogo` varchar(80) NOT NULL,
@@ -174,7 +174,7 @@ DROP TABLE IF EXISTS `studente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `studente` (
-  `idStudente` int(11) NOT NULL,
+  `idStudente` int(11) NOT NULL auto_increment,
   `nomeStudente` varchar(45) NOT NULL,
   `cognomeStudente` varchar(45) NOT NULL,
   `matricola` varchar(45) NOT NULL,

@@ -15,7 +15,7 @@ $(document).ready(function(){
                      "<span class=\"time_date\">"+item.data+" "+item.orario+"</span></div>"+
                      "</div>");
                  $("#data"+idProfessore).text("");
-                 $("#data"+idProfessore).text(item.data+" "+item.orario);
+                 $("#data"+idProfessore).text(item.data+" "+item.orario)
              }
              if((item.lato).localeCompare("studente")) {
                  $(".msg_history").append("<div class=\"incoming_msg\">" +

@@ -14,18 +14,17 @@ import java.util.List;
 public class ReceivementManager {
 
 
-    public boolean creaRicevimento(Ricevimento ricevimento)throws SQLException {
+    public boolean creaRicevimento(Ricevimento ricevimento) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         String insertSQL = "insert into " + "ricevimento"
-                + " (idRicevimento,orarioInizio,orarioFine,luogo,data,idProfessore) values (?, ?, ?, ?, ?, ?)";
+                + " (orarioInizio,orarioFine,luogo,data,idProfessore) values ( ?, ?, ?, ?, ?)";
 
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(insertSQL);
-            preparedStatement.setInt(1, ricevimento.getIdRicevimento());
             preparedStatement.setString(2, ricevimento.getOrarioInizio());
             preparedStatement.setString(3, ricevimento.getOrarioFine());
             preparedStatement.setString(4, ricevimento.getLuogo());
