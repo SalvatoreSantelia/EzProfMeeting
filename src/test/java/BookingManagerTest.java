@@ -3,13 +3,12 @@ import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
 import myJava.model.studente.BookingManager;
 import org.junit.Assert;
-import org.junit.Before;
+
 import org.junit.Test;
-import org.mockito.InjectMocks;
+
 import org.mockito.Mock;
 
 
-import javax.persistence.SqlResultSetMapping;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
