@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 @WebServlet(name = "ReceivementServlet")
@@ -82,6 +83,8 @@ public class ReceivementServlet extends HttpServlet {
         } catch (IOException ioex) {
           ioex.printStackTrace();
         }
+      } catch (ParseException e) {
+        e.printStackTrace();
       }
     }
 

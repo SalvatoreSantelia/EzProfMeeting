@@ -8,6 +8,7 @@ import myJava.model.professore.ReceivementManager;
 import myJava.model.studente.BookingManager;
 
 import java.sql.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class DataManager {
 
     }
 
-    public boolean creaRicevimento(Ricevimento ricevimento) throws SQLException {
+    public boolean creaRicevimento(Ricevimento ricevimento) throws SQLException, ParseException {
         if (ricevimento != null)
             return rm.creaRicevimento(ricevimento);
         else
@@ -40,7 +41,7 @@ public class DataManager {
         else return false;
     }
 
-    public Ricevimento visualizzaRicevimento(String oraInizio, String oraFine, String data) throws SQLException {
+    public Ricevimento visualizzaRicevimento(String oraInizio, String oraFine, String data) throws SQLException ,ParseException{
 
 
         if (!oraInizio.equals("") && oraInizio != null && !oraFine.equals("") && oraFine != null && data != null)
@@ -214,10 +215,10 @@ public class DataManager {
     }
 
 
-    public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof)
+   /** public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof)
     {
         return rm.getRicevimentiByProf(prof);
-    }
+    }*/
 
     public ArrayList<Studente> getStudentiContattati(int idProf) throws SQLException {
         return mm.getStudentiContattati(idProf);

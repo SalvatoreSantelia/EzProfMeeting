@@ -1,8 +1,6 @@
 package myJava.model.beans;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
 
 public class Ricevimento implements Serializable {
 
