@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 @WebServlet(name = "ReceivementServlet")
@@ -65,8 +66,13 @@ public class ReceivementServlet extends HttpServlet {
         temp = hh + ":00";
       }
 
+      if(hh==9)
+        temp = "0" + temp;
+
       r.setOrarioFine(temp);
       r.setIdProfessore(prof.getIdProfessore());
+
+      System.out.println(r);
 
       try {
         dm.creaRicevimento(r);
@@ -77,6 +83,8 @@ public class ReceivementServlet extends HttpServlet {
         } catch (IOException ioex) {
           ioex.printStackTrace();
         }
+      } catch (ParseException e) {
+        e.printStackTrace();
       }
     }
 

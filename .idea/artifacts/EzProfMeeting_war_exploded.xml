@@ -8,6 +8,8 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="module" name="JUnit4" module-name="EzProfMeeting" />
+          <element id="library" level="project" name="mysql-connector-java-5.1.45-bin" />
+          <element id="library" level="project" name="mockito-all-2.0.2-beta" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="EzProfMeeting/web/Web" />

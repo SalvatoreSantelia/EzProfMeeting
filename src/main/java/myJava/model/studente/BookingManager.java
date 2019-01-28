@@ -1,8 +1,9 @@
 package myJava.model.studente;
 
-import myJava.control.connection.DriverManagerConnectionPool;
 import myJava.model.beans.Prenotazione;
-
+import myJava.control.connection.DriverManagerConnectionPool;
+import myJava.model.beans.Ricevimento;
+import myJava.model.beans.Studente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,9 @@ public class BookingManager {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
+        if( prenotazione.getListaStudenti()==null||!checkNomiAltriStudenti(prenotazione.getListaStudenti())||!checkMotivoRicevimento(prenotazione.getMotivazione())){
+            return false;
+        }
         String insertSQL = "insert into " + "prenotazione"
                 + " (idPrenotazione, listaStudenti,motivazione ,orario,idRicevimento,idStudente,presenza) values (?, ?, ?, ?, ?, ?,?)";
 
@@ -48,11 +52,13 @@ public class BookingManager {
         }
 
     }
-    //metodo da spostare in ReceivementManager
-
 
 
     public List<Prenotazione> visualizzaPrenotazioni(int idStudente)throws SQLException{
+
+if(idStudente==0){
+    return null;
+}
         Connection connection = null;
 
         List<Prenotazione> bookings =new ArrayList<>();
@@ -64,6 +70,11 @@ public class BookingManager {
             //setting the parameters
             statement.setInt(1,idStudente);
             ResultSet rs = statement.executeQuery();
+            if(!rs.next()){
+
+                throw new Exception();
+            }
+            rs.previous();
             while(rs.next()){
                 Prenotazione prenotation=new Prenotazione();
                 prenotation.setIdPrenotazione(rs.getInt(1));
@@ -73,6 +84,7 @@ public class BookingManager {
                 prenotation.setIdRicevimento(rs.getInt(5));
                 prenotation.setIdStudente(rs.getInt(6));
                 prenotation.setPresenza(rs.getBoolean(7));
+                System.out.println(prenotation.getIdPrenotazione());
                 bookings.add(prenotation);
             }
         } catch (Exception e) {
@@ -80,44 +92,17 @@ public class BookingManager {
             e.printStackTrace();
             return null;
         }
+
         return bookings;
 
     }
 
-
-    //get Prenotazione by id
-    public Prenotazione getPranotazioneById(int idPrenotazione)throws SQLException{
-        Connection connection = null;
-
-        Prenotazione prenotazione = new Prenotazione();
-        try
-        {
-            connection = DriverManagerConnectionPool.getConnection();
-            //creating prepared statement for our required query
-            PreparedStatement statement = connection.prepareStatement("SELECT *  from prenotazione WHERE idPrenotazione = ?");
-            //setting the parameters
-            statement.setInt(1,idPrenotazione);
-            ResultSet rs = statement.executeQuery();
-            while(rs.next()){
-                prenotazione.setIdPrenotazione(rs.getInt(1));
-                prenotazione.setListaStudenti(rs.getString(2));
-                prenotazione.setMotivazione(rs.getString(3));
-                prenotazione.setOrario(rs.getString(4));
-                prenotazione.setIdRicevimento(rs.getInt(5));
-                prenotazione.setIdStudente(rs.getInt(6));
-                prenotazione.setPresenza(rs.getBoolean(7));
-            }
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            return null;
-        }
-        return prenotazione;
-
-    }
-
     public boolean eliminaPrenotazione(Prenotazione prenotazione)throws SQLException{
+        if(prenotazione.getMotivazione()==null)
+        {
+            return false;
 
+        }
         Connection connection=null;
 
         connection=DriverManagerConnectionPool.getConnection();
@@ -133,5 +118,27 @@ try {
     return false;
 }
        return true;
+    }
+
+    private boolean checkMotivoRicevimento(String motivazione){
+        if(motivazione.equals("")||motivazione.length()>60) {
+
+         return false;
+        }
+        return true;
+
+    }
+    private boolean checkNomiAltriStudenti(String nomiAltriStudenti){
+
+        if(nomiAltriStudenti.length()>65000){
+         return false;
+
+        }else return true;
+
+
+    }
+
+    public Prenotazione getPranotazioneById(int idPrenotazione) {
+        return null;
     }
 }

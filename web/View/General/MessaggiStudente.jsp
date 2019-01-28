@@ -45,7 +45,7 @@
                 <div class="inbox_chat">
 
                     <%
-                        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+                        DateFormat df = new SimpleDateFormat("yyyy-MMM-dd");
                         DateFormat dff = new SimpleDateFormat("HH:mm:ss");
                         int i=0;
                         for(Professore A : professori){
