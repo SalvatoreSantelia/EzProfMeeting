@@ -70,6 +70,11 @@ if(idStudente==0){
             //setting the parameters
             statement.setInt(1,idStudente);
             ResultSet rs = statement.executeQuery();
+            if(!rs.next()){
+
+                throw new Exception();
+            }
+            rs.previous();
             while(rs.next()){
                 Prenotazione prenotation=new Prenotazione();
                 prenotation.setIdPrenotazione(rs.getInt(1));
@@ -79,6 +84,7 @@ if(idStudente==0){
                 prenotation.setIdRicevimento(rs.getInt(5));
                 prenotation.setIdStudente(rs.getInt(6));
                 prenotation.setPresenza(rs.getBoolean(7));
+                System.out.println(prenotation.getIdPrenotazione());
                 bookings.add(prenotation);
             }
         } catch (Exception e) {
@@ -86,6 +92,7 @@ if(idStudente==0){
             e.printStackTrace();
             return null;
         }
+
         return bookings;
 
     }
@@ -129,5 +136,9 @@ try {
         }else return true;
 
 
+    }
+
+    public Prenotazione getPranotazioneById(int idPrenotazione) {
+        return null;
     }
 }

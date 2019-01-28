@@ -1,25 +1,30 @@
 package myJava.model.beans;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Time;
+import java.util.Date;
 
 public class Messaggio implements Serializable {
 
     private int idMessaggio;
-    private String dataMessaggio;
+    private Date dataMessaggio;
+    private Time orarioMessaggio;
     private String testoMessaggio;
     private int idProfessore;
     private int idStudente;
+    private String lato;
 
     public Messaggio() {
     }
 
-    public Messaggio(int idMessaggio, String dataMessaggio, String testoMessaggio, int idProfessore, int idStudente) {
+    public Messaggio(String lato, int idMessaggio, Time orarioMessaggio, Date dataMessaggio, String testoMessaggio, int idProfessore, int idStudente) {
         this.idMessaggio = idMessaggio;
         this.dataMessaggio = dataMessaggio;
+        this.orarioMessaggio = orarioMessaggio;
         this.testoMessaggio = testoMessaggio;
         this.idProfessore = idProfessore;
         this.idStudente = idStudente;
+        this.lato=lato;
     }
 
     public int getIdMessaggio() {
@@ -30,11 +35,11 @@ public class Messaggio implements Serializable {
         this.idMessaggio = idMessaggio;
     }
 
-    public String getDataMessaggio() {
+    public Date getDataMessaggio() {
         return dataMessaggio;
     }
 
-    public void setDataMessaggio(String dataMessaggio) {
+    public void setDataMessaggio(Date dataMessaggio) {
         this.dataMessaggio = dataMessaggio;
     }
 
@@ -50,6 +55,14 @@ public class Messaggio implements Serializable {
         return idProfessore;
     }
 
+    public Time getOrarioMessaggio() {
+        return orarioMessaggio;
+    }
+
+    public void setOrarioMessaggio(Time orarioMessaggio) {
+        this.orarioMessaggio = orarioMessaggio;
+    }
+
     public void setIdProfessore(int idProfessore) {
         this.idProfessore = idProfessore;
     }
@@ -60,5 +73,13 @@ public class Messaggio implements Serializable {
 
     public void setIdStudente(int idStudente) {
         this.idStudente = idStudente;
+    }
+
+    public String getLato() {
+        return lato;
+    }
+
+    public void setLato(String lato) {
+        this.lato = lato;
     }
 }

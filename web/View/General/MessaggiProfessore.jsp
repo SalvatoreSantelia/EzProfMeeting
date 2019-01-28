@@ -16,24 +16,22 @@
 <%
     DataManager dataManager = new DataManager();
 
-        Professore professore = (Professore) session.getAttribute("user");
-        int id = professore.getIdProfessore();
-        ArrayList<Studente> studenti = dataManager.getStudentiContattati(id);
-
-
-
+    Professore professore = (Professore) session.getAttribute("user");
+    int id = professore.getIdProfessore();
+    ArrayList<Studente> studenti = dataManager.getStudentiContattati(id);
 %>
 
 <html>
 <head>
-
+    <script src="../JS/Message.js"></script>
     <link rel="stylesheet" type="text/css" href="../CSS/Message.css">
     <!------ Include the above in your HEAD tag ---------->
 </head>
 
 <body>
+<input type="hidden" id="lato" value="professore">
 <div class="container">
-    <h3 class=" text-center">Messaging</h3>
+    <h3 class=" text-center">Messaging <h5 class="text-center nomeDestinatario"></h5></h3>
     <div class="messaging">
         <div class="inbox_msg">
             <div class="inbox_people">
@@ -46,38 +44,48 @@
                 <div class="inbox_chat">
 
                     <%
-                        for(Studente A : studenti){
+                        DateFormat df = new SimpleDateFormat("yyyy-MMM-dd");
+                        DateFormat dff = new SimpleDateFormat("HH:mm:ss");
+                        int i=0;
+                        for (Studente A : studenti) {
                             Messaggio mess =  dataManager.getLastDataMessaggio(A.getIdStudente(),id);
-                            System.out.println(mess.toString());
-                            Date date = mess.getDataMessaggio();
-                            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                            String data=df.format(date);
-                            if(date == null) data="";
-                            String testo = mess.getTestoMessaggio();
-                            if(testo==null) testo="";
+                            String testo="";
+                            String data="";
+                            if(mess.getDataMessaggio()!=null){
+                                Date date = (Date) mess.getDataMessaggio();
+                                data=df.format(date);
+                                Time time = (Time) mess.getOrarioMessaggio();
+                                data= data+" "+dff.format(time);
+                                testo = mess.getTestoMessaggio();}
 
                     %>
 
-                    <div class="chat_list">
+                    <div class="chat_list chatlista" id="<%=i%>">
                         <div class="chat_people">
                             <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                            <div class="chat_ib">
-                                <h5><%=A.getNomeStudente()%> <%=A.getCognomeStudente()%> <span class="chat_date"><%=data%></span></h5>
-                                <p><%=testo%></p>
+                            <div class="chat_ib" >
+                                <input type="hidden" id="idProfessore<%=i%>" name="idProfessore"  value="<%=id%>">
+                                <input type="hidden" id="idStudente<%=i%>" name="idStudente" value="<%=A.getIdStudente()%>">
+                                <input type="hidden" id="lato<%=i%>" name="lato" value="<%="professore"%>">
+                                <h5><div id="nomecognome<%=i%>"><%=A.getNomeStudente()%> <%=A.getCognomeStudente()%></div> <span class="chat_date" id="data<%=A.getIdStudente()%>"><%=data%></span></h5>
+                                <p id="lastMessaggio<%=A.getIdStudente()%>"><%=testo%></p>
                             </div>
                         </div>
                     </div>
+
+
                     <%
-                        }
+                            i++; }
                     %>
 
                 </div>
             </div>
+
+
+
             <div class="mesgs">
                 <div class="msg_history">
-                    <div class="incoming_msg">
 
-                    </div>
 
 
                 </div>
@@ -86,14 +94,25 @@
 
                 <div class="type_msg">
                     <div class="input_msg_write">
-                        <input type="text" class="write_msg" placeholder="Type a message" />
-                        <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                        <input type="hidden" name="lato" value="" class="invioLato">
+                        <input type="hidden" name="idStu" value="" class="invioIdStudente">
+                        <input type="hidden" name="idPro" value="" class="invioIdProfessore">
+                        <input type="text" class="write_msg invioTesto" placeholder="Type a message" name="inviaMess" />
+                        <button class="msg_send_btn messButton"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
                     </div>
                 </div>
+
+
+
             </div>
+
+
+
+
+
         </div>
+</div>
+</div>
 
-
-    </div></div>
 </body>
 </html>

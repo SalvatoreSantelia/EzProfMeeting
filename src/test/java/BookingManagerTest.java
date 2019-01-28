@@ -50,12 +50,13 @@ public class BookingManagerTest {
 @Test
 public void testVisualizzaPrenotazioni() throws SQLException{
    List<Prenotazione> listaPrenotazione=new ArrayList<Prenotazione>();
-   Prenotazione p=new Prenotazione(1,"Salvatore Santelia","Sono Stupido","11:59:59",1,1,true);
+   Prenotazione p=new Prenotazione(1,"Salvatore Santelia","Sono Stupido","11:59:59",2,1,true);
    listaPrenotazione.add(p);
    BookingManager bm=new BookingManager();
 
-   Assert.assertEquals(listaPrenotazione.get(0).getIdPrenotazione(),bm.visualizzaPrenotazioni(1).get(0).getIdPrenotazione());
+  Assert.assertEquals(listaPrenotazione.get(0).getIdPrenotazione(),bm.visualizzaPrenotazioni(1).get(0).getIdPrenotazione());
    Assert.assertNull(bm.visualizzaPrenotazioni(0));
+   Assert.assertNull(bm.visualizzaPrenotazioni(12423));
 
 }
 
