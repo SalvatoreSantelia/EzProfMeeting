@@ -1,7 +1,10 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.text.DateFormat" %>
-<%@ page import="java.util.Date" %><%--
+<%@ page import="myJava.model.beans.Professore" %>
+<%@ page import="myJava.model.general.DataManager" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="myJava.model.beans.Ricevimento" %><%--
   Created by IntelliJ IDEA.
   User: broth
   Date: 19/12/2018
@@ -13,19 +16,22 @@
 <link rel="stylesheet" type="text/css" href="../CSS/CalendarGraphic.css">
 <link rel="stylesheet" type="text/css" href="../CSS/mySimpleModal.css">
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-      rel = "stylesheet">
-<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/simplemodal/1.4.4/jquery.simplemodal.min.js"></script>
 <script src="../JS/CalendarioProfessore.js" type="text/javascript"></script>
+<script src="../JS/AggiungiRicevimento.js" type="text/javascript"></script>
 
+<link rel="stylesheet" href="../CSS/CalendarGraphic.css">
 
 <%
     String startWeek, endWeek;
@@ -39,67 +45,159 @@
 %>
 
 <div>
-<h1 id="settimana"> Settimana:  <%= startWeek%> - <%= endWeek%> </h1>
+    <h1 id="settimana"> Settimana:  <%= startWeek%> - <%= endWeek%>
+    </h1>
 
-<div id="popup" style="display: none">
-    <%@include file="../Professore/InserisciRicevimento.jsp"%>
-</div>
+    <div id="popup" style="display: none">
+        <%@include file="../Professore/InserisciRicevimento.jsp" %>
+    </div>
 
-<table id="calendar">
-    <caption id="prova">MyCalendar</caption>
+    <table id="calendar">
 
-
-    <tr class="weekdays">
-        <th scope="col" id="ore" >Ore</th>
-        <th scope="col">Lunedì</th>
-        <th scope="col">Martedì</th>
-        <th scope="col">Mercoledì</th>
-        <th scope="col">Giovedì</th>
-        <th scope="col">Venerdì</th>
-
-    </tr>
-
-
-    <% //creazione righe
-
-        final int ORE=9, PARTIZIONI=2;
-        int ora;
-        String minuti="00";
-
-        for(int i=0; i<ORE*PARTIZIONI; i++)
-        {
-    %>
-
-    <tr>
-        <td class="ore">
         <%
 
-            ora = (i/PARTIZIONI) +ORE;
-            switch (i%PARTIZIONI) {
-                case 0:
-                    minuti = "00";
-                    break;
-                case 1:
-                    minuti = "30";
-                    break;
+            Professore prof = (Professore) session.getAttribute("user");
+            DataManager dm = new DataManager();
+            ArrayList<Ricevimento> lista = dm.getRicevimentiByProf(prof);
+            sdf = new SimpleDateFormat("YYYY-MM-DD");
+            String[] settimana = new String[5];
+            for (int i = 0; i < 5; i++) {
+                cal.set(Calendar.DAY_OF_WEEK, (i + 2));
+                settimana[i] = sdf.format(cal.getTime());
+            }
+
+
+        %>
+
+        <caption id="prova">MyCalendar</caption>
+
+
+        <tr class="weekdays">
+            <th scope="col" id="ore">Ore</th>
+            <th scope="col">Lunedì</th>
+            <th scope="col">Martedì</th>
+            <th scope="col">Mercoledì</th>
+            <th scope="col">Giovedì</th>
+            <th scope="col">Venerdì</th>
+
+        </tr>
+
+
+        <% //creazione righe
+
+            final int ORE = 9, PARTIZIONI = 2;
+            int ora, oraFine;
+            String minuti = "00";
+            String minutiFine = "30";
+
+            for (int i = 0; i < ORE * PARTIZIONI; i++) {
+
+
+        %>
+
+        <tr>
+
+            <td class="ore">
+                <%
+
+                    ora = oraFine = (i / PARTIZIONI) + ORE;
+
+                    switch (i % PARTIZIONI) {
+                        case 0:
+                            minuti = "00";
+                            minutiFine = "30";
+                            oraFine = ora;
+                            break;
+                        case 1:
+                            minuti = "30";
+                            minutiFine = "00";
+                            oraFine = ora + 1;
+                            break;
+                    }
+                %>
+
+                <%=ora + ":" + minuti %>
+
+
+            </td>
+
+            <% if (ora != 9) {
+                for (int j = 0; j < 5; j++) {
+
+                    boolean find = false;
+                    for (Ricevimento r : lista) {
+
+                        if ((r.getData() + " " + r.getOrarioInizio()).equals(settimana[j] + " " + ora + ":" + minuti)) {
+
+
+            %>
+            <td id=<%=settimana[j] + " " + ora + ":" + minuti%> data-exist="true">
+                <button id=<%=r.getIdRicevimento()%>><i class="far fa-edit"></i></button>
+            </td>
+            <%
+                        find = true;
+                        break;
+                    }
+
+
+                }
+
+                if (!find) { %>
+            <td id="<%=settimana[j] + " " +ora+":"+minuti%>" data-end="<%=settimana[j] + " " +oraFine+":"+minutiFine%>"
+             data-exist="false"   style="background-color:rgb(255, 255, 255);"></td>
+
+            <%
+                    }
+                }
+            } else {
+                for (int j = 0; j < 5; j++) {
+
+                    boolean find = false;
+                    for (Ricevimento r : lista) {
+
+                        if ((r.getData() + " " + r.getOrarioInizio()).equals(settimana[j] + " " + ora + ":" + minuti)) {
+
+
+            %>
+            <td id=<%=settimana[j] + " 0" + ora + ":" + minuti%>>
+                <button id="<%=r.getIdRicevimento()%>" data-exist="true"><i class="far fa-edit"></i></button>
+            </td>
+            <%
+                        find = true;
+                        break;
+                    }
+                }
+
+                if (!find) { %>
+            <td id="<%=settimana[j] + " 0" +ora+":"+minuti%>" data-end="<%=settimana[j] + " 0" +oraFine+":"+minutiFine%>"
+                data-exist="false" style="background-color:rgb(255, 255, 255);"></td>
+
+            <%
+                }
+
+            %>
+
+            <%
+                    }
+                }
+            %>
+        </tr>
+        <%
             }
         %>
 
-            <%=ora + ":" + minuti %>
 
-        </td>
-        <td style="background-color:rgb(255, 255, 255);"> </td>
-        <td style="background-color:rgb(255, 255, 255);"> </td>
-        <td style="background-color:rgb(255, 255, 255);"> </td>
-        <td style="background-color:rgb(255, 255, 255);"> </td>
-        <td style="background-color:rgb(255, 255, 255);"> </td>
 
-    </tr>
-    <%
-        }
-    %>
-    </>
+    </table>
 
-</table>
 
+</div>
+
+<!-- Modal Game 1 -->
+<div class="modal fade" id="new" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content mymodal">
+            <%@include file="../Professore/InserisciRicevimento.jsp" %>
+        </div>
+    </div>
 </div>
