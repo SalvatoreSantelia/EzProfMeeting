@@ -43,7 +43,6 @@ public class MessageManagerTest {
     }
 @Test
 public void testGetLastDataMessaggio(){
-
     Messaggio messaggio=new Messaggio(2,"2019-12-12","ciao",1,1);
     MessageManager mm=new MessageManager();
 
