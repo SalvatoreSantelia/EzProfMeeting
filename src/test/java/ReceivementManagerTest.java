@@ -116,7 +116,7 @@ ReceivementManager rm=new ReceivementManager();
     Assert.assertFalse((boolean)method.invoke(rm,"08:00:00"));
     Assert.assertFalse((boolean)method.invoke(rm,"21:00:00"));
     Assert.assertFalse((boolean)method.invoke(rm,"080000"));
- 
+
 
 
 }

@@ -1,15 +1,12 @@
 import myJava.model.beans.Messaggio;
 import myJava.model.beans.Studente;
-import myJava.model.general.AccessManager;
 import myJava.model.general.MessageManager;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Array;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,7 +49,7 @@ public void testGetLastDataMessaggio(){
     Assert.assertEquals(mm.getLastDataMessaggio(1,1).getIdProfessore(),messaggio.getIdStudente());
     Assert.assertEquals(mm.getLastDataMessaggio(1,1).getIdStudente(),messaggio.getIdStudente());
 }
-**/
+**/ 
 @Test
 public void testInviaMessaggio(){
 MessageManager mm=new MessageManager();
