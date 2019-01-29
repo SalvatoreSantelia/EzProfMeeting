@@ -49,7 +49,7 @@ public void testGetLastDataMessaggio(){
     Assert.assertEquals(mm.getLastDataMessaggio(1,1).getIdProfessore(),messaggio.getIdStudente());
     Assert.assertEquals(mm.getLastDataMessaggio(1,1).getIdStudente(),messaggio.getIdStudente());
 }
-**/ 
+**/
 @Test
 public void testInviaMessaggio(){
 MessageManager mm=new MessageManager();

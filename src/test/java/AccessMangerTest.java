@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import java.sql.SQLException;
 
-public class AccessMangerTest {
+public class AccessMangerTest { 
 
     @Test
     public void testDoLogin()throws SQLException {
