@@ -1,4 +1,4 @@
-import myJava.model.beans.User;
+/*import myJava.model.beans.User;
 import myJava.model.general.AccessManager;
 import myJava.model.general.MessageManager;
 import myJava.model.professore.ReceivementManager;
@@ -30,3 +30,4 @@ public class DataManagerTest {
     }
 
 }
+*/
