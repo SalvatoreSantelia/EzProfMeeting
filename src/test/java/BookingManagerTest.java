@@ -32,7 +32,6 @@ public class BookingManagerTest {
     @Test
     public void testInserisciPrenotazione()throws SQLException {
 
-
      mockedRicevimento=mock(Ricevimento.class);
      mockedStudente=mock(Studente.class);
      when(mockedRicevimento.getIdRicevimento()).thenReturn(2);
@@ -42,8 +41,8 @@ public class BookingManagerTest {
      BookingManager bm=new BookingManager();
      Assert.assertEquals(true,bm.inserisciPrenotazione(prenotazione));
      Assert.assertFalse(bm.inserisciPrenotazione(pNulla));
-
-
+     Assert.assertNull(bm.inserisciPrenotazione(new Prenotazione(4,"Rocco Aliberti","nesuna","11:12:36",mockedRicevimento.getIdRicevimento(),mockedStudente.getIdStudente(),false)));
+     
     }
 
 @Test
