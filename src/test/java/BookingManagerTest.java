@@ -23,7 +23,7 @@ public class BookingManagerTest {
     public BookingManager creaBooking() {
         return new BookingManager();
     }
-    @Mock
+    @Mock  
     private Ricevimento mockedRicevimento;
 
     @Mock
