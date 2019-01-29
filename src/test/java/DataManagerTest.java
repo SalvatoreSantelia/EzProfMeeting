@@ -23,7 +23,7 @@ public class DataManagerTest {
 
     @Test     
     public void testDoLogin()throws SQLException {
-        mockedAccessManager=mock(AccessManager.class);
+        mockedAccessManager=mock(AccessManager.class);   
         User utente=new User("miaemail","miapassword","studente");
         when(mockedAccessManager.doLogin("miaemail","miapassword")).thenReturn(new User("miaemail","miapassword","studente"));
        // Assert.assertEquals();
