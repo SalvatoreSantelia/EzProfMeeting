@@ -46,5 +46,16 @@
 
 
 
+    <servlet>
+        <servlet-name>ReceivementServlet</servlet-name>
+        <servlet-class>myJava.control.servlet.ReceivementServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReceivementServlet</servlet-name>
+        <url-pattern>/View/General/receivement</url-pattern>
+    </servlet-mapping>
+
+
+
 
 </web-app>

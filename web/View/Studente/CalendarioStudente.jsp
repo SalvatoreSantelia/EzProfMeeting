@@ -52,7 +52,7 @@
 
         <%
             DataManager dm = new DataManager();
-            ArrayList<Ricevimento> lista = dm.getRicevimentiByProf(professore.getIdProfessore());
+            ArrayList<Ricevimento> lista = dm.getRicevimentiByProf(professore);
             System.out.println(lista);
             sdf = new SimpleDateFormat("YYYY-MM-DD");
             String[] settimana = new String[5];
@@ -194,13 +194,12 @@
     </table>
 
 
-</div>
-
-<!-- Modal Game 1 -->
-<div class="modal fade" id="new" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content mymodal">
-            <%@include file="../Professore/InserisciRicevimento.jsp" %>
+    <!-- Modal Game 1 -->
+    <div class="modal fade" id="new" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content mymodal">
+                <%@include file="../Professore/InserisciRicevimento.jsp" %>
+            </div>
         </div>
     </div>
 </div>

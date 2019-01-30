@@ -1,4 +1,4 @@
-import myJava.model.beans.Prenotazione;
+/*import myJava.model.beans.Prenotazione;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
 import myJava.model.studente.BookingManager;
@@ -98,3 +98,4 @@ public void testVisualizzaPrenotazioni() throws SQLException{
     Assert.assertTrue((boolean) method.invoke(bm,"Santelia Salvatore,Postiglione Luca"));
 }
 }
+*/

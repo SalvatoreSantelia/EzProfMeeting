@@ -9,17 +9,21 @@ public class Ricevimento implements Serializable {
   private String orarioFine;
   private String luogo;
   private String data;
+  private int postiTotali;
+  private int postiDisponibili;
   private int idProfessore;
 
   public Ricevimento() {
   }
 
-  public Ricevimento(int idRicevimento, String orarioInizio, String orarioFine, String luogo, String data, int idProfessore) {
+  public Ricevimento(int idRicevimento, String orarioInizio, String orarioFine, String luogo, String data, int postiTotali, int postiDisponibili,  int idProfessore) {
     this.idRicevimento = idRicevimento;
     this.orarioInizio = orarioInizio;
     this.orarioFine = orarioFine;
     this.luogo = luogo;
     this.data = data;
+    this.postiTotali = postiTotali;
+    this.postiDisponibili = postiDisponibili;
     this.idProfessore = idProfessore;
   }
 
@@ -72,6 +76,22 @@ public class Ricevimento implements Serializable {
 
   }
 
+  public int getPostiTotali() {
+    return postiTotali;
+  }
+
+  public void setPostiTotali(int postiTotali) {
+    this.postiTotali = postiTotali;
+  }
+
+  public int getPostiDisponibili() {
+    return postiDisponibili;
+  }
+
+  public void setPostiDisponibili(int postiDisponibili) {
+    this.postiDisponibili = postiDisponibili;
+  }
+
   @Override
   public String toString() {
     return "Ricevimento{" +
@@ -80,6 +100,8 @@ public class Ricevimento implements Serializable {
         ", orarioFine='" + orarioFine + '\'' +
         ", luogo='" + luogo + '\'' +
         ", data='" + data + '\'' +
+        ", postiTotali=" + postiTotali +
+        ", postiDisponibili=" + postiDisponibili +
         ", idProfessore=" + idProfessore +
         '}';
   }

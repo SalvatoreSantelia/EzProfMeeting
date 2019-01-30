@@ -30,6 +30,7 @@
 
 <script src="../JS/CalendarioProfessore.js" type="text/javascript"></script>
 <script src="../JS/AggiungiRicevimento.js" type="text/javascript"></script>
+<script src="../JS/ModificaRicevimento.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../CSS/CalendarGraphic.css">
 
@@ -60,10 +61,13 @@
             DataManager dm = new DataManager();
             ArrayList<Ricevimento> lista = dm.getRicevimentiByProf(prof);
             System.out.println(lista);
-            sdf = new SimpleDateFormat("YYYY-MM-DD");
+            sdf = new SimpleDateFormat("YYYY-MM-dd");
             String[] settimana = new String[5];
+
+
+
             for (int i = 0; i < 5; i++) {
-                cal.set(Calendar.DAY_OF_WEEK, (i + 2));
+                cal.set(Calendar.DAY_OF_WEEK, (i+2));
                 settimana[i] = sdf.format(cal.getTime());
             }
 
@@ -135,8 +139,8 @@
 
             %>
             <td id=<%=settimana[j] + " " + ora + ":" + minuti%> data-exist="true">
-                <button id=<%=r.getIdRicevimento()%>><i class="far fa-edit"></i></button>
-            </td>
+                <button class="editReceivement" id="<%=r.getIdRicevimento()%>" data-inizio="<%=r.getData() + " "+ r.getOrarioInizio()%>" data-fine="<%=r.getData() + " " + r.getOrarioFine()%>"
+                        data-luogo="<%=r.getLuogo()%>"  data-posti="<%=r.getPostiTotali()%>" data-toggle="modal" data-target="#edit" ><i class="far fa-edit"></i></button>            </td>
             <%
                         find = true;
                         break;
@@ -164,8 +168,8 @@
 
             %>
             <td data-exist="true" id=<%=settimana[j] + " 0" + ora + ":" + minuti%>>
-                <button id="<%=r.getIdRicevimento()%>" ><i class="far fa-edit"></i></button>
-            </td>
+                <button class="editReceivement" id="<%=r.getIdRicevimento()%>" data-inizio="<%=r.getData() + " " + r.getOrarioInizio()%>" data-fine="<%=r.getData() + " " +r.getOrarioFine()%>"
+                        data-luogo="<%=r.getLuogo()%>"  data-posti="<%=r.getPostiTotali()%>" data-toggle="modal" data-target="#edit" ><i class="far fa-edit"></i></button></td>
             <%
                         find = true;
                         break;
@@ -200,13 +204,27 @@
     </table>
 
 
+
+
+
 </div>
 
-<!-- Modal Game 1 -->
+<!-- Modal New -->
 <div class="modal fade" id="new" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content mymodal">
             <%@include file="../Professore/InserisciRicevimento.jsp" %>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Edit -->
+
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content mymodal">
+            <%@include file="../Professore/ModificaRicevimento.jsp" %>
         </div>
     </div>
 </div>

@@ -34,15 +34,19 @@ public class ReceivementServlet extends HttpServlet {
 
     String startFirstReceivement, endLastReceivement, luogo, giorno;
     String oraInizio, oraFine;
+    int postiTotali;
     HttpSession session = request.getSession();
     Professore prof = (Professore) session.getAttribute("user");
     startFirstReceivement = request.getParameter("inizio");
     endLastReceivement = request.getParameter("fine");
     luogo = request.getParameter("luogo");
+
+    postiTotali = Integer.parseInt(request.getParameter("posti"));
+    System.out.println(startFirstReceivement +"\n"+ endLastReceivement + "\n" + luogo+ "\n" + postiTotali);
+
     giorno = startFirstReceivement.substring(0, 10).trim();
     oraInizio = startFirstReceivement.substring(10).trim();
     oraFine = endLastReceivement.substring(10).trim();
-
     System.out.println(
         giorno + "\n" + oraInizio  + "\n" + oraFine
     );
@@ -55,6 +59,8 @@ public class ReceivementServlet extends HttpServlet {
       r.setData(giorno);
       r.setLuogo(luogo);
       r.setOrarioInizio(temp);
+      r.setPostiTotali(postiTotali);
+      r.setPostiDisponibili(0);
 
       hh = Integer.parseInt(temp.substring(0, 2));
       mm = Integer.parseInt(temp.substring(3, 5));
@@ -90,7 +96,6 @@ public class ReceivementServlet extends HttpServlet {
 
     try {
       response.getWriter().println("SUCCESS");
-
     }
     catch (IOException ex)
     {

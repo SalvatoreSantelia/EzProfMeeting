@@ -30,6 +30,16 @@ public class User {
         this.tipo = tipo;
     }
 
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "email='" + email + '\'' +
+            ", password='" + password + '\'' +
+            ", tipo='" + tipo + '\'' +
+            '}';
+    }
+
     public String getTipo() {
         return tipo;
     }
@@ -37,4 +47,7 @@ public class User {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+
+
 }

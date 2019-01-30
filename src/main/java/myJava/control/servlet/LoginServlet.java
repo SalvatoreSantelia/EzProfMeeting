@@ -26,12 +26,15 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+
        User utente=new User();
         try {
+
             utente=DM.doLogin(username, password);
-        }catch(Exception e){}
-     if(utente.getEmail()==null){
-           System.out.println("nullo");
+        }
+        catch(Exception e){}
+     if( utente ==null || utente.getEmail()==null){
+           System.out.println("utente non caricato");
        
        response.getWriter().write("FAILURE");
         }

@@ -18,7 +18,10 @@ public class DataManager {
     public User doLogin(String mail, String password) throws SQLException {
         if (mail == null || mail.equals("") || password == null || password.equals(""))
             return null;
-        else return ac.doLogin(mail, password);
+        else{
+            System.out.println("Invio richiesta di caricamento...");
+            return ac.doLogin(mail, password);
+        }
 
     }
 
@@ -215,10 +218,10 @@ public class DataManager {
     }
 
 
-   /** public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof)
+    public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof)
     {
         return rm.getRicevimentiByProf(prof);
-    }*/
+    }
 
     public ArrayList<Studente> getStudentiContattati(int idProf) throws SQLException {
         return mm.getStudentiContattati(idProf);
