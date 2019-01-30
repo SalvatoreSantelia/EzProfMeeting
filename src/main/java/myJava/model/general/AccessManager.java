@@ -35,8 +35,8 @@ if(!mailSyntaxCheck(mail)|| password.length()<8){
             //executing the prepared statement, which returns a ResultSet
             ResultSet rs = statement.executeQuery();
 if(!rs.next()){
+    return null;
 
-    throw new Exception();
 }
 rs.previous();
             while (rs.next()) {
