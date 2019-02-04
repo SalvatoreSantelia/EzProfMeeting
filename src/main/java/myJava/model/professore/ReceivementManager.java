@@ -32,7 +32,7 @@ public class ReceivementManager {
     PreparedStatement preparedStatement = null;
 
     String insertSQL = "insert into " + "ricevimento"
-        + " (idRicevimento,orarioInizio,orarioFine,luogo,data, postiTotali, postiDisponibili ,idProfessore) values (?, ?, ?, ?, ?, ?, 0, ?)";
+        + " (idRicevimento,orarioInizio,orarioFine,luogo,data, postiTotali, postiDisponibili ,idProfessore) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
@@ -43,7 +43,8 @@ public class ReceivementManager {
       preparedStatement.setString(4, ricevimento.getLuogo());
       preparedStatement.setString(5, ricevimento.getData());
       preparedStatement.setInt(6,ricevimento.getPostiTotali());
-      preparedStatement.setInt(7, ricevimento.getIdProfessore());
+      preparedStatement.setInt(7,ricevimento.getPostiTotali());
+      preparedStatement.setInt(8, ricevimento.getIdProfessore());
       preparedStatement.executeUpdate();
 
       connection.commit();
@@ -61,7 +62,8 @@ public class ReceivementManager {
 
   public boolean eliminaRicevimento(Ricevimento ricevimento) throws SQLException {
 
-    if (ricevimento.getIdRicevimento() == 0) {
+    if ( ricevimento ==null || ricevimento.getIdRicevimento() == 0) {
+      System.out.println("No ricevimento");
       return false;
     }
     Connection conn;
@@ -69,12 +71,13 @@ public class ReceivementManager {
     try {
       PreparedStatement preparedStatement = conn.prepareStatement("delete from ricevimento where idRicevimento=?");
       preparedStatement.setInt(1, ricevimento.getIdRicevimento());
+      System.out.println("Eliminazione: " + ricevimento.getIdRicevimento());
       if (preparedStatement.executeUpdate() == 0) {//non è stato cancellato alcun ricevimento
         throw new Exception();
 
       }
       conn.commit();
-
+      System.out.println("Operazione completata");
       return true;
     } catch (Exception e) {
       System.err.println("Got an exception! ");
@@ -91,16 +94,14 @@ public class ReceivementManager {
 
     conn = DriverManagerConnectionPool.getConnection();
     try {
-      PreparedStatement preparedStatement = conn.prepareStatement("update ricevimento set idRicevimento=?,orarioInizio=?,orarioFine=?,luogo=?,data=?, postiTotali=?, postiDisponibili=?, idProfessore=? where idRicevimento=?");
+      PreparedStatement preparedStatement = conn.prepareStatement("update ricevimento set idRicevimento=?,orarioInizio=?,orarioFine=?,luogo=?,data=?,idProfessore=? where idRicevimento=?");
       preparedStatement.setInt(1, ricevimento.getIdRicevimento());
       preparedStatement.setString(2, ricevimento.getOrarioInizio());
       preparedStatement.setString(3, ricevimento.getOrarioFine());
       preparedStatement.setString(4, ricevimento.getLuogo());
       preparedStatement.setString(5, ricevimento.getData());
-      preparedStatement.setInt(8, ricevimento.getIdProfessore());
-      preparedStatement.setInt(6, ricevimento.getPostiTotali());
-      preparedStatement.setInt(7, ricevimento.getPostiDisponibili());
-      preparedStatement.setInt(9, ricevimento.getIdRicevimento());
+      preparedStatement.setInt(6, ricevimento.getIdProfessore());
+      preparedStatement.setInt(7, ricevimento.getIdRicevimento());
       if (preparedStatement.executeUpdate() == 0) {
         throw new Exception();
       }

@@ -22,7 +22,6 @@
         <h4> Fine </h4>
         <input type="text" id="endHour" name="endHour" value="" disabled> <br> <br>
 
-        <input type="text" id="prova"><br>
         <h4> Luogo </h4>
         <textarea id="placeRecivement" name="place" rows="4" cols="50"
                   style="resize: none;"> <%=((Professore) session.getAttribute("user")).getUfficioProfessore()%>  </textarea>

@@ -56,6 +56,14 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>BookingServlet</servlet-name>
+        <servlet-class>myJava.control.servlet.BookingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookingServlet</servlet-name>
+        <url-pattern>/View/General/booking</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

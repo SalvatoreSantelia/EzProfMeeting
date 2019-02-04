@@ -49,9 +49,6 @@
     <h1 id="settimana"> Settimana:  <%= startWeek%> - <%= endWeek%>
     </h1>
 
-    <div id="popup" style="display: none">
-        <%@include file="../Professore/InserisciRicevimento.jsp" %>
-    </div>
 
     <table id="calendar">
 
@@ -224,7 +221,7 @@
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content mymodal">
-            <%@include file="../Professore/ModificaRicevimento.jsp" %>
+            <%@include file="ModificaRicevimento.jsp" %>
         </div>
     </div>
 </div>

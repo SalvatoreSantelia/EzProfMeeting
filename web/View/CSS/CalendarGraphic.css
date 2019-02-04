@@ -115,3 +115,12 @@ table .ore
     vertical-align: text-top;
     background-color: #687edb !important;
 }
+
+
+.full
+{
+    padding-top: 8% !important;
+    background-color: #ff383c !important;
+    font-size: 25px;
+    text-align: center;
+}

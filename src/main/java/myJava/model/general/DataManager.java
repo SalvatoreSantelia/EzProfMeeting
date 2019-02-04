@@ -44,6 +44,9 @@ public class DataManager {
         else return false;
     }
 
+
+
+
     public Ricevimento visualizzaRicevimento(String oraInizio, String oraFine, String data) throws SQLException ,ParseException{
 
 
@@ -53,7 +56,7 @@ public class DataManager {
     }
 
     public boolean inserisciPrenotazione(Prenotazione prenotazione) throws SQLException {
-        if (prenotazione != null && prenotazione.getIdPrenotazione() != 0 && prenotazione.getIdRicevimento() != 0 && prenotazione.getIdStudente() != 0)
+        if (prenotazione != null && prenotazione.getIdRicevimento() != 0 && prenotazione.getIdStudente() != 0)
             return m.inserisciPrenotazione(prenotazione);
         else return false;
     }
@@ -231,13 +234,15 @@ public class DataManager {
     //
 
     public Prenotazione getPranotazioneById(int idPrenotazione)throws SQLException{
-        return m.getPranotazioneById(idPrenotazione);
+        return m.getPrenotazioneById(idPrenotazione);
     }
 
 
     public ArrayList<Messaggio> getArrayListMessaggio(int idStudente, int idProfessore){
         return mm.getArrayListMessaggio(idStudente,idProfessore);
     }
+
+
 }
 
 
