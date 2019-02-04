@@ -42,7 +42,7 @@ public class BookingManagerTest {
      Assert.assertEquals(true,bm.inserisciPrenotazione(prenotazione));
      Assert.assertFalse(bm.inserisciPrenotazione(pNulla));
      Assert.assertFalse(bm.inserisciPrenotazione(new Prenotazione(4,"Rocco Aliberti","nesuna","11:12:36",mockedRicevimento.getIdRicevimento(),mockedStudente.getIdStudente(),false)));
-     
+
     }
 
 @Test
@@ -64,6 +64,7 @@ public void testVisualizzaPrenotazioni() throws SQLException{
     BookingManager bm=new BookingManager();
     Assert.assertEquals(true,bm.eliminaPrenotazione(p));
     Assert.assertFalse(bm.eliminaPrenotazione(new Prenotazione()));
+    Assert.assertFalse(bm.eliminaPrenotazione(new Prenotazione(6,"","","",1,1,false)));
 }
 
 @Test

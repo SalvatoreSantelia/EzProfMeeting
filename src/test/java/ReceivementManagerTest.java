@@ -34,6 +34,7 @@ private Ricevimento dammiRicevimentoModificato(){
         Assert.assertFalse(receivementManager.creaRicevimento(new Ricevimento(6,"12:24:35","21:33:12","stecca G","20191107",1)));
         Assert.assertFalse(receivementManager.creaRicevimento(new Ricevimento(6,"07:24:35","21:33:12","stecca G","2019-11-07",1)));
         Assert.assertFalse(receivementManager.creaRicevimento(new Ricevimento()));
+        Assert.assertFalse(receivementManager.creaRicevimento(new Ricevimento(1,"12:12:12","13:13:13","stecca F","2019-11-12",1)));
     }
 
 

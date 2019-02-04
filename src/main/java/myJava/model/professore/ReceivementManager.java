@@ -42,7 +42,10 @@ public class ReceivementManager {
             preparedStatement.setString(4, ricevimento.getLuogo());
             preparedStatement.setString(5, ricevimento.getData());
             preparedStatement.setInt(6, ricevimento.getIdProfessore());
-            preparedStatement.executeUpdate();
+            if(preparedStatement.executeUpdate()==0){
+
+                throw new Exception();
+            }
 
             connection.commit();
 
@@ -129,6 +132,11 @@ try {
     preparedStatement.setString(3, dataR);
 
     ResultSet rs=preparedStatement.executeQuery();
+    if(rs.next()){
+        throw new Exception();
+
+    }
+    rs.previous();
     Ricevimento r=new Ricevimento();
     while(rs.next()){
         r.setIdRicevimento(rs.getInt(1));
@@ -142,6 +150,7 @@ try {
 
 
 }catch(Exception e) {
+
     System.err.println("Got an exception! ");
     System.err.println(e.getMessage());
     return null;

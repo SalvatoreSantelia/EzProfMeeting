@@ -111,7 +111,9 @@ try {
     PreparedStatement preparedStmt = connection.prepareStatement("delete from prenotazione where idPrenotazione=?");
     preparedStmt.setInt(1, prenotazione.getIdPrenotazione());
 
-    preparedStmt.execute();
+   if ( preparedStmt.executeUpdate()==0) {
+       throw new Exception();
+   }
     connection.commit();
 
 }catch(Exception e) {

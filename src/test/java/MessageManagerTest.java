@@ -96,7 +96,7 @@ public void getArrayListMessaggio(){
     ArrayList<Messaggio> listaMess =new ArrayList<Messaggio>();
 
     listaMess.add(new Messaggio("",2,new java.sql.Time(System.currentTimeMillis()),new Date(),"",1,1));
-    listaMess.add(new Messaggio("",8,new java.sql.Time(System.currentTimeMillis()),new Date(),"",1,1));
+    listaMess.add(new Messaggio("",9,new java.sql.Time(System.currentTimeMillis()),new Date(),"",1,1));
 
     Assert.assertEquals(listaMess.get(1).getIdMessaggio(),mm.getArrayListMessaggio(1,1).get(1).getIdMessaggio());
     Assert.assertEquals(listaMess.get(0).getIdMessaggio(),mm.getArrayListMessaggio(1,1).get(0).getIdMessaggio());
