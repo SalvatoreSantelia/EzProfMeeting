@@ -4,10 +4,16 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.sql.Time" %>
 <%@ page import="javafx.scene.control.Alert" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../JS/StudenteJS.js"></script>
+    <link rel="stylesheet" type="text/css" href="../CSS/HomeStudente.css">
+    <!------ Include the above in your HEAD tag ---------->
 </head>
 
 <%
@@ -15,10 +21,12 @@
     DataManager dataManager = new DataManager();
 
     List<Prenotazione> prenotazioni =  dataManager.visualizzaPrenotazioni(studente.getIdStudente());
+    if(prenotazioni==null) prenotazioni= new ArrayList<>();
+
     int i=1;
     DateFormat df = new SimpleDateFormat();
 
-
+/*
     String x = request.getParameter("eliminare");
 
     if(x!=null){
@@ -27,7 +35,7 @@
         if(dataManager.eliminaPrenotazione(a)){
 
         }
-    }
+    }*/
 %>
 <body>
 
@@ -49,19 +57,18 @@
            Ricevimento ric = dataManager.getRicevimentoById(idRicevimento);
            int idProf = ric.getIdProfessore();
            Professore prof = dataManager.getProfById(idProf);
-           System.out.println(idRicevimento+""+idProf+" ciao");
-
-
     %>
 
-    <form action="HomeStudente.jsp" id=<%=i%>>
     <tr>
         <th scope="row"><%=i%></th>
         <td><%=prof.getNomeProfessore()%> <%=prof.getCognomeProfessore()%></td>
         <td><%=ric.getData()%> <%=ric.getOrarioInizio()%> - <%=ric.getOrarioFine()%></td>
-        <td ><Button class="tdRimuovi" name="idPrenotazione" value="<%=a.getIdPrenotazione()%>">Rimuovi</Button></td>
+        <td ><Button data-dismiss="modal" class="tdRimuovi" id="<%=i%>">
+            <input type="hidden" id="idPrenotazione<%=i%>" value="<%=a.getIdPrenotazione()%>">
+            <input type="hidden" id="idStudente<%=i%>" value="<%=studente.getIdStudente()%>">
+            Rimuovi
+        </Button></td>
     </tr>
-    </form>
 
 
     <%

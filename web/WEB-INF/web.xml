@@ -5,15 +5,16 @@
          version="3.1">
     <servlet>
 
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>myJava.control.servlet.LoginServlet</servlet-class>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>myJava.control.servlet.LoginServlet</servlet-class>
 
 
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/View/General/login</url-pattern>
-    </servlet-mapping>
+</servlet>
+<servlet-mapping>
+<servlet-name>LoginServlet</servlet-name>
+<url-pattern>/View/General/login</url-pattern>
+</servlet-mapping>
+
 
 
     <servlet>
@@ -43,6 +44,8 @@
         <url-pattern>/View/General/inviaMessaggio</url-pattern>
     </servlet-mapping>
 
+
+
     <servlet>
         <servlet-name>ReceivementServlet</servlet-name>
         <servlet-class>myJava.control.servlet.ReceivementServlet</servlet-class>
@@ -51,5 +54,16 @@
         <servlet-name>ReceivementServlet</servlet-name>
         <url-pattern>/View/General/receivement</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>BookingServlet</servlet-name>
+        <servlet-class>myJava.control.servlet.BookingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookingServlet</servlet-name>
+        <url-pattern>/View/General/booking</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

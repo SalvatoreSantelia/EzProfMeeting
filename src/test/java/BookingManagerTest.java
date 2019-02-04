@@ -23,7 +23,7 @@ public class BookingManagerTest {
     public BookingManager creaBooking() {
         return new BookingManager();
     }
-    @Mock
+    @Mock  
     private Ricevimento mockedRicevimento;
 
     @Mock
@@ -96,5 +96,15 @@ public void testVisualizzaPrenotazioni() throws SQLException{
     }
     Assert.assertFalse((boolean) method.invoke(bm, string));
     Assert.assertTrue((boolean) method.invoke(bm,"Santelia Salvatore,Postiglione Luca"));
+}
+
+@Test
+public void testGetPrenotazioneById() throws SQLException,NoSuchMethodException, InvocationTargetException,IllegalAccessException{
+        BookingManager bm=new BookingManager();
+
+        Prenotazione prenotazione=new Prenotazione(1,"","","",2,1,false);
+        Assert.assertEquals(null,bm.getPrenotazioneById(0));
+        Assert.assertEquals(prenotazione.getIdPrenotazione(),bm.getPrenotazioneById(1).getIdPrenotazione());
+        Assert.assertNull(bm.getPrenotazioneById(329372));
 }
 }

@@ -3,16 +3,12 @@
 import myJava.model.beans.User;
 import myJava.model.general.DataManager;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 
 
@@ -30,12 +26,15 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+
        User utente=new User();
         try {
+
             utente=DM.doLogin(username, password);
-        }catch(Exception e){}
-     if(utente.getEmail()==null){
-           System.out.println("nullo");
+        }
+        catch(Exception e){}
+     if( utente ==null || utente.getEmail()==null){
+           System.out.println("utente non caricato");
        
        response.getWriter().write("FAILURE");
         }

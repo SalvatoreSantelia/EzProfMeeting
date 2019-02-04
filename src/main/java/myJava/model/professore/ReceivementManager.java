@@ -1,8 +1,10 @@
 package myJava.model.professore;
 
 import myJava.control.connection.DriverManagerConnectionPool;
+import myJava.model.beans.Professore;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
+import sun.rmi.runtime.Log;
 
 
 import java.security.spec.ECField;
@@ -14,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.zip.DataFormatException;
 
 
@@ -23,29 +26,31 @@ public class ReceivementManager {
     public boolean creaRicevimento(Ricevimento ricevimento)throws SQLException ,ParseException{
 
 
-        if(ricevimento.getIdRicevimento()==0||!checkData(ricevimento.getData())||!checkOrario(ricevimento.getOrarioFine())||!checkOrario(ricevimento.getOrarioInizio())||!checkLuogo(ricevimento.getLuogo())){
+    if (!checkData(ricevimento.getData()) || !checkOrario(ricevimento.getOrarioFine()+":00") || !checkOrario(ricevimento.getOrarioInizio()+":00") || !checkLuogo(ricevimento.getLuogo())) {
+      System.out.println("Test Ricevimento non passato");
+      return false;
+    }
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-            return false;
-        }
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+    String insertSQL = "insert into " + "ricevimento"
+        + " (idRicevimento,orarioInizio,orarioFine,luogo,data, postiTotali, postiDisponibili ,idProfessore) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        String insertSQL = "insert into " + "ricevimento"
-                + " (idRicevimento,orarioInizio,orarioFine,luogo,data,idProfessore) values (?, ?, ?, ?, ?, ?)";
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      preparedStatement = connection.prepareStatement(insertSQL);
+      preparedStatement.setInt(1, ricevimento.getIdRicevimento());
+      preparedStatement.setString(2, ricevimento.getOrarioInizio());
+      preparedStatement.setString(3, ricevimento.getOrarioFine());
+      preparedStatement.setString(4, ricevimento.getLuogo());
+      preparedStatement.setString(5, ricevimento.getData());
+      preparedStatement.setInt(6,ricevimento.getPostiTotali());
+      preparedStatement.setInt(7,ricevimento.getPostiTotali());
+      preparedStatement.setInt(8, ricevimento.getIdProfessore());
+      preparedStatement.executeUpdate();
 
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(insertSQL);
-            preparedStatement.setInt(1, ricevimento.getIdRicevimento());
-            preparedStatement.setString(2, ricevimento.getOrarioInizio());
-            preparedStatement.setString(3, ricevimento.getOrarioFine());
-            preparedStatement.setString(4, ricevimento.getLuogo());
-            preparedStatement.setString(5, ricevimento.getData());
-            preparedStatement.setInt(6, ricevimento.getIdProfessore());
-            if(preparedStatement.executeUpdate()==0){
 
-                throw new Exception();
-            }
+
 
             connection.commit();
 
@@ -118,8 +123,9 @@ try {
     public Ricevimento visualizzaRicevimento( String orarioInizio, String orarioFine, String dataR)throws SQLException,ParseException{
 
 if(!checkOrario(orarioInizio)||!checkOrario(orarioFine)||!checkData(dataR)){
+System.out.println("sto nell'if");
 
-    return null;
+return null;
 }
         Connection conn=null;
         PreparedStatement preparedStatement =null;
@@ -132,7 +138,7 @@ try {
     preparedStatement.setString(3, dataR);
 
     ResultSet rs=preparedStatement.executeQuery();
-    if(rs.next()){
+    if(!rs.next()){
         throw new Exception();
 
     }
@@ -144,13 +150,14 @@ try {
         r.setOrarioFine(rs.getString(3));
         r.setLuogo(rs.getString(4));
         r.setData(rs.getString(5));
-        r.setIdProfessore(rs.getInt(6));
-    }
-    return r;
+        r.setPostiTotali(rs.getInt(6));
+        r.setPostiDisponibili(rs.getInt(7));
+        r.setIdProfessore(rs.getInt(8));
+      }
+      return r;
 
 
 }catch(Exception e) {
-
     System.err.println("Got an exception! ");
     System.err.println(e.getMessage());
     return null;
@@ -236,6 +243,12 @@ if(ricevimento == null || ricevimento.getIdRicevimento()==0){
             //setting the parameters
             statement.setInt(1,ricevimento.getIdRicevimento());
             ResultSet rs = statement.executeQuery();
+            if(!rs.next()){
+
+
+                throw new Exception();
+            }
+            rs.previous();
             while(rs.next()){
                 Studente student=new Studente();
                 student.setIdStudente(rs.getInt(1));
@@ -272,6 +285,12 @@ if(ricevimento == null || ricevimento.getIdRicevimento()==0){
                     "SELECT *  from ricevimento where idRicevimento = ? ");
             statement.setInt(1, idRicevimento);
             ResultSet rs = statement.executeQuery();
+
+            if(!rs.next()){
+
+                throw new Exception();
+            }
+            rs.previous();
             while (rs.next()) {
                 ricevimento.setIdRicevimento(rs.getInt("idRicevimento"));
                 Time start = rs.getTime("orarioInizio");
@@ -286,29 +305,79 @@ if(ricevimento == null || ricevimento.getIdRicevimento()==0){
         } catch (Exception e) {
 
             e.printStackTrace();
+            return null;
         }
         return ricevimento;
     }
 
-    private boolean checkData(String data){
-        if(data.matches("\\d{4}-\\d{2}-\\d{2}")){
+  public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof)
+  {
+    if (prof.getIdProfessore() == 0) {
+
+      return null;
+    }
+    Connection connection = null;
+    ArrayList<Ricevimento> lista = new ArrayList<>();
+    DateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      //creating prepared statement for our required query
+      PreparedStatement statement = connection.prepareStatement(
+          "SELECT *  from ricevimento where idProfessore = ? ");
+      statement.setInt(1, prof.getIdProfessore());
+      ResultSet rs = statement.executeQuery();
+      if(!rs.next()){throw new Exception();
+
+
+      }
+
+      rs.previous();
+      while (rs.next()) {
+        Ricevimento ricevimento = new Ricevimento();
+        ricevimento.setIdRicevimento(rs.getInt("idRicevimento"));
+        Time start = rs.getTime("orarioInizio");
+        ricevimento.setOrarioInizio(simpleDateFormat.format(start.getTime()));
+        Time fine = rs.getTime("orarioFine");
+        ricevimento.setOrarioFine(simpleDateFormat.format(fine.getTime()));
+        ricevimento.setLuogo(rs.getString("luogo"));
+        ricevimento.setData(rs.getString("data"));
+        ricevimento.setPostiDisponibili(rs.getInt("postiDisponibili"));
+        ricevimento.setPostiTotali(rs.getInt("postiTotali"));
+        ricevimento.setIdProfessore(rs.getInt("idProfessore"));
+        lista.add(ricevimento);
+      }
+      connection.close();
+    } catch (Exception e) {
+
+      e.printStackTrace();
+      return null;
+    }
+    return lista;
+  }
+
+
+  private boolean checkData(String data) {
+    if (data.matches("\\d{4}-\\d{2}-\\d{2}")) {
 
             return true;
         }
         else return false;
     }
 
-    private boolean checkOrario(String orario)throws ParseException {
-        if(orario.matches("\\d{2}:\\d{2}:\\d{2}")){
-                String dataFittizzia="2019-12-12 ";
-       String dataCompleta= dataFittizzia + orario;
-SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
- Date parsedDate=format.parse(dataCompleta);
- Timestamp timeStamp=new java.sql.Timestamp( parsedDate.getTime());
- parsedDate=format.parse(dataFittizzia+"20:00:00");
- Timestamp orarioLimiteInferiore=new java.sql.Timestamp( parsedDate.getTime());
- parsedDate=format.parse(dataFittizzia+"09:00:00");
- Timestamp orarioLimiteSuperiore=new Timestamp(parsedDate.getTime());
+  private boolean checkOrario(String orario) throws ParseException {
+
+    if (orario.matches("\\d{2}:\\d{2}:\\d{2}")) {
+      String dataFittizzia = "2019-12-12 ";
+      System.out.println(orario);
+      String dataCompleta = dataFittizzia + orario;
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+      Date parsedDate = format.parse(dataCompleta);
+      Timestamp timeStamp = new java.sql.Timestamp(parsedDate.getTime());
+      parsedDate = format.parse(dataFittizzia + "20:00:00");
+      Timestamp orarioLimiteInferiore = new java.sql.Timestamp(parsedDate.getTime());
+      parsedDate = format.parse(dataFittizzia + "08:30:00");
+      Timestamp orarioLimiteSuperiore = new Timestamp(parsedDate.getTime());
+      System.out.println("check  " + timeStamp + " - " + orarioLimiteInferiore + " - " + orarioLimiteSuperiore );
 
  if(timeStamp.before(orarioLimiteInferiore)&&timeStamp.after(orarioLimiteSuperiore)){
             return true;
@@ -320,9 +389,10 @@ else
     return false;
     }
 
+
     private boolean checkLuogo(String luogo){
 
-        if(!luogo.equals("")){
+    if (!luogo.trim().equals("")) {
 
             return true;
         }

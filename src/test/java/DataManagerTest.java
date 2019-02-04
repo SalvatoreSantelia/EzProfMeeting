@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import static org.mockito.Mockito.*;
 
 import static org.mockito.Mockito.mock;
-
+//TODO completa il testing
 public class DataManagerTest {
     @Mock
     private AccessManager mockedAccessManager;
@@ -21,7 +21,7 @@ public class DataManagerTest {
     private BookingManager mckedBookingManager;
     private ReceivementManager mockedReceivementManager;
 
-    @Test
+    @Test     
     public void testDoLogin()throws SQLException {
         mockedAccessManager=mock(AccessManager.class);
         User utente=new User("miaemail","miapassword","studente");

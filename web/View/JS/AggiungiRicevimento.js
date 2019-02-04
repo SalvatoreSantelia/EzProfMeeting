@@ -1,22 +1,35 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-        $("[type='number']").keypress(function (evt) {
-            evt.preventDefault();
-        });
+    $("[type='number']").keypress(function (evt) {
+        evt.preventDefault();
+    });
 
     $(document).on('click', '#addButton',
-     function () {
+        function () {
 
 
-         $("[name='startHour']").val(start);
-        $("[name='endHour']").val(end);
-    });
+            $("[name='startHour']").val(start);
+            $("[name='endHour']").val(end);
+        });
+
+
+    $(document).on('change' , "#group", function () {
+       $("#group").val($(this).val());
+    })
+
+
+
+    $(document).on('change' , "#placeRecivement", function () {
+        $("#placeRecivement").val($(this).val());
+
+    })
+
 
 
     $(document).on('click', '#insertButton', function () {
 
-        if($("textarea").val().trim() === "")
-        {
+
+        if ($("#placeRecivement").text().trim() === "") {
             alert("Professore, inserisca un luogo per il ricevimento");
             return
         }
@@ -24,8 +37,9 @@ $(document).ready(function() {
         var start, end, luogo, numPosti;
         start = $("#startHour").val();
         end = $("#endHour").val();
+        numPosti = $("#group").find(":selected").val();
+        luogo = $("#placeRecivement").val();
 
-        luogo = $("#place").val();
 
         $.ajax(
             {
@@ -35,11 +49,12 @@ $(document).ready(function() {
                     {
                         inizio: start,
                         fine: end,
-                        luogo:  luogo,
+                        posti: numPosti,
+                        luogo: luogo,
                         operazione: "inserimento"
                     },
                 success: function (results) {
-                    document.location="../Professore/HomeProfessore.jsp";
+                    document.location = "../Professore/HomeProfessore.jsp";
                 }
 
             });

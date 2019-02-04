@@ -39,7 +39,6 @@ public class BookingManager {
             preparedStatement.setBoolean(7, prenotazione.isPresenza());
             preparedStatement.executeUpdate();
 
-
             connection.commit();
             preparedStatement.close();
             return true;
@@ -141,7 +140,33 @@ try {
 
     }
 
-    public Prenotazione getPranotazioneById(int idPrenotazione) {
-        return null;
+  public Prenotazione getPrenotazioneById(int idPrenotazione) throws SQLException {
+    if (idPrenotazione == 0)
+      return null;
+    Prenotazione p = new Prenotazione();
+    Connection connection = null;
+    connection = DriverManagerConnectionPool.getConnection();
+    try {
+      PreparedStatement preparedStmt = connection.prepareStatement("select* from prenotazione where idPrenotazione=?");
+      preparedStmt.setInt(1,idPrenotazione);
+      ResultSet rs = preparedStmt.executeQuery();
+      if(!rs.next())
+      {
+        throw new Exception();
+      }
+
+      p.setIdPrenotazione(rs.getInt(1));
+      p.setListaStudenti(rs.getString(2));
+      p.setMotivazione(rs.getString(3));
+      p.setOrario(rs.getString(4));
+      p.setIdRicevimento(rs.getInt(5));
+      p.setIdStudente(rs.getInt(6));
+      p.setPresenza(rs.getBoolean(7));
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
     }
+    return p;
+  }
 }

@@ -41,11 +41,12 @@
 #userSession ul li
 {
     float: left;
+    padding-left: 20px;
 }
 
 .userImage
 {
-    height: 100px;
+    height: 96px;
 }
 
 #unisaLogo

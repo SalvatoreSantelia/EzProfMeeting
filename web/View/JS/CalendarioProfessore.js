@@ -2,7 +2,7 @@ var SEL_COLOR = "#e6f9ff"
 var previous_row;
 var previous_col;
 var start, end, blockCount;
-var MY_BUTTON = '<button id="addButton" class="btn btn-outline-primary" data-toggle="modal" data-target="#new" style="display:block; width: 100%; height: 100%; margin: auto; background-color: transparent;">+</button>'
+var MY_BUTTON = '<button id="addButton" class="btn btn-outline-primary" data-toggle="modal" data-target="#new" style="display:block; width: 100%; height: 100%; margin: auto; background-color: transparent; color: black">+</button>'
 var posButton;
 
 $(document).ready(function () {

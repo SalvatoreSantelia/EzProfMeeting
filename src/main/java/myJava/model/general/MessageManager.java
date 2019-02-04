@@ -11,8 +11,10 @@ import java.util.Date;
 
 public class MessageManager {
 
-    public boolean inviaMessaggio(int idStudente, int idProfessore, String testo, String lato){
-        if(idStudente==0|| idProfessore==0||testo.equals("")||lato.equals("")){
+
+    public boolean inviaMessaggio(int idStudente, int idProfessore, String testo, String lato) throws SQLException {
+        //non potendo verificare il try catch in fase di testing, ho inserito una throws
+        if (idStudente == 0 || idProfessore == 0 || testo.equals("") || lato.equals("")) {
 
             return false;
         }
@@ -24,34 +26,28 @@ public class MessageManager {
         String insertSQL = "insert into " + "messaggio"
                 + " (dataMessaggio, testoMessaggio,idProfessore ,idStudente,lato, orarioMessaggio) values (?, ?, ?, ?, ?, ?)";
 
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(insertSQL);
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = new Date();
-            SimpleDateFormat formatterr = new SimpleDateFormat("HH:mm:ss");
+        connection = DriverManagerConnectionPool.getConnection();
+        preparedStatement = connection.prepareStatement(insertSQL);
 
-            preparedStatement.setDate(1, java.sql.Date.valueOf(formatter.format(date)));
-            preparedStatement.setString(2, testo);
-            preparedStatement.setInt(3, idProfessore);
-            preparedStatement.setInt(4, idStudente);
-            preparedStatement.setString(5, lato);
-            preparedStatement.setString(6,formatterr.format(System.currentTimeMillis()));
-           if( preparedStatement.executeUpdate()==0)
-           {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        SimpleDateFormat formatterr = new SimpleDateFormat("HH:mm:ss");
 
-               throw new Exception();
-           }
+        preparedStatement.setDate(1, java.sql.Date.valueOf(formatter.format(date)));
+        preparedStatement.setString(2, testo);
+        preparedStatement.setInt(3, idProfessore);
+        preparedStatement.setInt(4, idStudente);
+        preparedStatement.setString(5, lato);
+        preparedStatement.setString(6, formatterr.format(System.currentTimeMillis()));
+        preparedStatement.executeUpdate();
 
-            connection.commit();
-            preparedStatement.close();
-            return true;
-        } catch (Exception e) {
 
-            e.printStackTrace();
-            return false;
-        }
+        connection.commit();
+        preparedStatement.close();
+        return true;
+
+
     }
 
     public ArrayList<Studente> getStudentiContattati(int idProf) throws SQLException {
@@ -110,7 +106,7 @@ rs.previous();
                 throw new Exception();
             }
             rs.previous();
-            while(rs.next()){
+            rs.next();
                 messaggio.setIdMessaggio(rs.getInt("idMessaggio"));
                 messaggio.setDataMessaggio(rs.getDate("dataMessaggio"));
                 messaggio.setTestoMessaggio(rs.getString("testoMessaggio"));
@@ -119,15 +115,15 @@ rs.previous();
                 messaggio.setLato(rs.getString("lato"));
                 messaggio.setOrarioMessaggio(rs.getTime("orarioMessaggio"));
 
-                connection.close();
-                return messaggio;
-            }
-            connection.close();
+
+
+
         } catch (Exception e) {
 
             e.printStackTrace();
             return null;
         }
+        System.out.println(messaggio.getIdMessaggio()+ " ID MESSAGGIO");
         return messaggio;
     }
 
@@ -163,13 +159,6 @@ rs.previous();
                 messaggi.add(messaggio);
 
             }
-            for(Messaggio m: messaggi ){
-
-                System.out.println(m.getIdMessaggio());
-            }
-
-           // System.out.println(messaggi);
-          //  System.out.println(messaggi.get(1));
             connection.close();
         } catch (Exception e) {
 
