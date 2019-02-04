@@ -4,6 +4,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.sql.Time" %>
 <%@ page import="javafx.scene.control.Alert" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,6 +21,8 @@
     DataManager dataManager = new DataManager();
 
     List<Prenotazione> prenotazioni =  dataManager.visualizzaPrenotazioni(studente.getIdStudente());
+    if(prenotazioni==null) prenotazioni= new ArrayList<>();
+
     int i=1;
     DateFormat df = new SimpleDateFormat();
 

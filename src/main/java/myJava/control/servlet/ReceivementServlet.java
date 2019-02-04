@@ -25,26 +25,113 @@ public class ReceivementServlet extends HttpServlet {
 
     if (request.getParameter("operazione").equals("inserimento")) {
       inserisciRicevimento(request, response);
+      return;
     }
 
+    if (request.getParameter("operazione").equals("modifica")) {
+      modificaRicevimento(request, response);
+      return;
+    }
 
+    if (request.getParameter("operazione").equals("elimina")) {
+      System.out.println("Richiesta di eliminazione");
+      eliminaRicevimento(request, response);
+    }
+
+  }
+
+  private void eliminaRicevimento(HttpServletRequest request, HttpServletResponse response) {
+    int id = Integer.parseInt(request.getParameter("id"));
+    System.out.println("Id ricevuto: " + id);
+    Ricevimento r = new Ricevimento();
+    r.setIdRicevimento(id);
+    try {
+
+      if (dm.eliminaRicevimento(r)) {
+        response.getWriter().println("SUCCESS");
+      } else {
+        response.getWriter().println("FAILURE");
+      }
+    } catch (SQLException e) {
+      try {
+        response.getWriter().println("FAILURE");
+      } catch (IOException e1) {
+        e1.printStackTrace();
+      }
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void modificaRicevimento(HttpServletRequest request, HttpServletResponse response) {
+
+
+    String startFirstReceivement, endLastReceivement, luogo, giorno;
+    String oraInizio, oraFine;
+    int id;
+    HttpSession session = request.getSession();
+    Professore prof = (Professore) session.getAttribute("user");
+    id = Integer.parseInt(request.getParameter("id"));
+    startFirstReceivement = request.getParameter("inizio");
+    endLastReceivement = request.getParameter("fine");
+    luogo = request.getParameter("luogo");
+
+    System.out.println(startFirstReceivement + "\n" + endLastReceivement + "\n" + luogo + "\n");
+
+    giorno = startFirstReceivement.substring(0, 10).trim();
+    oraInizio = startFirstReceivement.substring(10).trim();
+    oraFine = endLastReceivement.substring(10).trim();
+    System.out.println(
+        giorno + "\n" + oraInizio + "\n" + oraFine
+    );
+
+    Ricevimento r = new Ricevimento();
+    r.setIdRicevimento(id);
+    r.setData(giorno);
+    r.setOrarioFine(oraFine);
+    r.setOrarioInizio(oraInizio);
+    r.setLuogo(luogo);
+    r.setIdProfessore(prof.getIdProfessore());
+
+
+    try {
+
+      if (dm.modificaRicevimento(r)) {
+        response.getWriter().println("SUCCESS");
+      } else {
+        response.getWriter().println("FAILURE");
+      }
+
+    } catch (SQLException | IOException ex) {
+      ex.printStackTrace();
+      try {
+        response.getWriter().println("FAILURE");
+      } catch (IOException ioex) {
+        ioex.printStackTrace();
+      }
+    }
   }
 
   private void inserisciRicevimento(HttpServletRequest request, HttpServletResponse response) {
 
     String startFirstReceivement, endLastReceivement, luogo, giorno;
     String oraInizio, oraFine;
+    int postiTotali;
     HttpSession session = request.getSession();
     Professore prof = (Professore) session.getAttribute("user");
     startFirstReceivement = request.getParameter("inizio");
     endLastReceivement = request.getParameter("fine");
     luogo = request.getParameter("luogo");
+
+    postiTotali = Integer.parseInt(request.getParameter("posti"));
+    System.out.println(startFirstReceivement + "\n" + endLastReceivement + "\n" + luogo + "\n" + postiTotali);
+
     giorno = startFirstReceivement.substring(0, 10).trim();
     oraInizio = startFirstReceivement.substring(10).trim();
     oraFine = endLastReceivement.substring(10).trim();
-
     System.out.println(
-        giorno + "\n" + oraInizio  + "\n" + oraFine
+        giorno + "\n" + oraInizio + "\n" + oraFine
     );
 
     String temp = oraInizio;
@@ -55,6 +142,8 @@ public class ReceivementServlet extends HttpServlet {
       r.setData(giorno);
       r.setLuogo(luogo);
       r.setOrarioInizio(temp);
+      r.setPostiTotali(postiTotali);
+      r.setPostiDisponibili(postiTotali);
 
       hh = Integer.parseInt(temp.substring(0, 2));
       mm = Integer.parseInt(temp.substring(3, 5));
@@ -66,8 +155,9 @@ public class ReceivementServlet extends HttpServlet {
         temp = hh + ":00";
       }
 
-      if(hh==9)
+      if (hh == 9) {
         temp = "0" + temp;
+      }
 
       r.setOrarioFine(temp);
       r.setIdProfessore(prof.getIdProfessore());
@@ -75,8 +165,14 @@ public class ReceivementServlet extends HttpServlet {
       System.out.println(r);
 
       try {
-        dm.creaRicevimento(r);
-      } catch (SQLException ex) {
+
+        if (dm.creaRicevimento(r)) {
+          response.getWriter().println("SUCCESS");
+        } else {
+          response.getWriter().println("FAILURE");
+        }
+
+      } catch (SQLException | IOException ex) {
         ex.printStackTrace();
         try {
           response.getWriter().println("FAILURE");
@@ -86,15 +182,6 @@ public class ReceivementServlet extends HttpServlet {
       } catch (ParseException e) {
         e.printStackTrace();
       }
-    }
-
-    try {
-      response.getWriter().println("SUCCESS");
-
-    }
-    catch (IOException ex)
-    {
-      ex.printStackTrace();
     }
 
 

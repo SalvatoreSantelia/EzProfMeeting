@@ -40,7 +40,7 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES ('mia@email.it','miapassword2','studente'),('miaemail','miapassword','studente');
+INSERT INTO `login` VALUES ('mia@email.it','miapassword2','studente'),('miaemail','miapassword','studente'),('prof@prof.it', 'profprofprof', 'professore');
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS `prenotazione`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prenotazione` (
-  `idPrenotazione` int(11) NOT NULL,
+  `idPrenotazione` int(11) NOT NULL AUTO_INCREMENT,
   `listaStudenti` varchar(80) DEFAULT NULL,
   `motivazione` varchar(45) DEFAULT NULL,
   `orario` time NOT NULL,
@@ -118,7 +118,7 @@ DROP TABLE IF EXISTS `professore`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `professore` (
-  `idProfessore` int(11) NOT NULL,
+  `idProfessore` int(11) NOT NULL AUTO_INCREMENT,
   `nomeProfessore` varchar(45) NOT NULL,
   `cognomeProfessore` varchar(45) NOT NULL,
   `emailProfessore` varchar(45) NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE `professore` (
 
 LOCK TABLES `professore` WRITE;
 /*!40000 ALTER TABLE `professore` DISABLE KEYS */;
-INSERT INTO `professore` VALUES (1,'Filomena','Ferrucci','fferrucci@unisa.it','0819876543','stecca F'),(2,'Carmine','Gravino','cgravino@unisa.it','0819876543','stecca F');
+INSERT INTO `professore` VALUES (1,'Filomena','Ferrucci','fferrucci@unisa.it','0819876543','stecca F'),(2,'Carmine','Gravino','cgravino@unisa.it','0819876543','stecca F'), (3, 'Mamma', 'Papa', 'prof@prof.it','666', 'ufficio 21');
 /*!40000 ALTER TABLE `professore` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,11 +146,13 @@ DROP TABLE IF EXISTS `ricevimento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ricevimento` (
-  `idRicevimento` int(11) NOT NULL,
+  `idRicevimento` int(11) NOT NULL AUTO_INCREMENT,
   `orarioInizio` time NOT NULL,
   `orarioFine` time NOT NULL,
   `luogo` varchar(80) NOT NULL,
   `data` date NOT NULL,
+  `postiTotali` int NOT NULL,
+  `postiDisponibili` int NOT NULL,
   `idProfessore` int(11) DEFAULT NULL,
   PRIMARY KEY (`idRicevimento`),
   KEY `idProfessore_idx` (`idProfessore`),
@@ -164,7 +166,7 @@ CREATE TABLE `ricevimento` (
 
 LOCK TABLES `ricevimento` WRITE;
 /*!40000 ALTER TABLE `ricevimento` DISABLE KEYS */;
-INSERT INTO `ricevimento` VALUES (1,'12:00:00','12:30:00','stecca F','2019-02-16',1),(2,'12:00:00','12:30:00','stecca F','2019-02-16',2),(3,'11:12:38','11:31:40','stecca F','2018-12-12',2),(4,'11:12:38','11:31:40','stecca F','2018-12-12',2);
+INSERT INTO `ricevimento` VALUES (1,'12:00:00','12:30:00','stecca F','2019-02-16', 2, 0,1),(2,'12:00:00','12:30:00','stecca F','2019-02-16', 2, 0, 2),(3,'11:12:38','11:31:40','stecca F','2018-12-12', 2, 0,2),(4,'11:12:38','11:31:40','stecca F','2018-12-12', 2, 0, 2);
 /*!40000 ALTER TABLE `ricevimento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +178,7 @@ DROP TABLE IF EXISTS `studente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `studente` (
-  `idStudente` int(11) NOT NULL,
+  `idStudente` int(11) NOT NULL AUTO_INCREMENT,
   `nomeStudente` varchar(45) NOT NULL,
   `cognomeStudente` varchar(45) NOT NULL,
   `matricola` varchar(45) NOT NULL,

@@ -46,5 +46,24 @@
 
 
 
+    <servlet>
+        <servlet-name>ReceivementServlet</servlet-name>
+        <servlet-class>myJava.control.servlet.ReceivementServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReceivementServlet</servlet-name>
+        <url-pattern>/View/General/receivement</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>BookingServlet</servlet-name>
+        <servlet-class>myJava.control.servlet.BookingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookingServlet</servlet-name>
+        <url-pattern>/View/General/booking</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

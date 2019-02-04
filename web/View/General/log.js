@@ -1,3 +1,19 @@
+
+$(document).ready(function () {
+
+    $(document).keyup(
+        function (e) {
+            if(e.which==13)
+            {
+                log();
+            }
+        }
+    )
+
+
+});
+
+
 function showPassword() {
 
     var x = document.getElementById("pass");
@@ -58,6 +74,7 @@ function log(){
             document.loginForm.submit();
         }
     }
+
 
 
 

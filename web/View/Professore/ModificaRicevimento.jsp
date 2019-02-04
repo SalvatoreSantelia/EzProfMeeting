@@ -13,30 +13,45 @@
 <body>
 
 <link rel="stylesheet" type="text/css" href="../CSS/myForm.css">
-<div id = "modificaRicevimento">
+
+<!--
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <@ include="VisualizzaPrenotazioni.jsp">
+        </div>
+    </div>
+</div>-->
+
+<div id = "modificaRicevimento" style="position: relative">
 
     <h1> Modifica Ricevimento </h1>
 
-    <form id="modificaForm" action = "ReceivementServlet" method="post">
+    <form id="modificaForm" method="post">
 
         <h4 id="dio"> Inizio </h4>
-        <input  type="text" id="startHour" name="startHour" value="inizio"> <br> <br>
+        <input type="hidden" id="idEdit" name="idEdit">
+        <input  type="text" id="startHourEdit" name="startHourEdit" value="inizio" disabled="disabled"> <br> <br>
 
         <h4> Fine </h4>
-        <input  type="text" id="endHour" name="endHour" value=""> <br> <br>
+        <input  type="text" id="endHourEdit" name="endHourEdit" value="" disabled="disabled"> <br> <br>
 
 
         <h4> Luogo </h4>
-        <textarea  id="place" name="place" rows="4" cols="50" style="resize: none;">Ufficio:  </textarea> <br> <br>
-
-        <h4> Posti disponibili per blocco orario </h4>
-        <input id="group" name="group" type="number" min="1" max="5" value="1"> <br> <br>
+        <textarea  id="placeEdit" name="placeEdit" rows="4" cols="50" style="resize: none; width: 100%;">Ufficio:  </textarea> <br> <br>
 
 
         <a id="undoButton"  data-dismiss="modal"> Annulla </a>
         &nbsp;
-        <a id="insertButton" data-dismiss="modal" > Conferma </a>
-
+        <a id="editButton" data-dismiss="modal" > Conferma </a>
+        &nbsp;
+        <a id="prenotazioniButton" data-dismiss="modal"  data-target=".bd-example-modal-lg"> Visualizza Prenotazioni </a>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <a id="deleteButton" data-dismiss="modal" style=""><i class="fas fa-trash-alt"></i></a>
 
 
     </form>
