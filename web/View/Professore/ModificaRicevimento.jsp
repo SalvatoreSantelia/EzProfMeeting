@@ -11,19 +11,29 @@
     <title>Title</title>
 </head>
 <body>
-
+<%
+    DataManager dataManager = new DataManager();
+%>
 <link rel="stylesheet" type="text/css" href="../CSS/myForm.css">
 
-<!--
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+<div class="modal fade" id="visualizzaPrenotazioni" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
      aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <@ include="VisualizzaPrenotazioni.jsp">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content mymodal">
+
+            <div class="modal-header">
+            <h4>Lista Studente</h4>
+            </div>
+            <div class="modal-body modalbody">
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+
         </div>
     </div>
-</div>-->
-
+</div>
 <div id = "modificaRicevimento" style="position: relative">
 
     <h1> Modifica Ricevimento </h1>
@@ -46,7 +56,7 @@
         &nbsp;
         <a id="editButton" data-dismiss="modal" > Conferma </a>
         &nbsp;
-        <a id="prenotazioniButton" data-dismiss="modal"  data-target=".bd-example-modal-lg"> Visualizza Prenotazioni </a>
+        <a id="prenotazioniButton"   data-toggle="modal" data-target="#visualizzaPrenotazioni"> Visualizza Prenotazioni </a>
         &nbsp;
         &nbsp;
         &nbsp;

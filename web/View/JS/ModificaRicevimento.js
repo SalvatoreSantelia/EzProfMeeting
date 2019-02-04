@@ -82,5 +82,27 @@ $(document).ready
 
         });
 
+        $(".nome").click(function () {
+            var idEdit = $("#idEdit" + this.id).val();
+
+            $.post("ReceivementServlet", {
+                "idEdit": idEdit,
+            }, function (data, status) {
+                $(".modalbody").empty();
+                $.each(data, function (i, item) {
+                        $(".modalbody").append("" +
+                            "<div class=\"incoming_msg\">" +//Aggiungere i vari div
+                            "<p>" + item.lista + "</p>" +
+                            "<p>" + item.motivazione + "</p>" +
+                            "<p>" + item.orario + "</p>" +
+                            "</div>");
+                });
+
+            });
+        });
+
+
     }
+
+
 )

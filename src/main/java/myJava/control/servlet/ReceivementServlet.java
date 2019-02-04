@@ -1,11 +1,10 @@
 package myJava.control.servlet;
 
-import jdk.nashorn.internal.parser.JSONParser;
+import myJava.model.beans.Prenotazione;
 import myJava.model.beans.Professore;
 import myJava.model.beans.Ricevimento;
 import myJava.model.general.DataManager;
 
-import javax.imageio.IIOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,9 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.List;
 
 @WebServlet(name = "ReceivementServlet")
 public class ReceivementServlet extends HttpServlet {
@@ -38,6 +38,46 @@ public class ReceivementServlet extends HttpServlet {
       eliminaRicevimento(request, response);
     }
 
+    if(request.getParameter("operazione").equals("visualizza")){
+      System.out.println("Visualizza prenotazioni");
+      try {
+        visualizzaPrenotazioni(request,response);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+
+  }
+
+  private void visualizzaPrenotazioni(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+    int idRicevimento = Integer.parseInt(request.getParameter("idEdit"));
+    List<Prenotazione> prenotazioni = dm.visualizzaPrenotazioniByIdRicevimento(idRicevimento);
+    String risposta="";
+
+    if(prenotazioni.size()!=0){
+      risposta = "[";
+      int i = 0;
+
+      for (; i < prenotazioni.size() - 1; i++) {
+        Prenotazione a = prenotazioni.get(i);
+        risposta = risposta + "{" +
+                "\"lista\": \"" + a.getListaStudenti() + "\"," +
+                "\"motivazione\": \"" + a.getMotivazione() + "\"," +
+                "\"orario\": \"" + a.getOrario() + "\"},";
+      }
+      Prenotazione a = prenotazioni.get(i);
+      risposta = risposta + "{" +
+              "\"lista\": \"" + a.getListaStudenti() + "\"," +
+              "\"motivazione\": \"" + a.getMotivazione() + "\"," +
+              "\"orario\": \"" + a.getOrario() + "\"}";
+
+
+      risposta = risposta + "]";
+    }
+    response.setContentType("application/json");
+    response.setCharacterEncoding("UTF-8");
+    PrintWriter out = response.getWriter();
+    out.write(risposta);
   }
 
   private void eliminaRicevimento(HttpServletRequest request, HttpServletResponse response) {

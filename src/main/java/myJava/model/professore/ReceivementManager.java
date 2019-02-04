@@ -1,12 +1,10 @@
 package myJava.model.professore;
 
 import myJava.control.connection.DriverManagerConnectionPool;
+import myJava.model.beans.Prenotazione;
 import myJava.model.beans.Professore;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
-
-
-import java.security.spec.ECField;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -15,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.zip.DataFormatException;
 
 
 public class ReceivementManager {
@@ -366,6 +363,44 @@ public class ReceivementManager {
       return true;
     }
     return false;
+  }
+
+
+  public List<Prenotazione> visualizzaPrenotazioniByIdRicevimento(int idRicevimento) throws SQLException {
+    if (idRicevimento == 0 ){
+
+
+      return null;
+
+    }
+    Connection connection = null;
+
+    List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      //creating prepared statement for our required query
+      PreparedStatement statement = connection.prepareStatement("SELECT *  from prenotazione WHERE prenotazione.idRicevimento = ?");
+      //setting the parameters
+      statement.setInt(1, idRicevimento);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        Prenotazione prenotation = new Prenotazione();
+        prenotation.setIdPrenotazione(rs.getInt(1));
+        prenotation.setListaStudenti(rs.getString(2));
+        prenotation.setMotivazione(rs.getString(3));
+        prenotation.setOrario(rs.getString(4));
+        prenotation.setIdRicevimento(rs.getInt(5));
+        prenotation.setIdStudente(rs.getInt(6));
+        prenotation.setPresenza(rs.getBoolean(7));
+        prenotazioni.add(prenotation);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+    return prenotazioni;
+
+
   }
 
 }
