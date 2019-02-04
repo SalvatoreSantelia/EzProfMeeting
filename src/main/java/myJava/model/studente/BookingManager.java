@@ -39,6 +39,7 @@ public class BookingManager {
             preparedStatement.setBoolean(7, prenotazione.isPresenza());
             preparedStatement.executeUpdate();
 
+
             connection.commit();
             preparedStatement.close();
             return true;
