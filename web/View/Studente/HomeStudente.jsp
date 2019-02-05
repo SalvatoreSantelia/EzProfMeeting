@@ -10,6 +10,7 @@
 
 <html>
 <head>
+    <title>EzPM Home</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -18,7 +19,10 @@
 </head>
 
 
+
 <body id="StudenteForm">
+
+
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -83,9 +87,9 @@
                                 <div class="row w-100">
 
                                     <div class="col-12 col-sm-6 col-md-3 px-0">
-                                        <img src="image/<%=A.getNomeProfessore()%><%=A.getCognomeProfessore()%>.jpg"
+                                        <img src="../img/images.png"
                                              alt="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg"
-                                             class="rounded-circle mx-auto d-block img-fluid">
+                                             class="rounded-circle mx-auto d-block img-fluid" style="height: 150px">
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-md-9 text-center text-sm-left">

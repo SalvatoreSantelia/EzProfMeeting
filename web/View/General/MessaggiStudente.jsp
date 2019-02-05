@@ -21,6 +21,7 @@
 
 <html>
 <head>
+    <title>EzPM Chat</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -52,7 +53,7 @@
                             Messaggio mess =  dataManager.getLastDataMessaggio(id,A.getIdProfessore());
                             String testo="";
                             String data="";
-                            if(mess !=null){
+                            if(mess!=null && mess.getDataMessaggio()!=null){
                              Date date = (Date) mess.getDataMessaggio();
                              data=df.format(date);
                              Time time = (Time) mess.getOrarioMessaggio();

@@ -37,10 +37,9 @@ $(document).ready(
                             action: "rimuoviPrenotazione"
                         },
                     success: function (results) {
-                        alert(results)
-                        if (results != null || results !== "FAILURE") {
+
                             window.location.reload();
-                        }
+
                     }
 
                 });

@@ -23,6 +23,7 @@
 
 <html>
 <head>
+    <title>EzPM Chat</title>
     <script src="../JS/Message.js"></script>
     <link rel="stylesheet" type="text/css" href="../CSS/Message.css">
     <!------ Include the above in your HEAD tag ---------->
@@ -52,7 +53,7 @@
                             Messaggio mess =  dataManager.getLastDataMessaggio(A.getIdStudente(),id);
                             String testo="";
                             String data="";
-                            if(mess.getDataMessaggio()!=null){
+                            if(mess != null && mess.getDataMessaggio()!=null){
                                 Date date = (Date) mess.getDataMessaggio();
                                 data=df.format(date);
                                 Time time = (Time) mess.getOrarioMessaggio();
