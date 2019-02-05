@@ -12,6 +12,7 @@
 
 <html>
 <head>
+    <title>EzPM Profilo Docente</title>
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -31,7 +32,7 @@
 <div style="margin-top: 30px;">
     <div style="float:left">
         <ul>
-            <li ><img style="height: 150px; display: block; margin: auto;" src="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg"></li>
+            <li ><img style="height: 150px; display: block; margin: auto;" src=../img/images.png></li>
             <li style="padding-left: 5px"><%=professore.getNomeProfessore()%> <%=professore.getCognomeProfessore()%></li>
             <li style="padding-left: 5px"><%=professore.getUfficioProfessore()%></li>
             <li style="padding-left: 5px"><%=professore.getEmailProfessore()%></li>
@@ -41,7 +42,7 @@
         </ul>
 
     </div>
-    <div class="container" style="max-width: 1200px !important;">
+    <div class="container" style="max-width: 1000px !important;margin-right: 8%">
         <%@include file="../Studente/CalendarioStudente.jsp"%>
     </div>
 </div>

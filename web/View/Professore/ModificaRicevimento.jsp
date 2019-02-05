@@ -11,9 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<%
-    DataManager dataManager = new DataManager();
-%>
+
 <link rel="stylesheet" type="text/css" href="../CSS/myForm.css">
 
 <div class="modal fade" id="visualizzaPrenotazioni" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
