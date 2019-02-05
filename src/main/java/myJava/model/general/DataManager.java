@@ -243,6 +243,9 @@ public class DataManager {
     }
 
 
+    public List<Prenotazione> visualizzaPrenotazioniByIdRicevimento(int idRicevimento) throws SQLException {
+        return rm.visualizzaPrenotazioniByIdRicevimento(idRicevimento);
+    }
 }
 
 

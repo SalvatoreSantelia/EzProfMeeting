@@ -49,7 +49,7 @@
                     <%=studente.getNomeStudente()%> <br> <%=studente.getCognomeStudente()%> <br> <%=studente.getMatricola()%> <br> <%=studente.getEmailStudente()%>
                 </li>
                 <li>
-                    <img class="userImage" src="../img/user.jpg" alt="">
+                    <img class="userImage" src="../img/user.jpg" alt="" style="    margin-right: 10px;">
                 </li>
                 <%
                     }

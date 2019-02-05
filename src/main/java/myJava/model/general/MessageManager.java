@@ -143,7 +143,7 @@ rs.previous();
         try {
             connection = DriverManagerConnectionPool.getConnection();
             //creating prepared statement for our required query
-            PreparedStatement statement = connection.prepareStatement("SELECT *  from messaggio where idProfessore = ? and idStudente = ? ORDER BY dataMessaggio");
+            PreparedStatement statement = connection.prepareStatement("SELECT *  from messaggio where idProfessore = ? and idStudente = ? ORDER BY dataMessaggio DESC,orarioMessaggio desc ");
             statement.setInt(1,idProfessore);
             statement.setInt(2,idStudente);
             ResultSet rs = statement.executeQuery();

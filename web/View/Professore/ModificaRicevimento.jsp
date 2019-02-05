@@ -11,8 +11,29 @@
     <title>Title</title>
 </head>
 <body>
-
+<%
+    DataManager dataManager = new DataManager();
+%>
 <link rel="stylesheet" type="text/css" href="../CSS/myForm.css">
+
+<div class="modal fade" id="visualizzaPrenotazioni" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content mymodal">
+
+            <div class="modal-header">
+            <h4>Lista Studente</h4>
+            </div>
+            <div class="modal-body modalbody">
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+
+        </div>
+    </div>
+</div>
 <div id = "modificaRicevimento" style="position: relative">
 
     <h1> Modifica Ricevimento </h1>
@@ -34,8 +55,13 @@
         <a id="undoButton"  data-dismiss="modal"> Annulla </a>
         &nbsp;
         <a id="editButton" data-dismiss="modal" > Conferma </a>
-
-        <a id="deleteButton" data-dismiss="modal" style="margin-left: 50%;"><i class="fas fa-trash-alt"></i></a>
+        &nbsp;
+        <a id="prenotazioniButton"   data-toggle="modal" data-target="#visualizzaPrenotazioni"> Visualizza Prenotazioni </a>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <a id="deleteButton" data-dismiss="modal" style=""><i class="fas fa-trash-alt"></i></a>
 
 
     </form>
