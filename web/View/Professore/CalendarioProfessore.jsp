@@ -60,7 +60,23 @@
             System.out.println(lista);
             sdf = new SimpleDateFormat("YYYY-MM-dd");
             String[] settimana = new String[5];
-
+            cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            if(lista!=null)
+            {
+              startWeek = sdf.format(cal.getTime());
+              for(Ricevimento r: lista)
+              {
+                if(startWeek.compareTo(r.getData())>0)
+                {
+                  cal.setTime(sdf.parse(r.getData()));
+                  int day = cal.get(Calendar.DAY_OF_WEEK);
+                  cal = Calendar.getInstance();
+                  cal.set(Calendar.DAY_OF_WEEK, day);
+                  r.setData(sdf.format(cal.getTime()));
+                  dm.modificaRicevimento(r);
+                }
+              }
+            }
 
 
             for (int i = 0; i < 5; i++) {

@@ -51,7 +51,7 @@
                             Messaggio mess =  dataManager.getLastDataMessaggio(A.getIdStudente(),id);
                             String testo="";
                             String data="";
-                            if(mess.getDataMessaggio()!=null){
+                            if(mess != null && mess.getDataMessaggio()!=null){
                                 Date date = (Date) mess.getDataMessaggio();
                                 data=df.format(date);
                                 Time time = (Time) mess.getOrarioMessaggio();

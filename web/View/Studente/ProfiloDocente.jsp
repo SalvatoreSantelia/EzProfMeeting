@@ -25,21 +25,23 @@
     String email = request.getParameter("email");
     DataManager accessManager = new DataManager();
     Professore professore =  accessManager.getProfessoreByEmail(email);
+
+
 %>
 
 
-<div>
+<div style="margin-top: 30px;">
     <div style="float:left">
         <ul>
-            <li><img src="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg"></li>
-            <li><%=professore.getNomeProfessore()%> <%=professore.getCognomeProfessore()%></li>
-            <li><%=professore.getUfficioProfessore()%></li>
-            <li><%=professore.getEmailProfessore()%></li>
-            <li><%=professore.getTelefonoProfessore()%></li>
+            <li ><img style="height: 150px; display: block; margin: auto;" src="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg"></li>
+            <li style="padding-left: 5px"><%=professore.getNomeProfessore()%> <%=professore.getCognomeProfessore()%></li>
+            <li style="padding-left: 5px"><%=professore.getUfficioProfessore()%></li>
+            <li style="padding-left: 5px"><%=professore.getEmailProfessore()%></li>
+            <li style="height: 150px;">     <a href="../General/MessaggiStudente.jsp" target="_blank">
+                <img style="height: 150px; display: block; margin: auto;" src="../img/messageIcon.png" alt="SMS">
+            </a></li>
         </ul>
-        <a href="../General/MessaggiStudente.jsp" target="_blank">
-            <img src="../img/messageIcon.png" alt="SMS">
-        </a>
+
     </div>
     <div class="container">
         <%@include file="../Studente/CalendarioStudente.jsp"%>
