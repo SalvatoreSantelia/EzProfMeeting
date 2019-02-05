@@ -23,6 +23,15 @@ public class ReceivementServlet extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    if(request.getParameter("operazione").equals("effettuaPresenza")){
+      try {
+        effettuaPresenza(request,response);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+      return;
+    }
+
     if (request.getParameter("operazione").equals("inserimento")) {
       inserisciRicevimento(request, response);
       return;
@@ -49,7 +58,14 @@ public class ReceivementServlet extends HttpServlet {
 
   }
 
-  private void visualizzaPrenotazioni(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+  private void effettuaPresenza(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+    int idStudente = Integer.parseInt(request.getParameter("idStudente"));
+    String presente = request.getParameter("presente");
+    DataManager dm = new DataManager();
+    dm.registraPresenza(presente,idStudente);
+  }
+
+    private void visualizzaPrenotazioni(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
     int idRicevimento = Integer.parseInt(request.getParameter("idEdit"));
     DataManager dm = new DataManager();
     List<Prenotazione> prenotazioni = dm.visualizzaPrenotazioniByIdRicevimento(idRicevimento);
@@ -60,11 +76,13 @@ public class ReceivementServlet extends HttpServlet {
       Prenotazione a = prenotazioni.get(i);
       risposta= risposta+"{" +
               "\"lista\": \""+a.getListaStudenti()+"\"," +
+              "\"idStudente\": \""+a.getIdStudente()+"\"," +
               "\"motivazione\": \""+a.getMotivazione()+"\"},";
     }
     Prenotazione a = prenotazioni.get(i);
     risposta= risposta+"{" +
             "\"lista\": \""+a.getListaStudenti()+"\"," +
+            "\"idStudente\": \""+a.getIdStudente()+"\"," +
             "\"motivazione\": \""+a.getMotivazione()+"\"}";
     risposta = risposta+"]";
     response.setContentType("application/json");
