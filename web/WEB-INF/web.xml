@@ -5,17 +5,25 @@
          version="3.1">
     <servlet>
 
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>myJava.control.servlet.LoginServlet</servlet-class>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>myJava.control.servlet.LoginServlet</servlet-class>
 
 
-</servlet>
-<servlet-mapping>
-<servlet-name>LoginServlet</servlet-name>
-<url-pattern>/View/General/login</url-pattern>
-</servlet-mapping>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/View/General/login</url-pattern>
+    </servlet-mapping>
 
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>myJava.control.servlet.LogoutServlet</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/View/General/logout</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>AccessServlet</servlet-name>
@@ -43,7 +51,6 @@
         <servlet-name>InviaMessaggioServlet</servlet-name>
         <url-pattern>/View/General/inviaMessaggio</url-pattern>
     </servlet-mapping>
-
 
 
     <servlet>

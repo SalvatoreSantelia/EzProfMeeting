@@ -13,6 +13,29 @@ body {
 }
 
 
+#header button
+{
+    width: 100%;
+    margin: auto;
+    padding: 10px 0 10px 0;
+    color: #cdfafa;
+    box-shadow: 0 0 1px 1px #010a13, inset 0 0 1px 1px #010a13;
+    background: #1e2328;
+    border: 2px solid transparent;
+    border-image: linear-gradient(to top, #0d404c 0%, #0596aa 44%, #0596aa 93%, #0ac8b9 100%);
+    border-image-slice: 1;
+}
+
+
+#header button:hover
+{
+    color: #cdfafa;
+    border-image: linear-gradient(to top, #3295c7 0%, #0ac8b9 49%, #cdfafa 100%);
+    border-image-slice: 1;
+    background-image: linear-gradient(to top, rgba(88,83,66,0.5), rgba(30,35,40,0.5));
+    cursor: pointer;
+}
+
 
 #header a h1
 {
@@ -33,7 +56,6 @@ body {
 
 #userSession
 {
-    font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
     margin-top: 10px;
     float: right;
 }
