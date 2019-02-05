@@ -51,31 +51,26 @@ public class ReceivementServlet extends HttpServlet {
 
   private void visualizzaPrenotazioni(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
     int idRicevimento = Integer.parseInt(request.getParameter("idEdit"));
+    DataManager dm = new DataManager();
     List<Prenotazione> prenotazioni = dm.visualizzaPrenotazioniByIdRicevimento(idRicevimento);
-    String risposta="";
+    String risposta= "[";
 
-    if(prenotazioni.size()!=0){
-      risposta = "[";
-      int i = 0;
-
-      for (; i < prenotazioni.size() - 1; i++) {
-        Prenotazione a = prenotazioni.get(i);
-        risposta = risposta + "{" +
-                "\"lista\": \"" + a.getListaStudenti() + "\"," +
-                "\"motivazione\": \"" + a.getMotivazione() + "\"," +
-                "\"orario\": \"" + a.getOrario() + "\"},";
-      }
+    int i=0;
+    for(;i<prenotazioni.size()-1;i++){
       Prenotazione a = prenotazioni.get(i);
-      risposta = risposta + "{" +
-              "\"lista\": \"" + a.getListaStudenti() + "\"," +
-              "\"motivazione\": \"" + a.getMotivazione() + "\"," +
-              "\"orario\": \"" + a.getOrario() + "\"}";
-
-
-      risposta = risposta + "]";
+      risposta= risposta+"{" +
+              "\"lista\": \""+a.getListaStudenti()+"\"," +
+              "\"motivazione\": \""+a.getMotivazione()+"\"},";
     }
+    Prenotazione a = prenotazioni.get(i);
+    risposta= risposta+"{" +
+            "\"lista\": \""+a.getListaStudenti()+"\"," +
+            "\"motivazione\": \""+a.getMotivazione()+"\"}";
+    risposta = risposta+"]";
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
+
+    System.out.println(risposta);
     PrintWriter out = response.getWriter();
     out.write(risposta);
   }
