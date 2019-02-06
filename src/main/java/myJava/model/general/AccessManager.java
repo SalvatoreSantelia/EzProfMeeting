@@ -13,9 +13,17 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * Classe che implementa la parte di login del sistema
+ * @version 1.0
+ * */
 public class AccessManager {
 
+  /**
+   * metodo che si occupa del login controllando le credenziali nel database
+   * @param mail è la stringa che rappresenta la mail dell'utente e non deve essere vuota
+   * @param password è la stringa che rappresenta la password dell'utente e, oltre a non essere vuota, deve avere almeno 8 caratteri
+   * */
   public User doLogin(String mail, String password) throws SQLException {
     if(!mailSyntaxCheck(mail)|| password.length()<8){
 
@@ -57,9 +65,10 @@ public class AccessManager {
     return utente;
 
   }
-
-
-  //get professore by email
+  /**
+   * @return un oggetto professore data la sua e-mail
+   * @param email non deve essere vuota
+   * */
   public Professore getProfessoreByEmail(String email) {
     if(!mailSyntaxCheck(email)){
       return null;
@@ -102,7 +111,9 @@ public class AccessManager {
 
 
 
-  //get studente by email
+  /**@return un oggetto studente data la sua e-mail
+   * @param email non deve essere vuota
+   * */
   public Studente getStudenteByEmail(String email) {
     if(!mailSyntaxCheck(email)){
 
@@ -142,7 +153,9 @@ public class AccessManager {
     }
     return studente;
   }
-
+/**
+ *metodo che controlla la sintassi della mail
+ * */
   private boolean mailSyntaxCheck(String email)
   {
     // Create the Pattern using the regex

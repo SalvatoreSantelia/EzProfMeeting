@@ -25,8 +25,6 @@ private Ricevimento dammiRicevimentoModificato(){
 
     return    new Ricevimento(3, "11:12:38", "11:31:40", "stecca F", "2018-12-12", 5, 1, 2);
 }
-
-
     @Test
     public void testCreaRicevimento() throws SQLException , ParseException {
 
@@ -41,8 +39,6 @@ private Ricevimento dammiRicevimentoModificato(){
         Assert.assertFalse(receivementManager.creaRicevimento(new Ricevimento(1,"12:12","13:13","stecca F","2019-11-12",postiDisponibili,postiTotali,1)));
       //  Assert.assertFalse(receivementManager.creaRicevimento(new Ricevimento(2,"12:12:12","13:13:13","stecca F","2019-11-12",postiDisponibili,postiTotali,1)));
     }
-
-
     @Test
     public void testEliminRicevimento() throws SQLException {
 
