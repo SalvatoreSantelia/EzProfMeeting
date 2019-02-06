@@ -18,7 +18,7 @@ public class AccessMangerTest {
 
         Assert.assertEquals(user.getPassword(),am.doLogin("mia@email.it","miapassword2").getPassword());
       Assert.assertEquals(user.getTipo(),am.doLogin("mia@email.it","miapassword2").getTipo());
-        Assert.assertNull(am.doLogin("miamailsbagiata","d"));
+        Assert.assertNull(am.doLogin("mia@email.it","albero"));
 
         Assert.assertNull(am.doLogin("email@mia.it","abcdefrtew"));
 

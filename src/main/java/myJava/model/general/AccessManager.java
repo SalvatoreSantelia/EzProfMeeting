@@ -26,7 +26,6 @@ public class AccessManager {
    * */
   public User doLogin(String mail, String password) throws SQLException {
     if(!mailSyntaxCheck(mail)|| password.length()<8){
-
       return null;
     }
     Connection connection = null;
