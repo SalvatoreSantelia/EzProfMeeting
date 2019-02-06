@@ -48,6 +48,7 @@
                         DateFormat df = new SimpleDateFormat("yyyy-MMM-dd");
                         DateFormat dff = new SimpleDateFormat("HH:mm:ss");
                         int i=0;
+                        if(studenti !=null){
                         for (Studente A : studenti) {
                             Messaggio mess =  dataManager.getLastDataMessaggio(A.getIdStudente(),id);
                             String testo="";
@@ -76,7 +77,7 @@
 
 
                     <%
-                            i++; }
+                            i++; }}
                     %>
 
                 </div>

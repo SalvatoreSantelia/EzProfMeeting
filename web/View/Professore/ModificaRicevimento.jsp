@@ -13,6 +13,8 @@
 <body>
 
 <link rel="stylesheet" type="text/css" href="../CSS/myForm.css">
+<link rel="stylesheet" type="text/css" href="../CSS/HomeStudente.css">
+
 
 <div class="modal fade" id="visualizzaPrenotazioni" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
      aria-hidden="true">
@@ -20,10 +22,24 @@
         <div class="modal-content mymodal">
 
             <div class="modal-header">
-            <h4>Lista Studente</h4>
+            <h4>Lista Studenti Prenotati</h4>
             </div>
             <div class="modal-body modalbody">
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Lista Studenti</th>
+                        <th scope="col">Motivazione</th>
+                        <th scope="col">Presente</th>
+                        <th scope="col">Non Presente</th>
+                    </tr>
+                    </thead>
+                    <tbody class="tbodymodalbody">
 
+
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer">
 
@@ -32,6 +48,8 @@
         </div>
     </div>
 </div>
+
+
 <div id = "modificaRicevimento" style="position: relative">
 
     <h1> Modifica Ricevimento </h1>

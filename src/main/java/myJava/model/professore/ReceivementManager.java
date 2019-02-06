@@ -155,7 +155,6 @@ public class ReceivementManager {
 
   public boolean registraPresenza(int idStudente) throws SQLException {
     if (idStudente == 0) {
-
       return false;
     }
     Connection conn = null;
@@ -183,7 +182,6 @@ public class ReceivementManager {
 
   public boolean registraAssenza(int idStudente) throws SQLException {
     if (idStudente == 0) {
-
       return false;
     }
     Connection conn = null;
