@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ReceivementServlet")
@@ -87,6 +88,9 @@ public class ReceivementServlet extends HttpServlet {
     r.setIdRicevimento(id);
     try {
 
+      String notifica ="Eliminato il ricevimento: " + r.getData() + " " + r.getOrarioInizio();
+      inviaNotifica(r, notifica);
+
       if (dm.eliminaRicevimento(r)) {
         response.getWriter().println("SUCCESS");
       } else {
@@ -139,6 +143,9 @@ public class ReceivementServlet extends HttpServlet {
 
       if (dm.modificaRicevimento(r)) {
         response.getWriter().println("SUCCESS");
+     //   String notifca = "Modificato ricevimento: " + r.getData() + " " + r.getOrarioInizio() + " ufficio: " + r.getLuogo();
+        String notifca = "saluta antonio";
+        inviaNotifica(r, notifca);
       } else {
         response.getWriter().println("FAILURE");
       }
@@ -151,6 +158,17 @@ public class ReceivementServlet extends HttpServlet {
         ioex.printStackTrace();
       }
     }
+  }
+
+  private void inviaNotifica(Ricevimento r, String notifica) throws SQLException
+  {
+    List<Prenotazione> daContattare = dm.visualizzaPrenotazioniByIdRicevimento(r.getIdRicevimento());
+
+    for(Prenotazione p: daContattare)
+    {
+      dm.inviaMessaggio(p.getIdStudente(), r.getIdProfessore(), notifica, "professore");
+    }
+
   }
 
   private void inserisciRicevimento(HttpServletRequest request, HttpServletResponse response) {

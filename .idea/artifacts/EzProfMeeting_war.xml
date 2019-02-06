@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="EzProfMeeting:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/EzProfMeeting_war</output-path>
+    <root id="archive" name="EzProfMeeting_war.war">
+      <element id="artifact" artifact-name="EzProfMeeting:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -41,7 +41,7 @@
         </ul>
 
     </div>
-    <div class="container" style="max-width: 1000px !important;margin-right: 8%">
+    <div class="container" style="max-width: 75%; !important;margin-right: 8%">
         <%@include file="../Studente/CalendarioStudente.jsp"%>
     </div>
 </div>

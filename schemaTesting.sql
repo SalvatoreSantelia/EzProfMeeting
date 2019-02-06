@@ -53,10 +53,10 @@ DROP TABLE IF EXISTS `messaggio`;
 CREATE TABLE `messaggio` (
   `idMessaggio` int(11) NOT NULL AUTO_INCREMENT,
   `dataMessaggio` date NOT NULL,
-  `testoMessaggio` varchar(45) NOT NULL,
+  `testoMessaggio` varchar(100) NOT NULL,
   `idProfessore` int(11) DEFAULT NULL,
   `idStudente` int(11) DEFAULT NULL,
-  `lato` varchar(45) DEFAULT NULL,
+  `lato` varchar(10) DEFAULT NULL,
   `orarioMessaggio` time(6) DEFAULT NULL,
   PRIMARY KEY (`idMessaggio`),
   KEY `idProfessore_idx` (`idProfessore`),

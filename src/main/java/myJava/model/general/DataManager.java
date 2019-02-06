@@ -73,10 +73,7 @@ public class DataManager {
         return true;
     }
 
-    public Messaggio visualizzaMessagio(int idDestinatario) {
 
-        return null;
-    }
 
 
     public boolean eliminaPrenotazione(Prenotazione prenotazione) throws SQLException {
