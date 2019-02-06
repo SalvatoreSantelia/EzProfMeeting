@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+/**
+ * Servlet per la gestione del traffico dei messsaggi
+ */
 @WebServlet(name = "MessageServlet")
 public class MessageServlet extends HttpServlet {
     DataManager dm = new DataManager();
@@ -19,6 +22,13 @@ public class MessageServlet extends HttpServlet {
         doGet(request,response);
     }
 
+    /**
+     * Estrae messaggio dal database e aggiorna la pagina client
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idStudente = Integer.parseInt(request.getParameter("idStudente"));
         int idProfessore = Integer.parseInt(request.getParameter("idProfessore"));

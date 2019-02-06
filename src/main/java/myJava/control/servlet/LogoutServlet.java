@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
+/**
+ * Servlet per disconnettere un utente precedentemente connesso
+ */
 @WebServlet(name = "LoginServlet")
 
 public class LogoutServlet extends HttpServlet {
@@ -19,7 +21,13 @@ public class LogoutServlet extends HttpServlet {
 
   private DataManager DM = new DataManager();
 
-
+  /**
+   * Rimuove la sessione e reindirizza alla pagina del login
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession();
     session.invalidate();

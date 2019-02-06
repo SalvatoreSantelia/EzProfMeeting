@@ -12,9 +12,19 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe che svolge il ruolo di interfaccia al model
+ */
 public class DataManager {
 
 
+    /**
+     * Verifica la validità dei parametri e delega la richiesta all'opportuno manager
+     * @param mail
+     * @param password
+     * @return
+     * @throws SQLException
+     */
     public User doLogin(String mail, String password) throws SQLException {
         if (mail == null || mail.equals("") || password == null || password.equals(""))
             return null;
@@ -25,6 +35,13 @@ public class DataManager {
 
     }
 
+    /**
+     * Verifica la validità dei parametri e delega la richiesta all'opportuno manager
+     * @param ricevimento
+     * @return
+     * @throws SQLException
+     * @throws ParseException
+     */
     public boolean creaRicevimento(Ricevimento ricevimento) throws SQLException, ParseException {
         if (ricevimento != null)
             return rm.creaRicevimento(ricevimento);
@@ -32,12 +49,24 @@ public class DataManager {
             return false;
     }
 
+    /**
+     * Verifica la validità dei parametri e delega la richiesta all'opportuno manager
+     * @param ricevimento
+     * @return
+     * @throws SQLException
+     */
     public boolean eliminaRicevimento(Ricevimento ricevimento) throws SQLException {
         if (ricevimento != null)
             return rm.eliminaRicevimento(ricevimento);
         else return false;
     }
 
+    /**
+     * Verifica la validità dei parametri e delega la richiesta all'opportuno manager
+     * @param ricevimento
+     * @return
+     * @throws SQLException
+     */
     public boolean modificaRicevimento(Ricevimento ricevimento) throws SQLException {
         if (ricevimento != null)
             return rm.modificaRicevimento(ricevimento);
@@ -45,8 +74,15 @@ public class DataManager {
     }
 
 
-
-
+    /**
+     * Verifica la validità dei parametri e delega la richiesta all'opportuno manager
+     * @param oraInizio
+     * @param oraFine
+     * @param data
+     * @return
+     * @throws SQLException
+     * @throws ParseException
+     */
     public Ricevimento visualizzaRicevimento(String oraInizio, String oraFine, String data) throws SQLException ,ParseException{
 
 
@@ -55,6 +91,12 @@ public class DataManager {
         else return null;
     }
 
+    /**
+     * Verifica la validità dei parametri e delega la richiesta all'opportuno manager
+     * @param prenotazione
+     * @return
+     * @throws SQLException
+     */
     public boolean inserisciPrenotazione(Prenotazione prenotazione) throws SQLException {
         if (prenotazione != null && prenotazione.getIdRicevimento() != 0 && prenotazione.getIdStudente() != 0)
             return m.inserisciPrenotazione(prenotazione);
@@ -62,20 +104,38 @@ public class DataManager {
     }
 
 
+    /**
+     * Richiede all'opportuno manager l'elenco delle prenotazioni effettuate
+     * @param idStudente
+     * @return
+     * @throws SQLException
+     */
     public List<Prenotazione> visualizzaPrenotazioni(int idStudente) throws SQLException {
 
         return m.visualizzaPrenotazioni(idStudente);
     }
 
 
+    /**
+     * Delega all'opportuno manager l'invio dei messaggi
+     * @param idMittente
+     * @param idDestinatario
+     * @param messaggio
+     * @param lato
+     * @return
+     */
     public boolean inviaMessaggio(int idMittente, int idDestinatario, String messaggio,String lato) {
         mm.inviaMessaggio(idMittente,idDestinatario,messaggio,lato);
         return true;
     }
 
 
-
-
+    /**
+     * Verifica la validità dei parametri e delega la richiesta all'opportuno manager
+     * @param prenotazione
+     * @return
+     * @throws SQLException
+     */
     public boolean eliminaPrenotazione(Prenotazione prenotazione) throws SQLException {
 
         if (prenotazione != null)
@@ -83,6 +143,13 @@ public class DataManager {
         else return false;
     }
 
+    /**
+     * Verifica la validità dei parametri e delega la richiesta all'opportuno manager
+     * @param presenzaAssenza
+     * @param idStudente
+     * @return
+     * @throws SQLException
+     */
     public boolean registraPresenza(String presenzaAssenza, int idStudente) throws SQLException {
 
         if (presenzaAssenza.equals("assente"))
@@ -94,15 +161,18 @@ public class DataManager {
     }
 
 
+
     BookingManager m = new BookingManager();
     AccessManager ac = new AccessManager();
     ReceivementManager rm = new ReceivementManager();
     MessageManager mm = new MessageManager();
 
 
-// Metodi di supporto
-
-    //visualizza tutti i prof
+    /**
+     * Restituisce l'elenco di tutti i professori
+     * @return
+     * @throws SQLException
+     */
     public List<Professore> visualizzaProfessori() throws SQLException {
 
         Connection connection = null;
@@ -132,18 +202,32 @@ public class DataManager {
     }
 
 
+    /**
+     * Richiede all'opportuno manager l'elenco degli studenti prenotati a un certo ricevimento
+     * @param ricevimento
+     * @return
+     * @throws SQLException
+     */
     public List<Studente> visualizzaStudenti(Ricevimento ricevimento) throws SQLException{
         return rm.visualizzaStudenti(ricevimento);
     }
 
+    /**
+     * Richiede all'opportuno manager i dati relativi a un certo ricevimento
+     * @param idRicevimento
+     * @return
+     */
     public Ricevimento getRicevimentoById(int idRicevimento){
         return rm.getRicevimentoById(idRicevimento);
     }
 
 
-
-
-    //get prof By Id
+    /**
+     * Restituisce le informazioni di un certo professore tramite id
+     * @param idProf
+     * @return
+     * @throws SQLException
+     */
     public Professore getProfById(int idProf) throws SQLException {
         Connection connection = null;
         Professore professore = new Professore();
@@ -171,8 +255,12 @@ public class DataManager {
     }
 
 
-
-    //get studente By Id
+    /**
+     * Restituisce le informazioni di un certo studente tramite id
+     * @param idStudente
+     * @return
+     * @throws SQLException
+     */
     public Studente getStudenteById(int idStudente) throws SQLException {
         Connection connection = null;
         Studente studente = new Studente();
@@ -201,45 +289,84 @@ public class DataManager {
     }
 
 
-
-
-    //get Last Messaggio
+    /**
+     * Richiede all'opportuno manager l'ultimo messaggio inviato in una certa conversazione
+     * @param idStudente
+     * @param idProfessore
+     * @return
+     */
     public Messaggio getLastDataMessaggio(int idStudente, int idProfessore){
         return mm.getLastDataMessaggio(idStudente,idProfessore);
     }
 
 
-
+    /**
+     * Richiede all'opportuno manager le informazioni relative a un certo professore tramite email
+     * @param email
+     * @return
+     */
     public Professore getProfessoreByEmail(String email) {
         return   ac.getProfessoreByEmail(email);
     }
+
+    /**
+     * Richiede all'opportuno manager le informazioni relative a un certo studente tramite email
+     * @param email
+     * @return
+     */
     public Studente getStudenteByEmail(String email) {
         return   ac.getStudenteByEmail(email);
     }
 
-
+    /**
+     * Richiede all'opportuno manager l'elenco dei ricevimenti di un certo professore
+     * @param prof
+     * @return
+     */
     public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof)
     {
         return rm.getRicevimentiByProf(prof);
     }
 
+    /**
+     * Richiede all'opportuno manager l'elenco degli studenti che hanno contattato un certo professore
+     * @param idProf
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<Studente> getStudentiContattati(int idProf) throws SQLException {
         return mm.getStudentiContattati(idProf);
     }
 
 
-    //
-
-    public Prenotazione getPranotazioneById(int idPrenotazione)throws SQLException{
+    /**
+     * Richiede all'opportuno manager le informazioni relative a una certa prenotazione tramite id
+     * @param idPrenotazione
+     * @return
+     * @throws SQLException
+     */
+    public Prenotazione getPrenotazioneById(int idPrenotazione)throws SQLException{
         return m.getPrenotazioneById(idPrenotazione);
     }
 
 
+    /**
+     * Richiede all'opportuno manager la conversazione tra un certo professore e un certo studente
+     * @param idStudente
+     * @param idProfessore
+     * @return
+     */
     public ArrayList<Messaggio> getArrayListMessaggio(int idStudente, int idProfessore){
         return mm.getArrayListMessaggio(idStudente,idProfessore);
     }
 
 
+    /**
+     * Richiede all'opportuno manager la lista degli studenti prenotati a un certo ricevimento
+     * @param idRicevimento
+     * @return
+     * @throws SQLException
+     */
     public List<Prenotazione> visualizzaPrenotazioniByIdRicevimento(int idRicevimento) throws SQLException {
         return rm.visualizzaPrenotazioniByIdRicevimento(idRicevimento);
     }

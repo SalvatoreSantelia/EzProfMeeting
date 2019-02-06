@@ -13,9 +13,18 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * Classe per la gestione dell'accesso alla piattaforma
+ */
 public class AccessManager {
 
+    /**
+     * Verifica le credenziali di un utente nel database
+     * @param mail
+     * @param password
+     * @return
+     * @throws SQLException
+     */
   public User doLogin(String mail, String password) throws SQLException {
     if(!mailSyntaxCheck(mail)|| password.length()<8){
 
@@ -59,7 +68,11 @@ public class AccessManager {
   }
 
 
-  //get professore by email
+    /**
+     * Carica le informazioni personali di un professore
+     * @param email
+     * @return
+     */
   public Professore getProfessoreByEmail(String email) {
     if(!mailSyntaxCheck(email)){
       return null;
@@ -101,8 +114,11 @@ public class AccessManager {
   }
 
 
-
-  //get studente by email
+    /**
+     * Carica le informazioni personali di uno studente
+     * @param email
+     * @return
+     */
   public Studente getStudenteByEmail(String email) {
     if(!mailSyntaxCheck(email)){
 
@@ -142,6 +158,11 @@ public class AccessManager {
     return studente;
   }
 
+    /**
+     * Verifica il formato dell'email è corretto
+     * @param email
+     * @return
+     */
   private boolean mailSyntaxCheck(String email)
   {
     // Create the Pattern using the regex

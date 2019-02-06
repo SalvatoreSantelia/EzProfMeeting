@@ -12,11 +12,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe per la gestione delle prenotazioni
+ */
 public class BookingManager {
 
-  public BookingManager() {
-  }
-
+  /**
+   * Crea una nuova prenotazione nel database
+   * @param prenotazione
+   * @return
+   * @throws SQLException
+   */
   public boolean inserisciPrenotazione(Prenotazione prenotazione) throws SQLException {
 
     Connection connection = null;
@@ -55,6 +61,12 @@ public class BookingManager {
   }
 
 
+  /**
+   * Estrae dal database l'elenco delle prenotazioni di un certo studente
+   * @param idStudente
+   * @return
+   * @throws SQLException
+   */
   public List<Prenotazione> visualizzaPrenotazioni(int idStudente) throws SQLException {
 
     if (idStudente == 0) {
@@ -97,6 +109,12 @@ public class BookingManager {
 
   }
 
+  /**
+   * Elimina dal database una certa prenotazioni
+   * @param prenotazione
+   * @return
+   * @throws SQLException
+   */
   public boolean eliminaPrenotazione(Prenotazione prenotazione) throws SQLException {
     if (prenotazione==null ||  prenotazione.getIdPrenotazione() == 0) {
       return false;
@@ -119,6 +137,11 @@ public class BookingManager {
     return true;
   }
 
+  /**
+   * Verifica la validità della motivazione
+   * @param motivazione
+   * @return
+   */
   private boolean checkMotivoRicevimento(String motivazione) {
     if (motivazione.equals("") || motivazione.length() > 60) {
 
@@ -128,6 +151,11 @@ public class BookingManager {
 
   }
 
+  /**
+   * Verifica la validità di altri studenti
+   * @param nomiAltriStudenti
+   * @return
+   */
   private boolean checkNomiAltriStudenti(String nomiAltriStudenti) {
 
     if (nomiAltriStudenti.length() > 65000) {
@@ -140,6 +168,12 @@ public class BookingManager {
 
   }
 
+  /**
+   * Estrae dal database una certa prenotazione tramite id
+   * @param idPrenotazione
+   * @return
+   * @throws SQLException
+   */
   public Prenotazione getPrenotazioneById(int idPrenotazione) throws SQLException {
     if (idPrenotazione == 0)
       return null;

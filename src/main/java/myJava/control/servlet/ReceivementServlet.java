@@ -18,10 +18,20 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Servlet per la gestione dei ricevimenti
+ */
 @WebServlet(name = "ReceivementServlet")
 public class ReceivementServlet extends HttpServlet {
   DataManager dm = new DataManager();
 
+  /**
+   * Smista all'opportuno gestore l'operazione da effettuare su un ricevimento
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     if(request.getParameter("operazione").equals("effettuaPresenza")){
@@ -59,6 +69,13 @@ public class ReceivementServlet extends HttpServlet {
 
   }
 
+  /**
+   * Registra la presenza di uno studente a un certo ricevimento
+   * @param request
+   * @param response
+   * @throws SQLException
+   * @throws IOException
+   */
   private void effettuaPresenza(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
     int idStudente = Integer.parseInt(request.getParameter("idStudente"));
     String presente = request.getParameter("presente");
@@ -66,6 +83,13 @@ public class ReceivementServlet extends HttpServlet {
     dm.registraPresenza(presente,idStudente);
   }
 
+  /**
+   * Visualizza prenotati a un certo ricevimento sfruttando il DataManager
+   * @param request
+   * @param response
+   * @throws SQLException
+   * @throws IOException
+   */
     private void visualizzaPrenotazioni(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
     int idRicevimento = Integer.parseInt(request.getParameter("idEdit"));
     DataManager dm = new DataManager();
@@ -94,6 +118,11 @@ public class ReceivementServlet extends HttpServlet {
     out.write(risposta);
   }
 
+  /**
+   * Elimina ricevimento selezionato dall'utente sfruttando il DataManager
+   * @param request
+   * @param response
+   */
   private void eliminaRicevimento(HttpServletRequest request, HttpServletResponse response) {
     int id = Integer.parseInt(request.getParameter("id"));
     System.out.println("Id ricevuto: " + id);
@@ -121,6 +150,11 @@ public class ReceivementServlet extends HttpServlet {
     }
   }
 
+  /**
+   * Modifica ricevimento selezionato dall'utente sfruttando il DataManager
+   * @param request
+   * @param response
+   */
   private void modificaRicevimento(HttpServletRequest request, HttpServletResponse response) {
 
 
@@ -173,6 +207,12 @@ public class ReceivementServlet extends HttpServlet {
     }
   }
 
+  /**
+   * Invia messaggio di modifica o eliminazione di un ricevimento a tutti coloro che si erano prenotati a tale ricevimento
+   * @param r
+   * @param notifica
+   * @throws SQLException
+   */
   private void inviaNotifica(Ricevimento r, String notifica) throws SQLException
   {
     List<Prenotazione> daContattare = dm.visualizzaPrenotazioniByIdRicevimento(r.getIdRicevimento());
@@ -184,6 +224,11 @@ public class ReceivementServlet extends HttpServlet {
 
   }
 
+  /**
+   * Aggiunge ricevimento inserito dalla richiesta sfruttando il DataManager
+   * @param request
+   * @param response
+   */
   private void inserisciRicevimento(HttpServletRequest request, HttpServletResponse response) {
 
     String startFirstReceivement, endLastReceivement, luogo, giorno;

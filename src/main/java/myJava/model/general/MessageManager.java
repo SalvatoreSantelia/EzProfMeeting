@@ -9,8 +9,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Classe per la gestione del traffico dei messaggi
+ */
 public class MessageManager {
 
+    /**
+     * Registra il messaggio nel database
+     * @param idStudente
+     * @param idProfessore
+     * @param testo
+     * @param lato
+     * @return
+     */
     public boolean inviaMessaggio(int idStudente, int idProfessore, String testo, String lato){
         if(idStudente==0|| idProfessore==0||testo.equals("")||lato.equals("")){
 
@@ -54,6 +65,12 @@ public class MessageManager {
         }
     }
 
+    /**
+     * Estrae dal database l'elenco degli studenti che hanno contattato un certo professore
+     * @param idProf
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<Studente> getStudentiContattati(int idProf) throws SQLException {
         if(idProf==0){
             return null;
@@ -71,7 +88,7 @@ public class MessageManager {
 
                 throw new Exception();
             }
-rs.previous();
+            rs.previous();
             while (rs.next()) {
                 Messaggio messaggio = new Messaggio();
                 messaggio.setIdMessaggio(rs.getInt("idMessaggio"));
@@ -90,7 +107,12 @@ rs.previous();
     }
 
 
-    //get Last Messaggio
+    /**
+     * Estrae dal database l'ultimo messaggio inviato in una certa conversazione
+     * @param idStudente
+     * @param idProfessore
+     * @return
+     */
     public Messaggio getLastDataMessaggio(int idStudente, int idProfessore){
         if(idProfessore==0||idStudente==0){
 
@@ -132,7 +154,12 @@ rs.previous();
     }
 
 
-    //get ArrayList di messaggi
+    /**
+     * Estrae dal database la conversazione tra un certo professore e un certo studente
+     * @param idStudente
+     * @param idProfessore
+     * @return
+     */
     public ArrayList<Messaggio> getArrayListMessaggio(int idStudente, int idProfessore){
         if(idProfessore==0||idStudente==0) {
 

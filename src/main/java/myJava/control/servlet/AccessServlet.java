@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Servlet per gestire l'accesso di un utente alla piattaforma
+ */
 @WebServlet(name = "AccessServlet")
 public class AccessServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,6 +25,13 @@ public class AccessServlet extends HttpServlet {
         doGet(request,response);
     }
 
+    /**
+     * Crea la sessione per un utente le cui credenziali sono già state verificate
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DataManager model=new DataManager();
         User utente= null;

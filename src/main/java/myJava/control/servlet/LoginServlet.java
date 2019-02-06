@@ -11,17 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-
-
+ /**
+  * Servlet per la verifica delle credenziali
+  */
  @WebServlet(name = "LoginServlet")
-
 public class LoginServlet extends HttpServlet {
         
 
 	private DataManager DM=new DataManager();
-     
 
-     
+
+     /**
+      * Verifica le credenziali
+      * @param request
+      * @param response
+      * @throws ServletException
+      * @throws IOException
+      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
