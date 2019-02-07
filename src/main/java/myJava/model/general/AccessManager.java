@@ -27,7 +27,7 @@ public class AccessManager {
    * @throws SQLException in caso di problemi con il db
    */
   public User doLogin(String mail, String password) throws SQLException {
-    if (!mailSyntaxCheck(mail) || password.length() < 8) {
+    if(!mailSyntaxCheck(mail)|| password.length()<8){
 
       return null;
     }
@@ -44,8 +44,8 @@ public class AccessManager {
       statement.setString(2, password);
       //executing the prepared statement, which returns a ResultSet
       ResultSet rs = statement.executeQuery();
-      if (!rs.next()) {
-        return null;
+      if(!rs.next()){
+        throw new Exception();
 
       }
       rs.previous();
@@ -76,7 +76,7 @@ public class AccessManager {
    * @return le informazioni del docente desiderato
    */
   public Professore getProfessoreByEmail(String email) {
-    if (!mailSyntaxCheck(email)) {
+    if(!mailSyntaxCheck(email)){
       return null;
 
     }
@@ -92,7 +92,7 @@ public class AccessManager {
       statement.setString(1, email);
       //executing the prepared statement, which returns a ResultSet
       ResultSet rs = statement.executeQuery();
-      if (!rs.next()) {
+      if(!rs.next()){
 
         throw new Exception();
       }
@@ -123,7 +123,7 @@ public class AccessManager {
    * @return le informazioni dello studente desiderato
    */
   public Studente getStudenteByEmail(String email) {
-    if (!mailSyntaxCheck(email)) {
+    if(!mailSyntaxCheck(email)){
 
       return null;
     }
@@ -139,7 +139,7 @@ public class AccessManager {
       statement.setString(1, email);
       //executing the prepared statement, which returns a ResultSet
       ResultSet rs = statement.executeQuery();
-      if (!rs.next()) {
+      if(!rs.next()){
 
         throw new Exception();
       }
@@ -157,6 +157,7 @@ public class AccessManager {
 
     } catch (Exception e) {
       e.printStackTrace();
+      return null;
     }
     return studente;
   }

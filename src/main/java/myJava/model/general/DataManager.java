@@ -17,7 +17,10 @@ import java.util.List;
  */
 public class DataManager {
 
-
+    BookingManager m = new BookingManager();
+    AccessManager ac = new AccessManager();
+    ReceivementManager rm = new ReceivementManager();
+    MessageManager mm = new MessageManager();
   /**
    * Verifica il contenuto dei parametri e delega la richiesta all'opportuno manager
    *
@@ -34,7 +37,7 @@ public class DataManager {
       return ac.doLogin(mail, password);
     }
 
-  }
+    }
 
   /**
    * Verifica il contenuto dei parametri e delega la richiesta all'opportuno manager
@@ -64,8 +67,7 @@ public class DataManager {
       return rm.eliminaRicevimento(ricevimento);
     } else {
       return false;
-    }
-  }
+    }}
 
   /**
    * Verifica il contenuto dei parametri e delega la richiesta all'opportuno manager
@@ -96,12 +98,10 @@ public class DataManager {
   public Ricevimento visualizzaRicevimento(String oraInizio, String oraFine, String data) throws SQLException, ParseException {
 
 
-    if (!oraInizio.equals("") && oraInizio != null && !oraFine.equals("") && oraFine != null && data != null) {
-      return rm.visualizzaRicevimento(oraInizio, oraFine, data);
-    } else {
-      return null;
+        if (!oraInizio.equals("") && oraInizio != null && !oraFine.equals("") && oraFine != null && data != null)
+            return rm.visualizzaRicevimento(oraInizio, oraFine, data);
+        else return null;
     }
-  }
 
   /**
    * Verifica il contenuto dei parametri e delega la richiesta all'opportuno manager
@@ -128,8 +128,8 @@ public class DataManager {
    */
   public List<Prenotazione> visualizzaPrenotazioni(int idStudente) throws SQLException {
 
-    return m.visualizzaPrenotazioni(idStudente);
-  }
+        return m.visualizzaPrenotazioni(idStudente);
+    }
 
 
   /**
@@ -156,12 +156,10 @@ public class DataManager {
    */
   public boolean eliminaPrenotazione(Prenotazione prenotazione) throws SQLException {
 
-    if (prenotazione != null) {
-      return m.eliminaPrenotazione(prenotazione);
-    } else {
-      return false;
+        if (prenotazione != null)
+            return m.eliminaPrenotazione(prenotazione);
+        else return false;
     }
-  }
 
   /**
    * Verifica il contenuto dei parametri e delega la richiesta all'opportuno manager
@@ -173,20 +171,17 @@ public class DataManager {
    */
   public boolean registraPresenza(String presenzaAssenza, int idStudente) throws SQLException {
 
-    if (presenzaAssenza.equals("assente")) {
-      return rm.registraAssenza(idStudente);
-    } else if (presenzaAssenza.equals("presente")) {
-      return rm.registraPresenza(idStudente);
-    } else {
-      return false;
+        if (presenzaAssenza.equals("assente"))
+            return rm.registraAssenza(idStudente);
+        else if (presenzaAssenza.equals("presente"))
+            return rm.registraPresenza(idStudente);
+        else
+            return false;
     }
-  }
 
 
-  BookingManager m = new BookingManager();
-  AccessManager ac = new AccessManager();
-  ReceivementManager rm = new ReceivementManager();
-  MessageManager mm = new MessageManager();
+
+
 
 
   /**
@@ -197,31 +192,32 @@ public class DataManager {
    */
   public List<Professore> visualizzaProfessori() throws SQLException {
 
-    Connection connection = null;
+        Connection connection = null;
 
-    List<Professore> professori = new ArrayList<>();
-    try {
-      connection = DriverManagerConnectionPool.getConnection();
-      //creating prepared statement for our required query
-      PreparedStatement statement = connection.prepareStatement("SELECT *  from professore ORDER BY cognomeProfessore");
-      ResultSet rs = statement.executeQuery();
-      while (rs.next()) {
-        Professore professore = new Professore();
-        professore.setIdProfessore(rs.getInt(1));
-        professore.setNomeProfessore(rs.getString(2));
-        professore.setCognomeProfessore(rs.getString(3));
-        professore.setEmailProfessore(rs.getString(4));
-        professore.setTelefonoProfessore(rs.getString(5));
-        professore.setUfficioProfessore(rs.getString(6));
-        professori.add(professore);
-      }
-      connection.close();
-    } catch (Exception e) {
+        List<Professore> professori = new ArrayList<>();
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            //creating prepared statement for our required query
+            PreparedStatement statement = connection.prepareStatement("SELECT *  from professore ORDER BY cognomeProfessore");
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Professore professore = new Professore();
+                professore.setIdProfessore(rs.getInt(1));
+                professore.setNomeProfessore(rs.getString(2));
+                professore.setCognomeProfessore(rs.getString(3));
+                professore.setEmailProfessore(rs.getString(4));
+                professore.setTelefonoProfessore(rs.getString(5));
+                professore.setUfficioProfessore(rs.getString(6));
+                professori.add(professore);
+            }
+            connection.close();
+        } catch (Exception e) {
 
-      e.printStackTrace();
-    }
-    return professori;
-  }
+                e.printStackTrace();
+                return null;
+            }
+            return professori;
+        }
 
 
   /**
@@ -262,7 +258,10 @@ public class DataManager {
       PreparedStatement statement = connection.prepareStatement("SELECT *  from professore where idProfessore = ?");
       statement.setInt(1, idProf);
       ResultSet rs = statement.executeQuery();
-
+        if(!rs.next()){
+            throw new Exception();
+        }
+        rs.previous();
       while (rs.next()) {
         professore.setIdProfessore(rs.getInt(1));
         professore.setNomeProfessore(rs.getString(2));
@@ -274,10 +273,11 @@ public class DataManager {
       connection.close();
     } catch (Exception e) {
 
-      e.printStackTrace();
-    }
-    return professore;
-  }
+                e.printStackTrace();
+                return null;
+            }
+            return professore;
+        }
 
 
   /**
@@ -296,7 +296,10 @@ public class DataManager {
       PreparedStatement statement = connection.prepareStatement("SELECT *  from studente where idStudente = ?");
       statement.setInt(1, idStudente);
       ResultSet rs = statement.executeQuery();
-
+        if (!rs.next()) {
+            throw new Exception();
+        }
+        rs.previous();
       while (rs.next()) {
         studente.setIdStudente(rs.getInt("idStudente"));
         studente.setNomeStudente(rs.getString("nomeStudente"));
@@ -309,10 +312,11 @@ public class DataManager {
       connection.close();
     } catch (Exception e) {
 
-      e.printStackTrace();
+            e.printStackTrace();
+            return null;
+        }
+        return studente;
     }
-    return studente;
-  }
 
 
   /**

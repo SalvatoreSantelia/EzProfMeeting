@@ -119,7 +119,7 @@ public class BookingManager {
    * @throws SQLException in caso di errori con il database
    */
   public boolean eliminaPrenotazione(Prenotazione prenotazione) throws SQLException {
-    if (prenotazione == null || prenotazione.getIdPrenotazione() == 0) {
+    if (prenotazione==null ||  prenotazione.getIdPrenotazione() == 0) {
       return false;
 
     }
@@ -130,8 +130,10 @@ public class BookingManager {
       PreparedStatement preparedStmt = connection.prepareStatement("delete from prenotazione where idPrenotazione=?");
       preparedStmt.setInt(1, prenotazione.getIdPrenotazione());
 
-      preparedStmt.execute();
-      connection.commit();
+   if ( preparedStmt.executeUpdate()==0) {
+       throw new Exception();
+   }
+    connection.commit();
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -181,18 +183,18 @@ public class BookingManager {
    * @throws SQLException in caso di errori con il database
    */
   public Prenotazione getPrenotazioneById(int idPrenotazione) throws SQLException {
-    if (idPrenotazione == 0) {
+    if (idPrenotazione == 0)
       return null;
-    }
     Prenotazione p = new Prenotazione();
     Connection connection = null;
     connection = DriverManagerConnectionPool.getConnection();
     try {
       PreparedStatement preparedStmt = connection.prepareStatement("select* from prenotazione where idPrenotazione=?");
-      preparedStmt.setInt(1, idPrenotazione);
+      preparedStmt.setInt(1,idPrenotazione);
       ResultSet rs = preparedStmt.executeQuery();
-      if (!rs.next()) {
-        return null;
+      if(!rs.next())
+      {
+        throw new Exception();
       }
 
       p.setIdPrenotazione(rs.getInt(1));

@@ -66,37 +66,40 @@ public class MessageManagerTest {
 
   }
 
-  @Test
-  public void testGetLastDataMessaggio() {
-    MessageManager mm = new MessageManager();
+
+@Test
+public void testGetLastDataMessaggio(){
+    MessageManager mm=new MessageManager();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     Date date = new Date();
     SimpleDateFormat formatterr = new SimpleDateFormat("HH:mm:ss");
-    Time timestampOra = new Time(System.currentTimeMillis());
+    Time timestampOra=new Time(System.currentTimeMillis());
 
 
-    Messaggio m = new Messaggio("studente", 2, timestampOra, date, "CIAOPROF", 1, 1);
+    Messaggio m=new Messaggio("studente",2,timestampOra,date,"CIAOPROF",1,1);
 
-    Assert.assertEquals(m.getIdMessaggio(), mm.getLastDataMessaggio(1, 1).getIdMessaggio());
-    Assert.assertNull(mm.getLastDataMessaggio(0, 0));
-    Assert.assertNull(mm.getLastDataMessaggio(31212312, 23131));
+    Assert.assertEquals(m.getIdMessaggio(),mm.getLastDataMessaggio(1,1).getIdMessaggio());
+    Assert.assertNull(mm.getLastDataMessaggio(0,0));
+   Assert.assertNull(mm.getLastDataMessaggio(31212312,23131));
 
 
-  }
 
-  @Test
+}
 
-  public void getArrayListMessaggio() {
+@Test
 
-    ArrayList<Messaggio> listaMess = new ArrayList<Messaggio>();
+public void getArrayListMessaggio(){
 
-    listaMess.add(new Messaggio("", 2, new java.sql.Time(System.currentTimeMillis()), new Date(), "", 1, 1));
-    listaMess.add(new Messaggio("", 8, new java.sql.Time(System.currentTimeMillis()), new Date(), "", 1, 1));
+    ArrayList<Messaggio> listaMess =new ArrayList<Messaggio>();
+     int idMess=mm.getLastDataMessaggio(1,1).getIdMessaggio();
+    listaMess.add(new Messaggio("",4,new java.sql.Time(System.currentTimeMillis()),new Date(),"",1,1));
+  //  listaMess.add(new Messaggio("",idMess,new java.sql.Time(System.currentTimeMillis()),new Date(),"",1,1));
 
-    Assert.assertEquals(listaMess.get(1).getIdMessaggio(), mm.getArrayListMessaggio(1, 1).get(1).getIdMessaggio());
-    Assert.assertEquals(listaMess.get(0).getIdMessaggio(), mm.getArrayListMessaggio(1, 1).get(0).getIdMessaggio());
-    Assert.assertNull(mm.getArrayListMessaggio(0, 1));
-    Assert.assertNull(mm.getArrayListMessaggio(323123, 13122));
-  }
+    Assert.assertEquals(listaMess.get(0).getIdMessaggio(),mm.getArrayListMessaggio(1,1).get(0).getIdMessaggio());
+    //Assert.assertEquals(listaMess.get(1).getIdMessaggio(),mm.getArrayListMessaggio(1,1).get(1).getIdMessaggio());
+    Assert.assertNull(mm.getArrayListMessaggio(0,1));
+    Assert.assertNull(mm.getArrayListMessaggio(323123,13122));
+}
+
 
 }

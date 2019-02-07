@@ -18,7 +18,10 @@ public class AccessMangerTest {
 
         Assert.assertEquals(user.getPassword(),am.doLogin("mia@email.it","miapassword2").getPassword());
       Assert.assertEquals(user.getTipo(),am.doLogin("mia@email.it","miapassword2").getTipo());
-        Assert.assertNull(am.doLogin("miamailsbagiata","d"));
+        Assert.assertNull(am.doLogin("mia@email.it","albero"));
+
+        Assert.assertNull(am.doLogin("email@mia.it","abcdefrtew"));
+
 
     }
     @Test
@@ -31,6 +34,8 @@ public class AccessMangerTest {
         Assert.assertEquals(professore.getEmailProfessore(),am.getProfessoreByEmail("fferrucci@unisa.it").getEmailProfessore());
         Assert.assertEquals(professore.getTelefonoProfessore(),am.getProfessoreByEmail("fferrucci@unisa.it").getTelefonoProfessore());
         Assert.assertEquals(professore.getUfficioProfessore(),am.getProfessoreByEmail("fferrucci@unisa.it").getUfficioProfessore());
+        Assert.assertNull(am.getProfessoreByEmail("sadsadsada"));
+        Assert.assertNull(am.getProfessoreByEmail("albero@bello.it"));
 
     }
 
@@ -45,5 +50,6 @@ public class AccessMangerTest {
         Assert.assertEquals(stu.getEmailStudente(),am.getStudenteByEmail("s.santelia1@studenti.unisa.it").getEmailStudente());
         Assert.assertEquals(stu.getTelefonoStudente(),am.getStudenteByEmail("s.santelia1@studenti.unisa.it").getTelefonoStudente());
         Assert.assertNull(am.getStudenteByEmail("dsadasdsdasdsad"));
+        Assert.assertNull(am.getStudenteByEmail("studente@mail.it"));
     }
 }
