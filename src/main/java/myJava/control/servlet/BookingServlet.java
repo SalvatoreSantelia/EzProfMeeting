@@ -26,12 +26,12 @@ public class BookingServlet extends HttpServlet {
 
   /**
    * Smista all'opportuno gestore l'operazione da effettuare su una prenotazione
-   * @param request
-   * @param response
-   * @throws ServletException
-   * @throws IOException
+   *
+   * @param request  richiesta http con le informazioni sul ricevimento e quali operazioni eseguire
+   * @param response risposta http
+   * @throws IOException in caso di problemi con il writer
    */
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     String action = request.getParameter("action");
     if (action == null) {
@@ -50,9 +50,10 @@ public class BookingServlet extends HttpServlet {
 
   /**
    * Elimina prenotazione selezionata dall'utente sfruttando il DataManager
-   * @param request
-   * @param response
-   * @throws IOException
+   *
+   * @param request  richiesta http con le informazioni sul ricevimento da eliminare
+   * @param response risposta http
+   * @throws IOException in caso di problemi con il writer
    */
   private void eliminaPrenotazione(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int idPrenotazione = Integer.parseInt(request.getParameter("idPrenotazione"));
@@ -64,7 +65,7 @@ public class BookingServlet extends HttpServlet {
       Ricevimento r = dm.getRicevimentoById(prenotazione.getIdRicevimento());
       r.setPostiDisponibili(r.getPostiDisponibili() + 1);
       dm.modificaRicevimento(r);
-
+      System.out.println("Eliminato: posti " + r.getPostiDisponibili());
     } catch (SQLException e) {
       response.getWriter().println("FAILURE");
       e.printStackTrace();
@@ -73,8 +74,9 @@ public class BookingServlet extends HttpServlet {
 
   /**
    * Aggiunge prenotazione inserita nella richiesta dall'utente sfruttando il DataManager
-   * @param request
-   * @param response
+   *
+   * @param request  richiesta http con le informazioni sul ricevimento da aggiungere
+   * @param response risposta http
    */
   private void aggiungiPrenotazione(HttpServletRequest request, HttpServletResponse response) {
     Prenotazione prenotazione = new Prenotazione();
@@ -98,8 +100,10 @@ public class BookingServlet extends HttpServlet {
     try {
       if (dm.inserisciPrenotazione(prenotazione)) {
         Ricevimento r = dm.getRicevimentoById(prenotazione.getIdRicevimento());
+        System.out.println("Prima della pret: " + r.getPostiDisponibili());
         r.setPostiDisponibili(r.getPostiDisponibili() - 1);
         dm.modificaRicevimento(r);
+        System.out.println("dopo della pret: " + r.getPostiDisponibili());
         response.getWriter().println("SUCCESS");
       } else {
         response.getWriter().println("FAILURE");

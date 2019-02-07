@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 
 import static org.mockito.Mockito.mock;
 
-//TODO testing di integrazione
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DataManagerTest {
     BookingManager bm;
@@ -212,7 +212,7 @@ public void instanziaOggetti(){
     @Test
     public void testGetArrayListMessaggio() throws SQLException{
 
-    Assert.assertEquals(2,dm.getArrayListMessaggio(1,1).get(0).getIdMessaggio());
+    Assert.assertEquals(4,dm.getArrayListMessaggio(1,1).get(0).getIdMessaggio());
 
     }
 

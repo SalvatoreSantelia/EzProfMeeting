@@ -30,7 +30,7 @@ $(document).ready
 
         $(document).on('click', '#editButton', function () {
 
-            if ($("#placeEdit").text().trim() === "") {
+            if ($("#placeEdit").val().trim() === "") {
                 alert("Professore, inserisca un luogo per il ricevimento");
                 return
             }

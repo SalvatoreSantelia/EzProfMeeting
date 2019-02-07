@@ -19,44 +19,44 @@ import java.sql.SQLException;
  */
 @WebServlet(name = "AccessServlet")
 public class AccessServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        doGet(request,response);
-    }
+    doGet(request, response);
+  }
 
-    /**
-     * Crea la sessione per un utente le cui credenziali sono già state verificate
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DataManager model=new DataManager();
-        User utente= null;
-        try {
-            utente = model.doLogin(request.getParameter("email"),request.getParameter("pass"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            
-        }
-
-        DataManager dataManager = new DataManager();
-        HttpSession session=request.getSession();
-        session.setMaxInactiveInterval(-1);
-        if(utente.getTipo().equals("studente")){
-            Studente studente = dataManager.getStudenteByEmail(utente.getEmail());
-            session.setAttribute("user", studente);
-            request.getServletContext().getRequestDispatcher("/View/Studente/HomeStudente.jsp").forward(request, response);
-        }
-        if(utente.getTipo().equals("professore")){
-            Professore professore = dataManager.getProfessoreByEmail(utente.getEmail());
-            session.setAttribute("user", professore);
-            request.getServletContext().getRequestDispatcher("/View/Professore/HomeProfessore.jsp").forward(request, response);
-        }
-
-
+  /**
+   * Crea la sessione per un utente le cui credenziali sono già state verificate
+   *
+   * @param request  richiesta http con l'email dell'utente da caricare ed inserire nella sessione
+   * @param response risposta http
+   * @throws ServletException in caso di problemi con il dispatcher
+   * @throws IOException in caso di problemi con il writer
+   */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    DataManager model = new DataManager();
+    User utente = null;
+    try {
+      utente = model.doLogin(request.getParameter("email"), request.getParameter("pass"));
+    } catch (SQLException e) {
+      e.printStackTrace();
 
     }
+
+    DataManager dataManager = new DataManager();
+    HttpSession session = request.getSession();
+    session.setMaxInactiveInterval(-1);
+    if (utente.getTipo().equals("studente")) {
+      Studente studente = dataManager.getStudenteByEmail(utente.getEmail());
+      session.setAttribute("user", studente);
+      request.getServletContext().getRequestDispatcher("/View/Studente/HomeStudente.jsp").forward(request, response);
+    }
+    if (utente.getTipo().equals("professore")) {
+      Professore professore = dataManager.getProfessoreByEmail(utente.getEmail());
+      session.setAttribute("user", professore);
+      request.getServletContext().getRequestDispatcher("/View/Professore/HomeProfessore.jsp").forward(request, response);
+    }
+
+
+  }
 }

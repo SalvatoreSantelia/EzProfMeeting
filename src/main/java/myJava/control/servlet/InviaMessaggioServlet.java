@@ -18,52 +18,47 @@ import java.util.ArrayList;
  */
 @WebServlet(name = "InviaMessaggioServlet")
 public class InviaMessaggioServlet extends HttpServlet {
+  DataManager dm = new DataManager();
+
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    doGet(request, response);
+  }
+
+  /**
+   * Registra messaggio nel database e aggiorna la pagina client della conversazione
+   *
+   * @param request la richiesta http con le informazioni del messaggio
+   * @param response la risposta http per aggiornare la pagina
+   * @throws IOException in caso di problemi con il writer
+   */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String testo = request.getParameter("testo");
+    int id = Integer.parseInt(request.getParameter("idStudente"));
+    int idProf = Integer.parseInt(request.getParameter("idProfessore"));
+    String lato = request.getParameter("lato");
     DataManager dm = new DataManager();
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request,response);
+    dm.inviaMessaggio(id, idProf, testo, lato);
+    ArrayList<Messaggio> messaggi = dm.getArrayListMessaggio(id, idProf);
+    String risposta = "[";
+    int i = 0;
+    for (; i < messaggi.size() - 1; i++) {
+      Messaggio a = messaggi.get(i);
+      risposta = risposta + "{"
+          + "\"testo\": \"" + a.getTestoMessaggio() + "\","
+          + "\"lato\": \"" + a.getLato() + "\","
+          + "\"data\": \"" + a.getDataMessaggio().toString() + "\","
+          + "\"orario\": \"" + a.getOrarioMessaggio().toString() + "\"},";
     }
-
-    /**
-     * Registra messaggio nel database e invia il contenuto da inserire nella pagina client
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String testo = request.getParameter("testo");
-        int id = Integer.parseInt(request.getParameter("idStudente"));
-        int idProf = Integer.parseInt(request.getParameter("idProfessore"));
-        String lato = request.getParameter("lato");
-        DataManager dm = new DataManager();
-        //per il message manager
-        try {
-            dm.inviaMessaggio(id, idProf, testo, lato);
-        }catch (Exception e){
-
-            e.printStackTrace();
-        }
-        ArrayList<Messaggio> messaggi = dm.getArrayListMessaggio(id,idProf);
-        String risposta= "[";
-        int i=0;
-        for(;i<messaggi.size()-1;i++){
-            Messaggio a = messaggi.get(i);
-            risposta= risposta+"{" +
-                    "\"testo\": \""+a.getTestoMessaggio()+"\"," +
-                    "\"lato\": \""+a.getLato()+"\"," +
-                    "\"data\": \""+a.getDataMessaggio().toString()+"\"," +
-                    "\"orario\": \""+a.getOrarioMessaggio().toString()+"\"},";
-        }
-        Messaggio a = messaggi.get(i);
-        risposta= risposta+"{" +
-                "\"testo\": \""+a.getTestoMessaggio()+"\"," +
-                "\"lato\": \""+a.getLato()+"\"," +
-                "\"data\": \""+a.getDataMessaggio().toString()+"\"," +
-                "\"orario\": \""+a.getOrarioMessaggio().toString()+"\"}";
-        risposta = risposta+"]";
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
-        out.write(risposta);
-    }
+    Messaggio a = messaggi.get(i);
+    risposta = risposta + "{"
+        + "\"testo\": \"" + a.getTestoMessaggio() + "\","
+        + "\"lato\": \"" + a.getLato() + "\","
+        + "\"data\": \"" + a.getDataMessaggio().toString() + "\","
+        + "\"orario\": \"" + a.getOrarioMessaggio().toString() + "\"}";
+    risposta = risposta + "]";
+    response.setContentType("application/json");
+    response.setCharacterEncoding("UTF-8");
+    PrintWriter out = response.getWriter();
+    out.write(risposta);
+  }
 }

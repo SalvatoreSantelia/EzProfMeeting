@@ -12,24 +12,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe per la gestione delle prenotazioni
+ */
 public class BookingManager {
 
   /**
    * Crea una nuova prenotazione nel database
-   * @param prenotazione
-   * @return
-   * @throws SQLException
+   *
+   * @param prenotazione prenotazione da inserire nel database
+   * @return booleano che rappresenta l'esito dell'operazione
+   * @throws SQLException in caso di errori con il database
    */
   public boolean inserisciPrenotazione(Prenotazione prenotazione) throws SQLException {
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-        if( prenotazione.getListaStudenti()==null||!checkNomiAltriStudenti(prenotazione.getListaStudenti())||!checkMotivoRicevimento(prenotazione.getMotivazione())){
-            return false;
-        }
-        String insertSQL = "insert into " + "prenotazione"
-                + " (idPrenotazione, listaStudenti,motivazione ,orario,idRicevimento,idStudente,presenza) values (?, ?, ?, ?, ?, ?,?)";
+    if (prenotazione.getListaStudenti() == null || !checkNomiAltriStudenti(prenotazione.getListaStudenti()) || !checkMotivoRicevimento(prenotazione.getMotivazione())) {
+      return false;
+    }
+    String insertSQL = "insert into " + "prenotazione"
+        + " (idPrenotazione, listaStudenti,motivazione ,orario,idRicevimento,idStudente,presenza) values (?, ?, ?, ?, ?, ?,?)";
 
     try {
       connection = DriverManagerConnectionPool.getConnection();
@@ -60,9 +64,10 @@ public class BookingManager {
 
   /**
    * Estrae dal database l'elenco delle prenotazioni di un certo studente
-   * @param idStudente
-   * @return
-   * @throws SQLException
+   *
+   * @param idStudente l'identificativo dello studente
+   * @return lista delle prenotazioni dello studente specificato
+   * @throws SQLException in caso di errori con il database
    */
   public List<Prenotazione> visualizzaPrenotazioni(int idStudente) throws SQLException {
 
@@ -105,24 +110,25 @@ public class BookingManager {
     return bookings;
 
   }
-//TODO RIVEDI IL TESTING
+
   /**
-   * Elimina dal database una certa prenotazioni
-   * @param prenotazione
-   * @return
-   * @throws SQLException
+   * Elimina dal database una specifica prenotazione
+   *
+   * @param prenotazione la prenotazione da eliminare
+   * @return booleano che rappresenta l'esito dell'operazione
+   * @throws SQLException in caso di errori con il database
    */
   public boolean eliminaPrenotazione(Prenotazione prenotazione) throws SQLException {
     if (prenotazione==null ||  prenotazione.getIdPrenotazione() == 0) {
       return false;
 
-        }
-        Connection connection=null;
-
-        connection=DriverManagerConnectionPool.getConnection();
-try {
-    PreparedStatement preparedStmt = connection.prepareStatement("delete from prenotazione where idPrenotazione=?");
-    preparedStmt.setInt(1, prenotazione.getIdPrenotazione());
+    }
+    Connection connection = null;
+    System.out.println("Eliminazione in corso");
+    connection = DriverManagerConnectionPool.getConnection();
+    try {
+      PreparedStatement preparedStmt = connection.prepareStatement("delete from prenotazione where idPrenotazione=?");
+      preparedStmt.setInt(1, prenotazione.getIdPrenotazione());
 
    if ( preparedStmt.executeUpdate()==0) {
        throw new Exception();
@@ -137,9 +143,10 @@ try {
   }
 
   /**
-   * Verifica la validità della motivazione
-   * @param motivazione
-   * @return
+   * Verifica che la motivazione della prenotazione sia non nulla e che non superi le dimensioni massime
+   *
+   * @param motivazione la stringa da validare
+   * @return un booleano che rappresenta l'esito della verifica
    */
   private boolean checkMotivoRicevimento(String motivazione) {
     if (motivazione.equals("") || motivazione.length() > 60) {
@@ -151,9 +158,10 @@ try {
   }
 
   /**
-   * Verifica la validità di altri studenti
-   * @param nomiAltriStudenti
-   * @return
+   * Verifica la dimensione massima della stringa contenente l'elenco di altri (eventuali) studenti
+   *
+   * @param nomiAltriStudenti Stringa da controllare
+   * @return booleano che rappresenta l'esito della verifica
    */
   private boolean checkNomiAltriStudenti(String nomiAltriStudenti) {
 
@@ -169,9 +177,10 @@ try {
 
   /**
    * Estrae dal database una certa prenotazione tramite id
-   * @param idPrenotazione
-   * @return
-   * @throws SQLException
+   *
+   * @param idPrenotazione l'identificativo della prenotazione desiderata
+   * @return la prenotazione desiderata
+   * @throws SQLException in caso di errori con il database
    */
   public Prenotazione getPrenotazioneById(int idPrenotazione) throws SQLException {
     if (idPrenotazione == 0)
