@@ -1,13 +1,13 @@
 package myJava.model.professore;
 
 import myJava.control.connection.DriverManagerConnectionPool;
+import myJava.model.beans.Prenotazione;
 import myJava.model.beans.Professore;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
-import sun.rmi.runtime.Log;
 
 
-import java.security.spec.ECField;
+
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -16,14 +16,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.zip.DataFormatException;
 
 
 public class ReceivementManager {
 
-
-    public boolean creaRicevimento(Ricevimento ricevimento)throws SQLException ,ParseException{
+  /**
+   * Crea un nuovo ricevimento nel database
+   * @param ricevimento
+   * @return
+   * @throws SQLException
+   * @throws ParseException
+   */
+  public boolean creaRicevimento(Ricevimento ricevimento) throws SQLException, ParseException {
 
 
     if (!checkData(ricevimento.getData()) || !checkOrario(ricevimento.getOrarioFine()+":00") || !checkOrario(ricevimento.getOrarioInizio()+":00") || !checkLuogo(ricevimento.getLuogo())) {
@@ -49,24 +54,26 @@ public class ReceivementManager {
       preparedStatement.setInt(8, ricevimento.getIdProfessore());
       preparedStatement.executeUpdate();
 
-
-
-
-            connection.commit();
-
-            return true;
-        } catch (Exception e)
-        {
-            System.err.println("Got an exception! ");
-            System.err.println(e.getMessage());
-            return false;
-        }
-
-
+      connection.commit();
+      System.out.println("Ricevimento Inserito");
+      return true;
+    } catch (Exception e) {
+      System.err.println("Got an exception! ");
+      System.err.println(e.getMessage());
+      return false;
     }
 
 
-    public boolean eliminaRicevimento(Ricevimento ricevimento)throws SQLException {
+  }
+
+
+  /**
+   * Elimina dal database un certo ricevimento
+   * @param ricevimento
+   * @return
+   * @throws SQLException
+   */
+  public boolean eliminaRicevimento(Ricevimento ricevimento) throws SQLException {
 
 if(ricevimento.getIdRicevimento()==0){
     return false;
@@ -88,54 +95,69 @@ if(ricevimento.getIdRicevimento()==0){
             System.err.println(e.getMessage());
             return false;
 
-        }
     }
-    public boolean modificaRicevimento(Ricevimento ricevimento)throws SQLException{
+  }
+
+  /**
+   * Modifica le informazioni relative a un certo ricevimento
+   * @param ricevimento
+   * @return
+   * @throws SQLException
+   */
+  public boolean modificaRicevimento(Ricevimento ricevimento) throws SQLException {
 
 
-        Connection conn;
+    Connection conn;
 
-        conn=DriverManagerConnectionPool.getConnection();
-try {
-    PreparedStatement preparedStatement = conn.prepareStatement("update ricevimento set idRicevimento=?,orarioInizio=?,orarioFine=?,luogo=?,data=?,idProfessore=? where idRicevimento=?");
-    preparedStatement.setInt(1,ricevimento.getIdRicevimento());
-    preparedStatement.setString(2,ricevimento.getOrarioInizio());
-    preparedStatement.setString(3,ricevimento.getOrarioFine());
-    preparedStatement.setString(4,ricevimento.getLuogo());
-    preparedStatement.setString(5,ricevimento.getData());
-    preparedStatement.setInt(6,ricevimento.getIdProfessore());
-    preparedStatement.setInt(7, ricevimento.getIdRicevimento());
-    if(preparedStatement.executeUpdate()==0){
-        throw new Exception();
-    }
-    conn.commit();
-    preparedStatement.close();
-    conn.close();
-    return true;
-}catch(Exception e) {
-    System.err.println("Got an exception! ");
-    System.err.println(e.getMessage());
-    conn.close();
-    return false;
-}
-    }
-
-    public Ricevimento visualizzaRicevimento( String orarioInizio, String orarioFine, String dataR)throws SQLException,ParseException{
-
-if(!checkOrario(orarioInizio)||!checkOrario(orarioFine)||!checkData(dataR)){
-System.out.println("sto nell'if");
-
-return null;
-}
-        Connection conn=null;
-        PreparedStatement preparedStatement =null;
-try {
     conn = DriverManagerConnectionPool.getConnection();
+    try {
+      PreparedStatement preparedStatement = conn.prepareStatement("update ricevimento set idRicevimento=?,orarioInizio=?,orarioFine=?,luogo=?,data=?,idProfessore=? where idRicevimento=?");
+      preparedStatement.setInt(1, ricevimento.getIdRicevimento());
+      preparedStatement.setString(2, ricevimento.getOrarioInizio());
+      preparedStatement.setString(3, ricevimento.getOrarioFine());
+      preparedStatement.setString(4, ricevimento.getLuogo());
+      preparedStatement.setString(5, ricevimento.getData());
+      preparedStatement.setInt(6, ricevimento.getIdProfessore());
+      preparedStatement.setInt(7, ricevimento.getIdRicevimento());
+      if (preparedStatement.executeUpdate() == 0) {
+        throw new Exception();
+      }
+      conn.commit();
+      preparedStatement.close();
+      conn.close();
+      return true;
+    } catch (Exception e) {
+      System.err.println("Got an exception! ");
+      System.err.println(e.getMessage());
+      conn.close();
+      return false;
+    }
+  }
 
-    preparedStatement = conn.prepareStatement("select * from ricevimento r where r.orarioInizio=? and r.orarioFine=? and r.data=?");
-    preparedStatement.setString(1, orarioInizio);
-    preparedStatement.setString(2, orarioFine);
-    preparedStatement.setString(3, dataR);
+  /**
+   * Visualizza le informazioni relative a un certo ricevimento
+   * @param orarioInizio
+   * @param orarioFine
+   * @param dataR
+   * @return
+   * @throws SQLException
+   * @throws ParseException
+   */
+  public Ricevimento visualizzaRicevimento(String orarioInizio, String orarioFine, String dataR) throws SQLException, ParseException {
+
+    if (!checkOrario(orarioInizio) || !checkOrario(orarioFine) || !checkData(dataR)) {
+
+      return null;
+    }
+    Connection conn = null;
+    PreparedStatement preparedStatement = null;
+    try {
+      conn = DriverManagerConnectionPool.getConnection();
+
+      preparedStatement = conn.prepareStatement("select * from ricevimento r where r.orarioInizio=? and r.orarioFine=? and r.data=?");
+      preparedStatement.setString(1, orarioInizio);
+      preparedStatement.setString(2, orarioFine);
+      preparedStatement.setString(3, dataR);
 
     ResultSet rs=preparedStatement.executeQuery();
     if(!rs.next()){
@@ -157,82 +179,96 @@ try {
       return r;
 
 
-}catch(Exception e) {
-    System.err.println("Got an exception! ");
-    System.err.println(e.getMessage());
-    return null;
-}
-
+    } catch (Exception e) {
+      System.err.println("Got an exception! ");
+      System.err.println(e.getMessage());
+      return null;
     }
 
-    public boolean registraPresenza(int idStudente)throws SQLException{
-if(idStudente==0){
+  }
 
-    return false;
-}
-        Connection conn=null;
-        PreparedStatement preparedStatement=null;
-try {
-    conn = DriverManagerConnectionPool.getConnection();
-    preparedStatement = conn.prepareStatement("update prenotazione  set prenotazione.presenza=1 where prenotazione.idStudente=?");
+  /**
+   * Registra nel database la presenza di un certo studente
+   * @param idStudente
+   * @return
+   * @throws SQLException
+   */
+  public boolean registraPresenza(int idStudente) throws SQLException {
+    if (idStudente == 0) {
+      return false;
+    }
+    Connection conn = null;
+    PreparedStatement preparedStatement = null;
+    try {
+      conn = DriverManagerConnectionPool.getConnection();
+      preparedStatement = conn.prepareStatement("update prenotazione  set prenotazione.presenza=1 where prenotazione.idStudente=?");
 
-    preparedStatement.setInt(1, idStudente);
-   if(preparedStatement.executeUpdate()==0){
-
-       throw new Exception();
-   }
-    conn.commit();
-    return true;
-}catch (Exception e){
-    System.err.println("Got an exception! ");
-    System.err.println(e.getMessage());
-
-        return false;
-
-
-
-
-    }}
-
-    public boolean registraAssenza(int idStudente)throws SQLException{
-        if(idStudente==0){
-
-            return false;
-        }
-        Connection conn=null;
-        PreparedStatement preparedStatement=null;
-try {
-    conn = DriverManagerConnectionPool.getConnection();
-
-    preparedStatement = conn.prepareStatement("update studente set numAssenza=numAssenza+1 where idStudente=?");
-    preparedStatement.setInt(1, idStudente);
-    if (preparedStatement.executeUpdate() == 0) {
+      preparedStatement.setInt(1, idStudente);
+      if (preparedStatement.executeUpdate() == 0) {
 
         throw new Exception();
-    }
-    conn.commit();
+      }
+      conn.commit();
+      return true;
+    } catch (Exception e) {
+      System.err.println("Got an exception! ");
+      System.err.println(e.getMessage());
 
-    return true;
-}catch (Exception e){
-    System.err.println("Got an exception! ");
-    System.err.println(e.getMessage());
-
-    return false;
-
-}
-
-
+      return false;
 
 
     }
-    public List<Studente> visualizzaStudenti(Ricevimento ricevimento) throws SQLException{
-if(ricevimento == null || ricevimento.getIdRicevimento()==0){
+  }
+
+  /**
+   * Registra nel database l'assenza di un certo studente
+   * @param idStudente
+   * @return
+   * @throws SQLException
+   */
+  public boolean registraAssenza(int idStudente) throws SQLException {
+    if (idStudente == 0) {
+      return false;
+    }
+    Connection conn = null;
+    PreparedStatement preparedStatement = null;
+    try {
+      conn = DriverManagerConnectionPool.getConnection();
+
+      preparedStatement = conn.prepareStatement("update studente set numAssenza=numAssenza+1 where idStudente=?");
+      preparedStatement.setInt(1, idStudente);
+      if (preparedStatement.executeUpdate() == 0) {
+
+        throw new Exception();
+      }
+      conn.commit();
+
+      return true;
+    } catch (Exception e) {
+      System.err.println("Got an exception! ");
+      System.err.println(e.getMessage());
+
+      return false;
+
+    }
 
 
-    return null;
+  }
 
-}
-        Connection connection = null;
+  /**
+   * Estrae dal database la lista degli studenti prenotati a un certo ricevimento
+   * @param ricevimento
+   * @return
+   * @throws SQLException
+   */
+  public List<Studente> visualizzaStudenti(Ricevimento ricevimento) throws SQLException {
+    if (ricevimento == null || ricevimento.getIdRicevimento() == 0) {
+
+
+      return null;
+
+    }
+    Connection connection = null;
 
         List<Studente> students =new ArrayList<>();
         try
@@ -267,11 +303,15 @@ if(ricevimento == null || ricevimento.getIdRicevimento()==0){
         return students;
 
 
-    }
+  }
 
-    //get Ricevimento byId
-    public Ricevimento getRicevimentoById(int idRicevimento){
-        if(idRicevimento==0){
+  /**
+   * Estrae dal database le informazioni relative a un certo ricevimento tramite id
+   * @param idRicevimento
+   * @return
+   */
+  public Ricevimento getRicevimentoById(int idRicevimento) {
+    if (idRicevimento == 0) {
 
             return null;
         }
@@ -310,6 +350,11 @@ if(ricevimento == null || ricevimento.getIdRicevimento()==0){
         return ricevimento;
     }
 
+  /**
+   * Estrae dal database l'elenco dei ricevimenti di un certo professore
+   * @param prof
+   * @return
+   */
   public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof)
   {
     if (prof.getIdProfessore() == 0) {
@@ -355,15 +400,26 @@ if(ricevimento == null || ricevimento.getIdRicevimento()==0){
     return lista;
   }
 
-
+  /**
+   * Verifica la validità della data
+   * @param data
+   * @return
+   */
   private boolean checkData(String data) {
     if (data.matches("\\d{4}-\\d{2}-\\d{2}")) {
 
-            return true;
-        }
-        else return false;
+      return true;
+    } else {
+      return false;
     }
+  }
 
+  /**
+   * Verifica la validità dell'orario
+   * @param orario
+   * @return
+   * @throws ParseException
+   */
   private boolean checkOrario(String orario) throws ParseException {
 
     if (orario.matches("\\d{2}:\\d{2}:\\d{2}")) {
@@ -379,24 +435,74 @@ if(ricevimento == null || ricevimento.getIdRicevimento()==0){
       Timestamp orarioLimiteSuperiore = new Timestamp(parsedDate.getTime());
       System.out.println("check  " + timeStamp + " - " + orarioLimiteInferiore + " - " + orarioLimiteSuperiore );
 
- if(timeStamp.before(orarioLimiteInferiore)&&timeStamp.after(orarioLimiteSuperiore)){
-            return true;
+      if (timeStamp.before(orarioLimiteInferiore) && timeStamp.after(orarioLimiteSuperiore)) {
 
-        }
- return false;
-        }
-else
-    return false;
+        return true;
+
+      }
+      return false;
+    } else {
+      return false;
     }
+  }
 
-
-    private boolean checkLuogo(String luogo){
+  /**
+   * Verifica la validità del luogo
+   * @param luogo
+   * @return
+   */
+  private boolean checkLuogo(String luogo) {
 
     if (!luogo.trim().equals("")) {
 
-            return true;
-        }
-        return false;
+      return true;
     }
+    return false;
+  }
+
+
+  /**
+   * Estrae dal database l'elenco delle prenotazioni di un certo ricevimento
+   * @param idRicevimento
+   * @return
+   * @throws SQLException
+   */
+  //tODO FAI IL TESTING
+  public List<Prenotazione> visualizzaPrenotazioniByIdRicevimento(int idRicevimento) throws SQLException {
+    if (idRicevimento == 0 ){
+
+
+      return null;
+
+    }
+    Connection connection = null;
+
+    List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      //creating prepared statement for our required query
+      PreparedStatement statement = connection.prepareStatement("SELECT *  from prenotazione WHERE prenotazione.idRicevimento = ?");
+      //setting the parameters
+      statement.setInt(1, idRicevimento);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        Prenotazione prenotation = new Prenotazione();
+        prenotation.setIdPrenotazione(rs.getInt(1));
+        prenotation.setListaStudenti(rs.getString(2));
+        prenotation.setMotivazione(rs.getString(3));
+        prenotation.setOrario(rs.getString(4));
+        prenotation.setIdRicevimento(rs.getInt(5));
+        prenotation.setIdStudente(rs.getInt(6));
+        prenotation.setPresenza(rs.getBoolean(7));
+        prenotazioni.add(prenotation);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+    return prenotazioni;
+
+
+  }
 
 }

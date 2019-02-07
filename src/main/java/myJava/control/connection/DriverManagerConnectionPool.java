@@ -8,11 +8,17 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Classe per caricamento statico delle connessioni al database
+ */
     public class DriverManagerConnectionPool  {
 
         private static List<Connection> freeDbConnections;
 
-        static {
+    /**
+     * Caricamento driver
+     */
+    static {
             freeDbConnections = new LinkedList<Connection>();
             try {
                 Class.forName("com.mysql.jdbc.Driver");
@@ -21,7 +27,12 @@ import java.util.List;
             }
         }
 
-        private static synchronized Connection createDBConnection() throws SQLException {
+    /**
+     * Crea la stringa di connessione
+     * @return Una stringa di connessione
+     * @throws SQLException
+     */
+    private static synchronized Connection createDBConnection() throws SQLException {
             Connection newConnection = null;
             String ip = "localhost";
             String port = "3306";
@@ -35,7 +46,12 @@ import java.util.List;
             return newConnection;
         }
 
-        public static synchronized Connection getConnection() throws SQLException {
+    /**
+     * Crea una connessione con il database
+     * @return Una connessione
+     * @throws SQLException
+     */
+    public static synchronized Connection getConnection() throws SQLException {
             Connection connection;
 
             if (!freeDbConnections.isEmpty()) {
@@ -55,7 +71,12 @@ import java.util.List;
             return connection;
         }
 
-        public static synchronized void releaseConnection(Connection connection) throws SQLException {
+    /**
+     * Disconnette dal database una certa connessione
+     * @param connection
+     * @throws SQLException
+     */
+    public static synchronized void releaseConnection(Connection connection) throws SQLException {
             if(connection != null) freeDbConnections.add(connection);
         }
     }

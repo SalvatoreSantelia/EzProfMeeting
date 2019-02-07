@@ -27,6 +27,7 @@ body#StudenteForm{ background-image:url("https://hdwallsource.com/img/2014/9/blu
 }
 
 body li{
+    list-style: none;
     background:white;
 }
 

@@ -13,6 +13,9 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Servlet per la gestione del traffico dei messsaggi
+ */
 @WebServlet(name = "InviaMessaggioServlet")
 public class InviaMessaggioServlet extends HttpServlet {
     DataManager dm = new DataManager();
@@ -20,6 +23,13 @@ public class InviaMessaggioServlet extends HttpServlet {
         doGet(request,response);
     }
 
+    /**
+     * Registra messaggio nel database e invia il contenuto da inserire nella pagina client
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String testo = request.getParameter("testo");
         int id = Integer.parseInt(request.getParameter("idStudente"));

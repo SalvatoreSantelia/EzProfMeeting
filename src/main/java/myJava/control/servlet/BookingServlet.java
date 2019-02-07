@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Servlet per la gestione delle prenotazioni
+ */
 @WebServlet(name = "BookingServlet")
 public class BookingServlet extends HttpServlet {
   DataManager dm = new DataManager();
@@ -21,6 +24,13 @@ public class BookingServlet extends HttpServlet {
     doGet(request, response);
   }
 
+  /**
+   * Smista all'opportuno gestore l'operazione da effettuare su una prenotazione
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     String action = request.getParameter("action");
@@ -38,12 +48,18 @@ public class BookingServlet extends HttpServlet {
 
   }
 
+  /**
+   * Elimina prenotazione selezionata dall'utente sfruttando il DataManager
+   * @param request
+   * @param response
+   * @throws IOException
+   */
   private void eliminaPrenotazione(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int idPrenotazione = Integer.parseInt(request.getParameter("idPrenotazione"));
     System.out.println(idPrenotazione);
 
     try {
-      Prenotazione prenotazione = dm.getPranotazioneById(idPrenotazione);
+      Prenotazione prenotazione = dm.getPrenotazioneById(idPrenotazione);
       dm.eliminaPrenotazione(prenotazione);
       Ricevimento r = dm.getRicevimentoById(prenotazione.getIdRicevimento());
       r.setPostiDisponibili(r.getPostiDisponibili() + 1);
@@ -55,6 +71,11 @@ public class BookingServlet extends HttpServlet {
     }
   }
 
+  /**
+   * Aggiunge prenotazione inserita nella richiesta dall'utente sfruttando il DataManager
+   * @param request
+   * @param response
+   */
   private void aggiungiPrenotazione(HttpServletRequest request, HttpServletResponse response) {
     Prenotazione prenotazione = new Prenotazione();
     Integer idR, idStud;

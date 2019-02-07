@@ -206,8 +206,8 @@ public void instanziaOggetti(){
 
 
         Prenotazione prenotazione=new Prenotazione(1,"","","",2,1,false);
-        Assert.assertEquals(null,dm.getPranotazioneById(0));
-        Assert.assertEquals(prenotazione.getIdPrenotazione(),dm.getPranotazioneById(1).getIdPrenotazione());
+        Assert.assertEquals(null,dm.getPrenotazioneById(0));
+        Assert.assertEquals(prenotazione.getIdPrenotazione(),dm.getPrenotazioneById(1).getIdPrenotazione());
     }
     @Test
     public void testGetArrayListMessaggio() throws SQLException{

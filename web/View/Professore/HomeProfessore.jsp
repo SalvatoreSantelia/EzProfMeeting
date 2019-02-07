@@ -11,6 +11,7 @@
 
 <html>
 <head>
+    <title>EzPM</title>
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -18,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../CSS/HomeProfessore.css">
     <!------ Include the above in your HEAD tag ---------->
 </head>
-<body id="ProfessoreForm">
+<body id="ProfessoreForm" style="padding-right: 0px !important;">
 
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -41,7 +42,7 @@
 
             <ul id="menu-content" class="menu-content collapse out">
                 <li>
-                    <a href="../General/MessaggiProfessore.jsp">
+                    <a style="margin-right: 50px;" href="../General/MessaggiProfessore.jsp">
                         <i class="fa fa-dashboard fa-lg"></i><img src="../img/messageIcon.png" style="width:20px">
                         Messaggi
                     </a>

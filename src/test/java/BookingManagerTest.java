@@ -1,3 +1,4 @@
+import com.sun.xml.internal.ws.api.message.saaj.SaajStaxWriter;
 import myJava.model.beans.Prenotazione;
 import myJava.model.beans.Ricevimento;
 import myJava.model.beans.Studente;
@@ -31,24 +32,34 @@ public class BookingManagerTest {
 
     @Test
     public void testInserisciPrenotazione()throws SQLException {
-
+String string=null;
      mockedRicevimento=mock(Ricevimento.class);
      mockedStudente=mock(Studente.class);
      when(mockedRicevimento.getIdRicevimento()).thenReturn(2);
      when(mockedStudente.getIdStudente()).thenReturn(1);
-     Prenotazione prenotazione=new Prenotazione(4,"Rocco Aliberti","nesuna","11:12:36",mockedRicevimento.getIdRicevimento(),mockedStudente.getIdStudente(),false);
+     Prenotazione prenotazione=new Prenotazione(4,"Santelia Salvatore,Ricci Luca","Revisione Prova intercorso","11:12:36",mockedRicevimento.getIdRicevimento(),mockedStudente.getIdStudente(),false);
      Prenotazione pNulla=new Prenotazione();
      BookingManager bm=new BookingManager();
      Assert.assertEquals(true,bm.inserisciPrenotazione(prenotazione));
      Assert.assertFalse(bm.inserisciPrenotazione(pNulla));
      Assert.assertFalse(bm.inserisciPrenotazione(new Prenotazione(4,"Rocco Aliberti","nesuna","11:12:36",mockedRicevimento.getIdRicevimento(),mockedStudente.getIdStudente(),false)));
-
+     Assert.assertFalse(bm.inserisciPrenotazione(new Prenotazione(6,"Rocco Aliberti","","11:12:36",mockedRicevimento.getIdRicevimento(),mockedStudente.getIdStudente(),false)));
+        for(int i=0;i< 67000;i++)
+        {
+            string=string+"a";
+        }
+     Assert.assertFalse(bm.inserisciPrenotazione(new Prenotazione(6,string,"","11:12:36",mockedRicevimento.getIdRicevimento(),mockedStudente.getIdStudente(),false)));
+        for(int i=0;i< 67;i++)
+        {
+            string=string+"a";
+        }
+        Assert.assertFalse(bm.inserisciPrenotazione(new Prenotazione(6,"",string,"11:12:36",mockedRicevimento.getIdRicevimento(),mockedStudente.getIdStudente(),false)));
     }
 
 @Test
 public void testVisualizzaPrenotazioni() throws SQLException{
    List<Prenotazione> listaPrenotazione=new ArrayList<Prenotazione>();
-   Prenotazione p=new Prenotazione(1,"Salvatore Santelia","Sono Stupido","11:59:59",2,1,true);
+   Prenotazione p=new Prenotazione(1,"Salvatore Santelia","albero","11:59:59",2,1,true);
    listaPrenotazione.add(p);
    BookingManager bm=new BookingManager();
 

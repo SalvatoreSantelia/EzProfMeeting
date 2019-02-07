@@ -83,6 +83,9 @@ var lastMess;
                   $("#lastMessaggio" + idProfessore).append(testo);
               });
           }
+          $('.msg_history').animate({
+              scrollTop: $('.msg_history').get(0).scrollHeight
+          }, 100);
       }
       $('.msg_history').animate({
           scrollTop: $('.msg_history').get(0).scrollHeight
@@ -159,11 +162,10 @@ var lastMess;
                     $("#lastMessaggio" + prof).append(item.testo);
                 });
             });
-        }
-        $('.msg_history').animate({
+        }      $('.msg_history').animate({
             scrollTop: $('.msg_history').get(0).scrollHeight
         }, 100);
-    },5000);
+    },150000);
 
   $(".chatlista").click(function () {
       var idStudente = $("#idStudente"+this.id).val();

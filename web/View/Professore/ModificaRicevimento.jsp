@@ -13,6 +13,43 @@
 <body>
 
 <link rel="stylesheet" type="text/css" href="../CSS/myForm.css">
+<link rel="stylesheet" type="text/css" href="../CSS/HomeStudente.css">
+
+
+<div class="modal fade" id="visualizzaPrenotazioni" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content mymodal">
+
+            <div class="modal-header">
+            <h4>Lista Studenti Prenotati</h4>
+            </div>
+            <div class="modal-body modalbody">
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Lista Studenti</th>
+                        <th scope="col">Motivazione</th>
+                        <th scope="col">Presente</th>
+                        <th scope="col">Non Presente</th>
+                    </tr>
+                    </thead>
+                    <tbody class="tbodymodalbody">
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
 <div id = "modificaRicevimento" style="position: relative">
 
     <h1> Modifica Ricevimento </h1>
@@ -34,8 +71,13 @@
         <a id="undoButton"  data-dismiss="modal"> Annulla </a>
         &nbsp;
         <a id="editButton" data-dismiss="modal" > Conferma </a>
-
-        <a id="deleteButton" data-dismiss="modal" style="margin-left: 50%;"><i class="fas fa-trash-alt"></i></a>
+        &nbsp;
+        <a id="prenotazioniButton"   data-toggle="modal" data-target="#visualizzaPrenotazioni"> Visualizza Prenotazioni </a>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <a id="deleteButton" data-dismiss="modal" style=""><i class="fas fa-trash-alt"></i></a>
 
 
     </form>

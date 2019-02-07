@@ -14,18 +14,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Classe che implementa la parte di login del sistema
- * @version 1.0
- * */
+ * Classe per la gestione dell'accesso alla piattaforma
+ */
 public class AccessManager {
 
-  /**
-   * metodo che si occupa del login controllando le credenziali nel database
-   * @param mail è la stringa che rappresenta la mail dell'utente e non deve essere vuota
-   * @param password è la stringa che rappresenta la password dell'utente e, oltre a non essere vuota, deve avere almeno 8 caratteri
-   * */
+    /**
+     * Verifica le credenziali di un utente nel database
+     * @param mail
+     * @param password
+     * @return
+     * @throws SQLException
+     */
   public User doLogin(String mail, String password) throws SQLException {
     if(!mailSyntaxCheck(mail)|| password.length()<8){
+
       return null;
     }
     Connection connection = null;
@@ -64,10 +66,13 @@ public class AccessManager {
     return utente;
 
   }
-  /**
-   * @return un oggetto professore data la sua e-mail
-   * @param email non deve essere vuota
-   * */
+
+
+    /**
+     * Carica le informazioni personali di un professore
+     * @param email
+     * @return
+     */
   public Professore getProfessoreByEmail(String email) {
     if(!mailSyntaxCheck(email)){
       return null;
@@ -109,10 +114,11 @@ public class AccessManager {
   }
 
 
-
-  /**@return un oggetto studente data la sua e-mail
-   * @param email non deve essere vuota
-   * */
+    /**
+     * Carica le informazioni personali di uno studente
+     * @param email
+     * @return
+     */
   public Studente getStudenteByEmail(String email) {
     if(!mailSyntaxCheck(email)){
 
@@ -152,9 +158,12 @@ public class AccessManager {
     }
     return studente;
   }
-/**
- *metodo che controlla la sintassi della mail
- * */
+
+    /**
+     * Verifica il formato dell'email è corretto
+     * @param email
+     * @return
+     */
   private boolean mailSyntaxCheck(String email)
   {
     // Create the Pattern using the regex

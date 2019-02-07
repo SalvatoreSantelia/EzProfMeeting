@@ -60,7 +60,6 @@ $(document).ready(
                             action: "inserisciPrenotazione"
                         },
                     success: function (results) {
-                        alert(results)
                         if (results != null || results !== "FAILURE") {
                             window.location.reload();
                         }
