@@ -16,7 +16,7 @@ public class Ricevimento implements Serializable {
   public Ricevimento() {
   }
 
-  public Ricevimento(int idRicevimento, String orarioInizio, String orarioFine, String luogo, String data, int postiTotali, int postiDisponibili,  int idProfessore) {
+  public Ricevimento(int idRicevimento, String orarioInizio, String orarioFine, String luogo, String data, int postiTotali, int postiDisponibili, int idProfessore) {
     this.idRicevimento = idRicevimento;
     this.orarioInizio = orarioInizio;
     this.orarioFine = orarioFine;
