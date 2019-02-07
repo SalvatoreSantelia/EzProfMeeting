@@ -23,19 +23,19 @@ public class LogoutServlet extends HttpServlet {
 
   /**
    * Rimuove la sessione e reindirizza alla pagina del login
-   * @param request
-   * @param response
-   * @throws ServletException
-   * @throws IOException
+   *
+   * @param request  la richiesta http da cui ricavare la sessione
+   * @param response la risposta http
+   * @throws IOException in caso di errori con la risposta http
    */
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     HttpSession session = request.getSession();
     session.invalidate();
-    response.sendRedirect(request.getContextPath()+ "/View/General/Login.jsp");
+    response.sendRedirect(request.getContextPath() + "/View/General/Login.jsp");
   }
 
 
-  public void doPost(HttpServletRequest request, HttpServletResponse response)
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
 

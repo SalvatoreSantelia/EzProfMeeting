@@ -21,15 +21,16 @@ public class ReceivementManager {
 
   /**
    * Crea un nuovo ricevimento nel database
-   * @param ricevimento
-   * @return
-   * @throws SQLException
-   * @throws ParseException
+   *
+   * @param ricevimento ricevimento da dover inserire nel database
+   * @return un booleano che rappresenta l'esito dell'operazione
+   * @throws SQLException   in caso di errori con il database
+   * @throws ParseException riscontrabile nella conversione da Date a String e viceversa durante la convalida della data
    */
   public boolean creaRicevimento(Ricevimento ricevimento) throws SQLException, ParseException {
 
 
-    if (!checkData(ricevimento.getData()) || !checkOrario(ricevimento.getOrarioFine()+":00") || !checkOrario(ricevimento.getOrarioInizio()+":00") || !checkLuogo(ricevimento.getLuogo())) {
+    if (!checkData(ricevimento.getData()) || !checkOrario(ricevimento.getOrarioFine() + ":00") || !checkOrario(ricevimento.getOrarioInizio() + ":00") || !checkLuogo(ricevimento.getLuogo())) {
       System.out.println("Test Ricevimento non passato");
       return false;
     }
@@ -47,8 +48,8 @@ public class ReceivementManager {
       preparedStatement.setString(3, ricevimento.getOrarioFine());
       preparedStatement.setString(4, ricevimento.getLuogo());
       preparedStatement.setString(5, ricevimento.getData());
-      preparedStatement.setInt(6,ricevimento.getPostiTotali());
-      preparedStatement.setInt(7,ricevimento.getPostiTotali());
+      preparedStatement.setInt(6, ricevimento.getPostiTotali());
+      preparedStatement.setInt(7, ricevimento.getPostiTotali());
       preparedStatement.setInt(8, ricevimento.getIdProfessore());
       preparedStatement.executeUpdate();
 
@@ -67,13 +68,14 @@ public class ReceivementManager {
 
   /**
    * Elimina dal database un certo ricevimento
-   * @param ricevimento
-   * @return
-   * @throws SQLException
+   *
+   * @param ricevimento ricevimento da eliminare
+   * @return un booleano che rappresenta l'esito dell'operazione
+   * @throws SQLException in caso di errori con il database
    */
   public boolean eliminaRicevimento(Ricevimento ricevimento) throws SQLException {
 
-    if ( ricevimento ==null || ricevimento.getIdRicevimento() == 0) {
+    if (ricevimento == null || ricevimento.getIdRicevimento() == 0) {
       System.out.println("No ricevimento");
       return false;
     }
@@ -100,9 +102,10 @@ public class ReceivementManager {
 
   /**
    * Modifica le informazioni relative a un certo ricevimento
-   * @param ricevimento
-   * @return
-   * @throws SQLException
+   *
+   * @param ricevimento ricevimento di cui aggiornare i dati nel database
+   * @return un booleano che rappresenta l'esito dell'operazione
+   * @throws SQLException in caso di errori con il database
    */
   public boolean modificaRicevimento(Ricevimento ricevimento) throws SQLException {
 
@@ -111,14 +114,15 @@ public class ReceivementManager {
 
     conn = DriverManagerConnectionPool.getConnection();
     try {
-      PreparedStatement preparedStatement = conn.prepareStatement("update ricevimento set idRicevimento=?,orarioInizio=?,orarioFine=?,luogo=?,data=?,idProfessore=? where idRicevimento=?");
+      PreparedStatement preparedStatement = conn.prepareStatement("update ricevimento set idRicevimento=?,orarioInizio=?,orarioFine=?,luogo=?,data=?,idProfessore=?, postiDisponibili=? where idRicevimento=?");
       preparedStatement.setInt(1, ricevimento.getIdRicevimento());
       preparedStatement.setString(2, ricevimento.getOrarioInizio());
       preparedStatement.setString(3, ricevimento.getOrarioFine());
       preparedStatement.setString(4, ricevimento.getLuogo());
       preparedStatement.setString(5, ricevimento.getData());
       preparedStatement.setInt(6, ricevimento.getIdProfessore());
-      preparedStatement.setInt(7, ricevimento.getIdRicevimento());
+      preparedStatement.setInt(7, ricevimento.getPostiDisponibili()); //TODO da testare
+      preparedStatement.setInt(8, ricevimento.getIdRicevimento());
       if (preparedStatement.executeUpdate() == 0) {
         throw new Exception();
       }
@@ -135,13 +139,14 @@ public class ReceivementManager {
   }
 
   /**
-   * Visualizza le informazioni relative a un certo ricevimento
-   * @param orarioInizio
-   * @param orarioFine
-   * @param dataR
-   * @return
-   * @throws SQLException
-   * @throws ParseException
+   * Visualizza le informazioni relative a un certo ricevimento date le informazioni di data e ora
+   *
+   * @param orarioInizio l'orario di inizio del ricevimento
+   * @param orarioFine   l'orario in cui finisce il ricevimento
+   * @param dataR        il giorno in cui vi è il ricevimento
+   * @return il ricevimento desiderato
+   * @throws SQLException   in caso di errori con il database
+   * @throws ParseException riscontrabile nella conversione da Date a String e viceversa durante la convalida della data/ora
    */
   public Ricevimento visualizzaRicevimento(String orarioInizio, String orarioFine, String dataR) throws SQLException, ParseException {
 
@@ -184,9 +189,10 @@ public class ReceivementManager {
 
   /**
    * Registra nel database la presenza di un certo studente
-   * @param idStudente
-   * @return
-   * @throws SQLException
+   *
+   * @param idStudente l'identificativo dello studente nel database
+   * @return un booleano che rappresenta l'esito dell'operazione
+   * @throws SQLException in caso di errori con il database
    */
   public boolean registraPresenza(int idStudente) throws SQLException {
     if (idStudente == 0) {
@@ -217,9 +223,10 @@ public class ReceivementManager {
 
   /**
    * Registra nel database l'assenza di un certo studente
-   * @param idStudente
-   * @return
-   * @throws SQLException
+   *
+   * @param idStudente l'identificativo dello studente nel database
+   * @return un booleano che rappresenta l'esito dell'operazione
+   * @throws SQLException in caso di errori con il database
    */
   public boolean registraAssenza(int idStudente) throws SQLException {
     if (idStudente == 0) {
@@ -252,9 +259,10 @@ public class ReceivementManager {
 
   /**
    * Estrae dal database la lista degli studenti prenotati a un certo ricevimento
-   * @param ricevimento
-   * @return
-   * @throws SQLException
+   *
+   * @param ricevimento il ricevimento  dal quale si vuole ricavare l'elenco delle prenotazioni degli studenti
+   * @return la lista degli studenti prenotati
+   * @throws SQLException in caso di errori con il database
    */
   public List<Studente> visualizzaStudenti(Ricevimento ricevimento) throws SQLException {
     if (ricevimento == null || ricevimento.getIdRicevimento() == 0) {
@@ -295,8 +303,9 @@ public class ReceivementManager {
 
   /**
    * Estrae dal database le informazioni relative a un certo ricevimento tramite id
-   * @param idRicevimento
-   * @return
+   *
+   * @param idRicevimento l'identificativo del ricevimento desiderato
+   * @return il ricevimento desiderato con tutte le sue informazioni
    */
   public Ricevimento getRicevimentoById(int idRicevimento) {
     if (idRicevimento == 0) {
@@ -321,6 +330,8 @@ public class ReceivementManager {
         ricevimento.setOrarioFine(simpleDateFormat.format(fine.getTime()));
         ricevimento.setLuogo(rs.getString("luogo"));
         ricevimento.setData(rs.getString("data"));
+        ricevimento.setPostiDisponibili(rs.getInt("postiDisponibili"));
+        ricevimento.setPostiTotali(rs.getInt("postiTotali"));
         ricevimento.setIdProfessore(rs.getInt("idProfessore"));
       }
       connection.close();
@@ -333,11 +344,11 @@ public class ReceivementManager {
 
   /**
    * Estrae dal database l'elenco dei ricevimenti di un certo professore
-   * @param prof
-   * @return
+   *
+   * @param prof il professore del quale si vuole ricavare i ricevimenti
+   * @return la lista dei ricevimenti creati dal professore passato come parametro
    */
-  public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof)
-  {
+  public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof) {
     if (prof == null) {
 
       return null;
@@ -375,9 +386,10 @@ public class ReceivementManager {
   }
 
   /**
-   * Verifica la validità della data
-   * @param data
-   * @return
+   * Verifica il formato della data
+   *
+   * @param data la data di cui bisogna effettuare la verifica
+   * @return booleano che rappresenta l'esito della verifica
    */
   private boolean checkData(String data) {
     if (data.matches("\\d{4}-\\d{2}-\\d{2}")) {
@@ -389,10 +401,11 @@ public class ReceivementManager {
   }
 
   /**
-   * Verifica la validità dell'orario
-   * @param orario
-   * @return
-   * @throws ParseException
+   * Verifica il formato dell'orario e se rispetta i limiti imposti
+   *
+   * @param orario l'orario di cui bisogna effettuare la verifica
+   * @return booleano che rappresenta l'esito della verifica
+   * @throws ParseException possibile errore che si può avere nel parsing da Date a String e viceversa
    */
   private boolean checkOrario(String orario) throws ParseException {
 
@@ -407,7 +420,7 @@ public class ReceivementManager {
       Timestamp orarioLimiteInferiore = new java.sql.Timestamp(parsedDate.getTime());
       parsedDate = format.parse(dataFittizzia + "08:30:00");
       Timestamp orarioLimiteSuperiore = new Timestamp(parsedDate.getTime());
-      System.out.println("check  " + timeStamp + " - " + orarioLimiteInferiore + " - " + orarioLimiteSuperiore );
+      System.out.println("check  " + timeStamp + " - " + orarioLimiteInferiore + " - " + orarioLimiteSuperiore);
 
       if (timeStamp.before(orarioLimiteInferiore) && timeStamp.after(orarioLimiteSuperiore)) {
 
@@ -421,9 +434,11 @@ public class ReceivementManager {
   }
 
   /**
-   * Verifica la validità del luogo
-   * @param luogo
-   * @return
+   * Verifica la presenza o meno di un luogo del ricevimento
+   *
+   * @param luogo Stringa su cui effettuare il controllo
+   * @return booleano che rappresenta l'esito della verifica
+
    */
   private boolean checkLuogo(String luogo) {
 
@@ -437,12 +452,13 @@ public class ReceivementManager {
 
   /**
    * Estrae dal database l'elenco delle prenotazioni di un certo ricevimento
-   * @param idRicevimento
-   * @return
-   * @throws SQLException
+   *
+   * @param idRicevimento l'identificativo di un ricevimento
+   * @return la lista delle prenotazioni per il ricevimento specificato
+   * @throws SQLException in caso di errori con il database
    */
   public List<Prenotazione> visualizzaPrenotazioniByIdRicevimento(int idRicevimento) throws SQLException {
-    if (idRicevimento == 0 ){
+    if (idRicevimento == 0) {
 
 
       return null;

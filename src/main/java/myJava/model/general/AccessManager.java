@@ -18,15 +18,16 @@ import java.util.regex.Pattern;
  */
 public class AccessManager {
 
-    /**
-     * Verifica le credenziali di un utente nel database
-     * @param mail
-     * @param password
-     * @return
-     * @throws SQLException
-     */
+  /**
+   * Verifica le credenziali di un utente, compresa la loro presenza nel db
+   *
+   * @param mail     l'email inserita dall'utente
+   * @param password la password inserita dall'utente
+   * @return le informazioni dell'utente (se presente)
+   * @throws SQLException in caso di problemi con il db
+   */
   public User doLogin(String mail, String password) throws SQLException {
-    if(!mailSyntaxCheck(mail)|| password.length()<8){
+    if (!mailSyntaxCheck(mail) || password.length() < 8) {
 
       return null;
     }
@@ -43,7 +44,7 @@ public class AccessManager {
       statement.setString(2, password);
       //executing the prepared statement, which returns a ResultSet
       ResultSet rs = statement.executeQuery();
-      if(!rs.next()){
+      if (!rs.next()) {
         return null;
 
       }
@@ -68,13 +69,14 @@ public class AccessManager {
   }
 
 
-    /**
-     * Carica le informazioni personali di un professore
-     * @param email
-     * @return
-     */
+  /**
+   * Carica le informazioni personali di un professore
+   *
+   * @param email l'email del docente
+   * @return le informazioni del docente desiderato
+   */
   public Professore getProfessoreByEmail(String email) {
-    if(!mailSyntaxCheck(email)){
+    if (!mailSyntaxCheck(email)) {
       return null;
 
     }
@@ -90,7 +92,7 @@ public class AccessManager {
       statement.setString(1, email);
       //executing the prepared statement, which returns a ResultSet
       ResultSet rs = statement.executeQuery();
-      if(!rs.next()){
+      if (!rs.next()) {
 
         throw new Exception();
       }
@@ -114,13 +116,14 @@ public class AccessManager {
   }
 
 
-    /**
-     * Carica le informazioni personali di uno studente
-     * @param email
-     * @return
-     */
+  /**
+   * Carica le informazioni personali di uno studente
+   *
+   * @param email l'email del studente
+   * @return le informazioni dello studente desiderato
+   */
   public Studente getStudenteByEmail(String email) {
-    if(!mailSyntaxCheck(email)){
+    if (!mailSyntaxCheck(email)) {
 
       return null;
     }
@@ -136,7 +139,7 @@ public class AccessManager {
       statement.setString(1, email);
       //executing the prepared statement, which returns a ResultSet
       ResultSet rs = statement.executeQuery();
-      if(!rs.next()){
+      if (!rs.next()) {
 
         throw new Exception();
       }
@@ -158,13 +161,13 @@ public class AccessManager {
     return studente;
   }
 
-    /**
-     * Verifica il formato dell'email è corretto
-     * @param email
-     * @return
-     */
-  private boolean mailSyntaxCheck(String email)
-  {
+  /**
+   * Verifica se il formato dell'email è corretto
+   *
+   * @param email l'email di cui verificare il formato
+   * @return un booleano che rappresenta l'esito del controllo
+   */
+  private boolean mailSyntaxCheck(String email) {
     // Create the Pattern using the regex
     Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
 
