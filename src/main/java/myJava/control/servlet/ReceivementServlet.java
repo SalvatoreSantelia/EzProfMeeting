@@ -185,8 +185,7 @@ public class ReceivementServlet extends HttpServlet {
 
       if (dm.modificaRicevimento(r)) {
         response.getWriter().println("SUCCESS");
-        //   String notifca = "Modificato ricevimento: " + r.getData() + " " + r.getOrarioInizio() + " ufficio: " + r.getLuogo();
-        String notifca = "saluta antonio";
+        String notifca = "Modifica: " + r.getData() + " " + r.getData() + " " + r.getLuogo();
         inviaNotifica(r, notifca);
       } else {
         response.getWriter().println("FAILURE");
