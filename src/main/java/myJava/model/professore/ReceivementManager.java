@@ -30,7 +30,7 @@ public class ReceivementManager {
   public boolean creaRicevimento(Ricevimento ricevimento) throws SQLException, ParseException {
 
 
-    if (ricevimento.getPostiTotali()==0||!checkData(ricevimento.getData()) || !checkOrario(ricevimento.getOrarioFine()+":00") || !checkOrario(ricevimento.getOrarioInizio()+":00") || !checkLuogo(ricevimento.getLuogo())) {
+    if (ricevimento.getPostiTotali() == 0 || !checkData(ricevimento.getData()) || !checkOrario(ricevimento.getOrarioFine() + ":00") || !checkOrario(ricevimento.getOrarioInizio() + ":00") || !checkLuogo(ricevimento.getLuogo())) {
       System.out.println("Test Ricevimento non passato");
       return false;
     }
@@ -48,8 +48,8 @@ public class ReceivementManager {
       preparedStatement.setString(3, ricevimento.getOrarioFine());
       preparedStatement.setString(4, ricevimento.getLuogo());
       preparedStatement.setString(5, ricevimento.getData());
-      preparedStatement.setInt(6,ricevimento.getPostiTotali());
-      preparedStatement.setInt(7,ricevimento.getPostiTotali());
+      preparedStatement.setInt(6, ricevimento.getPostiTotali());
+      preparedStatement.setInt(7, ricevimento.getPostiTotali());
       preparedStatement.setInt(8, ricevimento.getIdProfessore());
       preparedStatement.executeUpdate();
 
@@ -75,7 +75,7 @@ public class ReceivementManager {
    */
   public boolean eliminaRicevimento(Ricevimento ricevimento) throws SQLException {
 
-    if ( ricevimento ==null || ricevimento.getIdRicevimento() == 0) {
+    if (ricevimento == null || ricevimento.getIdRicevimento() == 0) {
       System.out.println("No ricevimento");
       return false;
     }
@@ -164,14 +164,14 @@ public class ReceivementManager {
       preparedStatement.setString(2, orarioFine);
       preparedStatement.setString(3, dataR);
 
-    ResultSet rs=preparedStatement.executeQuery();
-    if(!rs.next()){
+      ResultSet rs = preparedStatement.executeQuery();
+      if (!rs.next()) {
         throw new Exception();
 
-    }
-    rs.previous();
-    Ricevimento r=new Ricevimento();
-    while(rs.next()){
+      }
+      rs.previous();
+      Ricevimento r = new Ricevimento();
+      while (rs.next()) {
         r.setIdRicevimento(rs.getInt(1));
         r.setOrarioInizio(rs.getString(2));
         r.setOrarioFine(rs.getString(3));
@@ -278,37 +278,36 @@ public class ReceivementManager {
     }
     Connection connection = null;
 
-        List<Studente> students =new ArrayList<>();
-        try
-        {
-            connection = DriverManagerConnectionPool.getConnection();
-            //creating prepared statement for our required query
-            PreparedStatement statement = connection.prepareStatement("SELECT *  from studente s inner join prenotazione p on s.idStudente=p.idStudente WHERE p.idRicevimento = ?");
-            //setting the parameters
-            statement.setInt(1,ricevimento.getIdRicevimento());
-            ResultSet rs = statement.executeQuery();
-            if(!rs.next()){
+    List<Studente> students = new ArrayList<>();
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      //creating prepared statement for our required query
+      PreparedStatement statement = connection.prepareStatement("SELECT *  from studente s inner join prenotazione p on s.idStudente=p.idStudente WHERE p.idRicevimento = ?");
+      //setting the parameters
+      statement.setInt(1, ricevimento.getIdRicevimento());
+      ResultSet rs = statement.executeQuery();
+      if (!rs.next()) {
 
 
-                throw new Exception();
-            }
-            rs.previous();
-            while(rs.next()){
-                Studente student=new Studente();
-                student.setIdStudente(rs.getInt(1));
-                student.setNomeStudente(rs.getString(2));
-                student.setCognomeStudente(rs.getString(3));
-                student.setMatricola(rs.getString(4));
-                student.setEmailStudente(rs.getString(5));
-                student.setTelefonoStudente(rs.getString(6));
-                student.setNumAssenza(rs.getInt(7));
-                students.add(student);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return students;
+        throw new Exception();
+      }
+      rs.previous();
+      while (rs.next()) {
+        Studente student = new Studente();
+        student.setIdStudente(rs.getInt(1));
+        student.setNomeStudente(rs.getString(2));
+        student.setCognomeStudente(rs.getString(3));
+        student.setMatricola(rs.getString(4));
+        student.setEmailStudente(rs.getString(5));
+        student.setTelefonoStudente(rs.getString(6));
+        student.setNumAssenza(rs.getInt(7));
+        students.add(student);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+    return students;
 
 
   }
@@ -322,42 +321,42 @@ public class ReceivementManager {
   public Ricevimento getRicevimentoById(int idRicevimento) {
     if (idRicevimento == 0) {
 
-            return null;
-        }
-        Connection connection = null;
-        Ricevimento ricevimento = new Ricevimento();
-        DateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
-            //creating prepared statement for our required query
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT *  from ricevimento where idRicevimento = ? ");
-            statement.setInt(1, idRicevimento);
-            ResultSet rs = statement.executeQuery();
-
-            if(!rs.next()){
-
-                throw new Exception();
-            }
-            rs.previous();
-            while (rs.next()) {
-                ricevimento.setIdRicevimento(rs.getInt("idRicevimento"));
-                Time start = rs.getTime("orarioInizio");
-                ricevimento.setOrarioInizio(simpleDateFormat.format(start.getTime()));
-                Time fine = rs.getTime("orarioFine");
-                ricevimento.setOrarioFine(simpleDateFormat.format(fine.getTime()));
-                ricevimento.setLuogo(rs.getString("luogo"));
-                ricevimento.setData(rs.getString("data"));
-                ricevimento.setIdProfessore(rs.getInt("idProfessore"));
-            }
-            connection.close();
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            return null;
-        }
-        return ricevimento;
+      return null;
     }
+    Connection connection = null;
+    Ricevimento ricevimento = new Ricevimento();
+    DateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+    try {
+      connection = DriverManagerConnectionPool.getConnection();
+      //creating prepared statement for our required query
+      PreparedStatement statement = connection.prepareStatement(
+          "SELECT *  from ricevimento where idRicevimento = ? ");
+      statement.setInt(1, idRicevimento);
+      ResultSet rs = statement.executeQuery();
+
+      if (!rs.next()) {
+
+        throw new Exception();
+      }
+      rs.previous();
+      while (rs.next()) {
+        ricevimento.setIdRicevimento(rs.getInt("idRicevimento"));
+        Time start = rs.getTime("orarioInizio");
+        ricevimento.setOrarioInizio(simpleDateFormat.format(start.getTime()));
+        Time fine = rs.getTime("orarioFine");
+        ricevimento.setOrarioFine(simpleDateFormat.format(fine.getTime()));
+        ricevimento.setLuogo(rs.getString("luogo"));
+        ricevimento.setData(rs.getString("data"));
+        ricevimento.setIdProfessore(rs.getInt("idProfessore"));
+      }
+      connection.close();
+    } catch (Exception e) {
+
+      e.printStackTrace();
+      return null;
+    }
+    return ricevimento;
+  }
 
   /**
    * Estrae dal database l'elenco dei ricevimenti di un certo professore
@@ -365,9 +364,8 @@ public class ReceivementManager {
    * @param prof il professore del quale si vuole ricavare i ricevimenti
    * @return la lista dei ricevimenti creati dal professore passato come parametro
    */
-  public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof)
-  {
-    if (prof.getIdProfessore() == 0) {
+  public ArrayList<Ricevimento> getRicevimentiByProf(Professore prof) {
+    if (prof == null || prof.getIdProfessore() == 0) {
 
       return null;
     }
@@ -381,7 +379,8 @@ public class ReceivementManager {
           "SELECT *  from ricevimento where idProfessore = ? ");
       statement.setInt(1, prof.getIdProfessore());
       ResultSet rs = statement.executeQuery();
-      if(!rs.next()){throw new Exception();
+      if (!rs.next()) {
+        throw new Exception();
 
 
       }
@@ -445,7 +444,7 @@ public class ReceivementManager {
       Timestamp orarioLimiteInferiore = new java.sql.Timestamp(parsedDate.getTime());
       parsedDate = format.parse(dataFittizzia + "08:30:00");
       Timestamp orarioLimiteSuperiore = new Timestamp(parsedDate.getTime());
-      System.out.println("check  " + timeStamp + " - " + orarioLimiteInferiore + " - " + orarioLimiteSuperiore );
+      System.out.println("check  " + timeStamp + " - " + orarioLimiteInferiore + " - " + orarioLimiteSuperiore);
 
       if (timeStamp.before(orarioLimiteInferiore) && timeStamp.after(orarioLimiteSuperiore)) {
 
@@ -463,7 +462,6 @@ public class ReceivementManager {
    *
    * @param luogo Stringa su cui effettuare il controllo
    * @return booleano che rappresenta l'esito della verifica
-
    */
   private boolean checkLuogo(String luogo) {
 
@@ -484,7 +482,7 @@ public class ReceivementManager {
    */
   //tODO FAI IL TESTING
   public List<Prenotazione> visualizzaPrenotazioniByIdRicevimento(int idRicevimento) throws SQLException {
-    if (idRicevimento == 0 ){
+    if (idRicevimento == 0) {
 
 
       return null;

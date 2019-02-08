@@ -57,6 +57,7 @@
             Professore prof = (Professore) session.getAttribute("user");
             DataManager dm = new DataManager();
             ArrayList<Ricevimento> lista = dm.getRicevimentiByProf(prof);
+            if(lista==null) lista = new ArrayList<>();
             System.out.println(lista);
             sdf = new SimpleDateFormat("YYYY-MM-dd");
             String[] settimana = new String[5];
